@@ -1,0 +1,84 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "f0259079531c55239701e1caaf3437346122d69097e24b70b39cd09293acd9f5"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.6"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "adafruit-blinka": {
+            "hashes": [
+                "sha256:a47a05707d3573b1d28118ec667813ced00ac6dbb62d6c6f377e8366d26160f1"
+            ],
+            "index": "pypi",
+            "version": "==6.10.0"
+        },
+        "adafruit-circuitpython-neopixel": {
+            "hashes": [
+                "sha256:35f8c5cadb57c19faa16e4f0299f2ec6891382fe73dfe9368a35412544e30ecf"
+            ],
+            "index": "pypi",
+            "version": "==6.1.3"
+        },
+        "adafruit-circuitpython-pypixelbuf": {
+            "hashes": [
+                "sha256:03249d6d364ae4aeb01887eeeec6510187f4562a5f78d7da2f2256b512b1eac4"
+            ],
+            "version": "==2.2.5"
+        },
+        "adafruit-platformdetect": {
+            "hashes": [
+                "sha256:b40dd469f685bd41fa2a8d0e017861f09cfe86dfac793ba13e306c1c7688eab1"
+            ],
+            "markers": "python_full_version >= '3.6.0'",
+            "version": "==3.13.3"
+        },
+        "adafruit-pureio": {
+            "hashes": [
+                "sha256:c6702589aa4bf6dc785e5f4e4ed7e68bef1d93d180633abe548fe3f39d36cad5"
+            ],
+            "markers": "python_full_version >= '3.5.0'",
+            "version": "==1.1.8"
+        },
+        "pyftdi": {
+            "hashes": [
+                "sha256:64d3970e82e03fbbbceb075428306a1f3e7e88743a8fc6c9e12fdcbeb8af87f0",
+                "sha256:c9dc644b90d10631f2a2beedbd717c4735cfdd4db9e4d8a2d9af57d78a09cf5f"
+            ],
+            "markers": "python_full_version >= '3.6.0'",
+            "version": "==0.53.1"
+        },
+        "pyserial": {
+            "hashes": [
+                "sha256:3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb",
+                "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0"
+            ],
+            "version": "==3.5"
+        },
+        "pyusb": {
+            "hashes": [
+                "sha256:7d449ad916ce58aff60b89aae0b65ac130f289c24d6a5b7b317742eccffafc38",
+                "sha256:f18eb813d3a1439918071234589162c2f209a19adbeffeb1377ce078a4aebc70"
+            ],
+            "version": "==1.1.1"
+        },
+        "rpi-ws281x": {
+            "hashes": [
+                "sha256:65a9918fbdd9df1ac612ccc1a385d4a550f1bc74cc6bbf6b9035ad26dc41b3ce"
+            ],
+            "index": "pypi",
+            "version": "==4.2.6"
+        }
+    },
+    "develop": {}
+}
