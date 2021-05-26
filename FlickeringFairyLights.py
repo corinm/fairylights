@@ -14,26 +14,28 @@ and setting all "on" bulbs to a colour within an 11-colour gradient based on tha
 where 0 = brightest and 10 = dimmest
 """
 
-f1 = FlickerBulb()
-f2 = FlickerBulb()
-f3 = FlickerBulb()
-f4 = FlickerBulb()
-f5 = FlickerBulb()
-f6 = FlickerBulb()
-f7 = FlickerBulb()
-f8 = FlickerBulb()
-f9 = FlickerBulb()
-f10 = FlickerBulb()
 
-flickerBulbs = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10]
-assert len(flickerBulbs) == 10
+class FlickeringFairyLights:
+    def __init__(self):
+        f1 = FlickerBulb()
+        f2 = FlickerBulb()
+        f3 = FlickerBulb()
+        f4 = FlickerBulb()
+        f5 = FlickerBulb()
+        f6 = FlickerBulb()
+        f7 = FlickerBulb()
+        f8 = FlickerBulb()
+        f9 = FlickerBulb()
+        f10 = FlickerBulb()
 
+        self.flickerBulbs = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10]
+        assert len(self.flickerBulbs) == 10
 
-def tick() -> list:
-    [flickerBulb.tick() for flickerBulb in flickerBulbs]
-    flickerBulbsOn = list(map(lambda b: b.isOn, flickerBulbs))
-    leds = generateFullListOfColours(flickerBulbsOn)
-    return leds
+    def tick(self) -> list:
+        [flickerBulb.tick() for flickerBulb in self.flickerBulbs]
+        flickerBulbsOn = list(map(lambda b: b.isOn, self.flickerBulbs))
+        leds = generateFullListOfColours(flickerBulbsOn)
+        return leds
 
 
 def generateFullListOfColours(flickerBulbsOn: list):
@@ -66,6 +68,3 @@ def generateFullListOfColours(flickerBulbsOn: list):
     assert len(bulbs) == 50
 
     return bulbs
-
-
-tick()
