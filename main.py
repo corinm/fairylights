@@ -36,7 +36,7 @@ try:
 
         if ((counter + 1) ** 2 <= 255):
             counter = counter + 1
-            sleep(50)
+            sleep(0.05)
 
 except KeyboardInterrupt:
     print('Done')
