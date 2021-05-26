@@ -29,14 +29,17 @@ try:
         print(counter, '/255')
         for i in range(strip.numPixels()):
             r = counter
-            g = 0
-            b = 0
-            strip.setPixelColorRGB(i, r ** 2, g, b)
+            g = counter
+            b = counter
+            strip.setPixelColorRGB(i, r ** 2, g ** 2, b ** 2)
             strip.show()
 
-        if ((counter + 1) ** 2 <= 255):
-            counter = counter + 1
-            sleep(0.05)
+            if ((counter + 1) ** 2 <= 255):
+                counter = counter + 1
+            else:
+                break
+
+        # sleep(0.05)
 
 except KeyboardInterrupt:
     print('Done')
