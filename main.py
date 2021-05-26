@@ -18,10 +18,10 @@ strip = ws.Adafruit_NeoPixel(
 strip.begin()
 
 try:
+    print("Starting...")
     flickering = FlickeringFairyLights()
 
     while True:
-        print('Starting')
         leds = flickering.tick()
 
         for i in range(strip.numPixels()):
