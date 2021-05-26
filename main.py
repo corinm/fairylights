@@ -24,7 +24,7 @@ try:
     #         b = round(led.blue * 255)
     #         strip.setPixelColorRGB(i, r, g, b)
     #         strip.show()
-    counter = 0
+    counter = 6
     while True:
         print(counter, '/255')
         for i in range(strip.numPixels()):
@@ -34,10 +34,10 @@ try:
             strip.setPixelColorRGB(i, r ** 2, g ** 2, b ** 2)
             strip.show()
 
-            if ((counter + 1) ** 2 <= 255):
-                counter = counter + 1
-            else:
-                break
+            # if ((counter + 1) ** 2 <= 255):
+            #     counter = counter + 1
+            # else:
+            #     break
 
         # sleep(0.05)
 
