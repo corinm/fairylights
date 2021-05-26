@@ -26,14 +26,15 @@ try:
     #         strip.show()
     counter = 0
     while True:
+        print(counter, '/255')
         for i in range(strip.numPixels()):
             r = counter
             g = 0
             b = 0
-            strip.setPixelColorRGB(i, r, g, b)
+            strip.setPixelColorRGB(i, r ** 2, g, b)
             strip.show()
 
-        if (counter < 255):
+        if ((counter + 1) ** 2 <= 255):
             counter = counter + 1
             sleep(50)
 
