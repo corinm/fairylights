@@ -1,3 +1,4 @@
+from time import sleep
 import rpi_ws281x as ws
 
 from FlickeringFairyLights import FlickeringFairyLights
@@ -34,6 +35,7 @@ try:
 
         if (counter < 255):
             counter = counter + 1
+            sleep(50)
 
 except KeyboardInterrupt:
     print('Done')
