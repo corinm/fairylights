@@ -29,6 +29,7 @@ try:
     while True:
         bulbs = rainbow(strip.numPixels())
         for i, bulb in enumerate(bulbs):
+            print(i, bulb.red * 255, bulb.green * 255, bulb.blue * 255)
             strip.setPixelColorRGB(
                 i, bulb.red * 255, bulb.green * 255, bulb.blue * 255)
             strip.show()
