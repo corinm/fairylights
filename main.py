@@ -1,6 +1,7 @@
 from rainbow import rainbow
 from time import sleep
 import rpi_ws281x as ws
+import math
 
 from FlickeringFairyLights import FlickeringFairyLights
 import config
@@ -29,9 +30,8 @@ try:
     while True:
         bulbs = rainbow(strip.numPixels())
         for i, bulb in enumerate(bulbs):
-            print(i, bulb.red * 255, bulb.green * 255, bulb.blue * 255)
             strip.setPixelColorRGB(
-                i, bulb.red * 255, bulb.green * 255, bulb.blue * 255)
+                i, math.floor(bulb.red * 255), math.floor(bulb.green * 255), math.floor(bulb.blue * 255))
             strip.show()
 
     # counter = 6
