@@ -11,7 +11,7 @@ def rainbow(numberOfLights: int):
 
     bulbs = []
     for i in range(0, 50):
-        angle = i
+        angle = i * 5
         r = lights[(angle+120) % 360]
         g = lights[angle]
         b = lights[(angle+240) % 360]
