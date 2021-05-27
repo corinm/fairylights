@@ -1,3 +1,4 @@
+from rainbow import rainbow
 from time import sleep
 import rpi_ws281x as ws
 
@@ -24,22 +25,29 @@ try:
     #         b = round(led.blue * 255)
     #         strip.setPixelColorRGB(i, r, g, b)
     #         strip.show()
-    counter = 6
+
     while True:
-        print(counter, '/255')
-        for i in range(strip.numPixels()):
-            r = counter
-            g = counter
-            b = counter
-            strip.setPixelColorRGB(i, r ** 2, g ** 2, b ** 2)
+        bulbs = rainbow()
+        for bulb, i in range(bulbs):
+            strip.setPixelColorRGB(i, bulb.red, bulb.green, bulb.blue)
             strip.show()
+
+    # counter = 6
+    # while True:
+    #     print(counter, '/255')
+    #     for i in range(strip.numPixels()):
+    #         r = counter
+    #         g = counter
+    #         b = counter
+    #         strip.setPixelColorRGB(i, r ** 2, g ** 2, b ** 2)
+    #         strip.show()
 
             # if ((counter + 1) ** 2 <= 255):
             #     counter = counter + 1
             # else:
             #     break
 
-        # sleep(0.05)
+            # sleep(0.05)
 
 except KeyboardInterrupt:
     print('Done')
