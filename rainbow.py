@@ -15,6 +15,6 @@ def rainbow(numberOfLights: int):
         r = lights[(angle+120) % 360]
         g = lights[angle]
         b = lights[(angle+240) % 360]
-        bulbs.append(Color(rgb=(r, g, b)))
+        bulbs.append(Color(rgb=(r / 255, g / 255, b / 255)))
 
     return bulbs
