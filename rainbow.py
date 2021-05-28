@@ -2,19 +2,37 @@ import math
 from colour import Color
 
 
-def rainbow(numberOfLights: int):
-    lights = []
+def generateColourWheel():
+    wheel = []
+
     for i in range(0, 360):
         k = math.pi + i * (math.pi / 120)
         value = (math.cos(k) + 1) * 127.7 if k < math.pi * 3 else 0
-        lights.append(math.floor(value))
+        wheel.append(math.floor(value))
 
+    return wheel
+
+
+wheel = generateColourWheel()
+
+
+def angleToColour(angle: int):
+    # angle = 0-360
+    assert angle >= 0
+    assert angle <= 360
+
+    r = wheel[(angle+120) % 360]
+    g = wheel[angle]
+    b = wheel[(angle+240) % 360]
+
+    return Color(rgb=(r / 255, g / 255, b / 255))
+
+
+def rainbow(numberOfLights: int):
     bulbs = []
-    for i in range(0, 50):
-        angle = i * 5
-        r = lights[(angle+120) % 360]
-        g = lights[angle]
-        b = lights[(angle+240) % 360]
-        bulbs.append(Color(rgb=(r / 255, g / 255, b / 255)))
+
+    for i in range(numberOfLights):
+        angle = (i + 50) & 255
+        bulbs.append(angleToColour(angle))
 
     return bulbs
