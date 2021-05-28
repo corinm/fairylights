@@ -42,6 +42,7 @@ try:
                 strip.setPixelColorRGB(i, math.floor(
                     c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
             strip.show()
+            sleep(1)
 
     # counter = 6
     # while True:
