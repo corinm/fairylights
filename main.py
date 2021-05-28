@@ -15,18 +15,18 @@ strip.begin()
 
 try:
     print("Starting...")
-    flickering = FlickeringFairyLights()
+    # flickering = FlickeringFairyLights()
 
-    while True:
-        leds = flickering.tick()
+    # while True:
+    #     leds = flickering.tick()
 
-        for i in range(strip.numPixels()):
-            led = leds[i]
-            r = round(led.red * 255)
-            g = round(led.green * 255)
-            b = round(led.blue * 255)
-            strip.setPixelColorRGB(i, r, g, b)
-            strip.show()
+    #     for i in range(strip.numPixels()):
+    #         led = leds[i]
+    #         r = round(led.red * 255)
+    #         g = round(led.green * 255)
+    #         b = round(led.blue * 255)
+    #         strip.setPixelColorRGB(i, r, g, b)
+    #         strip.show()
 
     # while True:
     #     bulbs = rainbow(strip.numPixels())
@@ -35,14 +35,19 @@ try:
     #             i, math.floor(bulb.red * 255), math.floor(bulb.green * 255), math.floor(bulb.blue * 255))
     #         strip.show()
 
-    # while True:
-    #     for s in range(len(ledColours.shades)):
-    #         for i in range(50):
-    #             c = ledColours.shades[s]
-    #             strip.setPixelColorRGB(i, math.floor(
-    #                 c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
-    #         strip.show()
-    #         sleep(1)
+    while True:
+        for i in range(50):
+            c = ledColours.flicker3V
+            strip.setPixelColorRGB(i, math.floor(
+                c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
+        strip.show()
+        sleep(2)
+        for i in range(50):
+            c = ledColours.flicker2_4V
+            strip.setPixelColorRGB(i, math.floor(
+                c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
+        strip.show()
+        sleep(2)
 
     # counter = 6
     # while True:
