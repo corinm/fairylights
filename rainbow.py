@@ -32,7 +32,7 @@ def rainbow(numberOfLights: int):
     bulbs = []
 
     for i in range(numberOfLights):
-        angle = (i + 50) & 255
+        angle = (i) & 255
         bulbs.append(angleToColour(angle))
 
     return bulbs
