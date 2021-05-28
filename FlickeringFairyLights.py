@@ -1,6 +1,6 @@
 import math
 from typing import List
-from colours import Color
+from colour import Color
 
 from FlickerBulb import BulbState, FlickerBulb
 import ledColours
