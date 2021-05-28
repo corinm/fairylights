@@ -36,12 +36,14 @@ try:
     #         strip.show()
 
     while True:
+        print('3')
         for i in range(50):
             c = ledColours.flicker3V
             strip.setPixelColorRGB(i, math.floor(
                 c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
         strip.show()
         sleep(2)
+        print('24')
         for i in range(50):
             c = ledColours.flicker2_4V
             strip.setPixelColorRGB(i, math.floor(
