@@ -38,13 +38,9 @@ try:
     while True:
         for i in range(50):
             c = ledColours.shades[i]
-
-            print(i, (math.floor(
-                c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255)))
-
-    # strip.setPixelColorRGB(i, math.floor(
-    #     c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
-    # strip.show()
+            strip.setPixelColorRGB(i, math.floor(
+                c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
+        strip.show()
 
     # counter = 6
     # while True:
