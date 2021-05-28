@@ -13,6 +13,8 @@ flicker2_4V = Color(rgb=(100/255, 122/255, 6/255))  # Brighter
 
 flickerColours = list(flicker2_4V.range_to(flicker3V, 11))
 
+shades = list(flicker2_4V.range_to(off), 50)
+
 # Shades of yellow/orange to white
 # 0 (85, 170, 0)
 # 1 (92, 157, 2)
