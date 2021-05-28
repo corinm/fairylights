@@ -37,7 +37,7 @@ try:
 
     while True:
         for i in range(strip.numPixels()):
-            c = ledColours.flickerColours[i & 11]
+            c = ledColours.flickerColours[i & 10]
             strip.setPixelColorRGB(i, math.floor(
                 c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255))
             strip.show()
