@@ -37,6 +37,8 @@ try:
 
     while True:
         for s in range(len(ledColours.shades)):
+            print((math.floor(
+                c.red * 255), math.floor(c.green * 255), math.floor(c.blue * 255)))
             for i in range(50):
                 c = ledColours.shades[s]
                 strip.setPixelColorRGB(i, math.floor(
