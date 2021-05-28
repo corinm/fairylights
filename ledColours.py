@@ -16,8 +16,8 @@ off = Color(rgb=(0, 0, 0))
 # flicker3V = Color(rgb=(60/255, 46/255, 9/255))
 # flicker2_4V = Color(rgb=(60*0.25/255, 46*0.25/255, 9*0.25/255))
 
-flicker2_4V = Color(rgb=(50/255, 70/255, 3/255))  # Dimmer
-flicker3V = Color(rgb=(99/255, 134/255, 5/255))  # Bright
+flicker2_4V = Color(rgb=(96/255, 145/255, 3/255))  # Dimmer
+flicker3V = Color(rgb=(96/255, 145/255, 3/255))  # Bright
 
 flickerColours = list(flicker3V.range_to(flicker2_4V, 11))
 
