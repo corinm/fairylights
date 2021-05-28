@@ -1,4 +1,8 @@
-from FlickerBulb import FlickerBulb
+import math
+from typing import List
+from colours import Color
+
+from FlickerBulb import BulbState, FlickerBulb
 import ledColours
 
 """
@@ -31,37 +35,41 @@ class FlickeringFairyLights:
         self.flickerBulbs = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10]
         assert len(self.flickerBulbs) == 10
 
-    def tick(self) -> list:
+    def tick(self) -> List[Color]:
         [flickerBulb.tick() for flickerBulb in self.flickerBulbs]
-        flickerBulbsOn = list(map(lambda b: b.isOn, self.flickerBulbs))
-        leds = generateFullListOfColours(flickerBulbsOn)
+        flickerBulbStates: list[BulbState] = list(
+            map(lambda b: b.state, self.flickerBulbs))
+        leds = generateFullListOfColours(flickerBulbStates)
         return leds
 
 
-def generateFullListOfColours(flickerBulbsOn: list):
-    numberOn = flickerBulbsOn.count(True)
-    on = ledColours.flickerColours[numberOn]
+def generateFullListOfColours(flickerBulbStates: list(BulbState)):
+    numberOn = flickerBulbStates.count(BulbState.ON)
+    numberDim = flickerBulbStates.count(BulbState.DIM)
+    total = math.floor(numberOn + (numberDim / 2))
+
+    on = ledColours.flickerColours[total]
 
     bulbs = [
-        on if flickerBulbsOn[0] == True else ledColours.off,
+        on if flickerBulbStates[0] == BulbState.ON else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[1] == True else ledColours.off,
+        on if flickerBulbStates[1] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[2] == True else ledColours.off,
+        on if flickerBulbStates[2] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[3] == True else ledColours.off,
+        on if flickerBulbStates[3] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[4] == True else ledColours.off,
+        on if flickerBulbStates[4] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[5] == True else ledColours.off,
+        on if flickerBulbStates[5] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[6] == True else ledColours.off,
+        on if flickerBulbStates[6] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[7] == True else ledColours.off,
+        on if flickerBulbStates[7] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[8] == True else ledColours.off,
+        on if flickerBulbStates[8] == True else ledColours.off,
         on, on, on, on,
-        on if flickerBulbsOn[9] == True else ledColours.off,
+        on if flickerBulbStates[9] == True else ledColours.off,
         on, on, on, on,
     ]
 
