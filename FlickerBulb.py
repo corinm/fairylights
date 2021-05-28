@@ -4,8 +4,8 @@ maxTempIncrement = 5
 minTempIncrement = 1
 maxTempDecrement = 3
 minTempDecrement = 1
-offTemp = 100
-onTemp = 95
+offTemp = 70
+onTemp = 50
 
 
 def randomIncrease() -> int:
