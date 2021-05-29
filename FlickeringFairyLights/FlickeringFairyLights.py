@@ -3,7 +3,7 @@ from typing import List
 from colour import Color
 
 from FlickerBulb import BulbState, FlickerBulb
-import ledColours
+import constants
 
 """
 This module simulates a set of flickering fairy lights described here: https://youtu.be/zeOw5MZWq24?t=268
@@ -48,7 +48,7 @@ def generateFullListOfColours(flickerBulbStates: list(BulbState)):
     numberDim = flickerBulbStates.count(BulbState.DIM)
     total = math.floor(numberOn + (numberDim / 2))
 
-    on = ledColours.flickerColours[total]
+    on = constants.flickerColours[total]
 
     bulbs = [
         determineBrightness(flickerBulbStates[0], on),
@@ -82,6 +82,6 @@ def determineBrightness(bulbState: BulbState, on: Color):
     if bulbState == BulbState.ON:
         return on
     elif bulbState == BulbState.DIM:
-        return ledColours.flickerMid
+        return constants.flickerMid
     else:
-        return ledColours.off
+        return constants.off

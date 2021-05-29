@@ -1,12 +1,7 @@
 import random
 from enum import Enum
 
-maxTempIncrement = 5
-minTempIncrement = 1
-maxTempDecrement = 3
-minTempDecrement = 1
-offTemp = 100
-onTemp = 95
+from constants import MIN_TEMP_INCREMENT, MAX_TEMP_INCREMENT, MIN_TEMP_DECREMENT, MAX_TEMP_DECREMENT, OFF_TEMP, ON_TEMP
 
 
 class BulbState(Enum):
@@ -16,11 +11,11 @@ class BulbState(Enum):
 
 
 def randomIncrease() -> int:
-    return random.randrange(minTempIncrement, maxTempIncrement + 1)
+    return random.randrange(MIN_TEMP_INCREMENT, MAX_TEMP_INCREMENT + 1)
 
 
 def randomDecrease() -> int:
-    return random.randrange(minTempDecrement, maxTempDecrement + 1)
+    return random.randrange(MIN_TEMP_DECREMENT, MAX_TEMP_DECREMENT + 1)
 
 
 class FlickerBulb:
@@ -31,7 +26,7 @@ class FlickerBulb:
 
     def tick(self):
         if self.state == BulbState.DIM:
-            if self.temp < onTemp:
+            if self.temp < ON_TEMP:
                 self.finishTurningOn()
             else:
                 self.finishTurningOff()
@@ -39,13 +34,13 @@ class FlickerBulb:
         elif self.state == BulbState.ON:
             self.temp = self.temp + randomIncrease()
 
-            if self.temp >= offTemp:
+            if self.temp >= OFF_TEMP:
                 self.turnOff()
 
         elif self.state == BulbState.OFF:
             self.temp = self.temp - randomDecrease()
 
-            if self.temp <= onTemp:
+            if self.temp <= ON_TEMP:
                 self.turnOn()
 
     def turnOff(self):
