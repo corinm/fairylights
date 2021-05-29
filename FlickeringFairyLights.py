@@ -51,28 +51,37 @@ def generateFullListOfColours(flickerBulbStates: list(BulbState)):
     on = ledColours.flickerColours[total]
 
     bulbs = [
-        on if flickerBulbStates[0] == BulbState.ON else ledColours.off,
+        determineBrightness(flickerBulbStates[0], on),
         on, on, on, on,
-        on if flickerBulbStates[1] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[1], on),
         on, on, on, on,
-        on if flickerBulbStates[2] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[2], on),
         on, on, on, on,
-        on if flickerBulbStates[3] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[3], on),
         on, on, on, on,
-        on if flickerBulbStates[4] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[4], on),
         on, on, on, on,
-        on if flickerBulbStates[5] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[5], on),
         on, on, on, on,
-        on if flickerBulbStates[6] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[6], on),
         on, on, on, on,
-        on if flickerBulbStates[7] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[7], on),
         on, on, on, on,
-        on if flickerBulbStates[8] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[8], on),
         on, on, on, on,
-        on if flickerBulbStates[9] == True else ledColours.off,
+        determineBrightness(flickerBulbStates[9], on),
         on, on, on, on,
     ]
 
     assert len(bulbs) == 50
 
     return bulbs
+
+
+def determineBrightness(bulbState: BulbState, on: Color):
+    if bulbState == BulbState.ON:
+        return on
+    elif bulbState == BulbState.DIM:
+        return ledColours.flickerMid
+    else:
+        return ledColours.off
