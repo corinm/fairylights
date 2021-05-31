@@ -1,6 +1,6 @@
 {
-    "python.analysis.extraPaths": [
-        "./FlickeringFairyLights"
-    ],
-    "python.pythonPath": "/home/corin/.local/share/virtualenvs/fairy-lights-pgVpdoHc/bin/python"
+    "python.pythonPath": "/home/corin/.local/share/virtualenvs/fairy-lights-pgVpdoHc/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "mypy.runUsingActiveInterpreter": true
 }

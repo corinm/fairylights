@@ -3,7 +3,7 @@ from typing import List
 from colour import Color
 
 from FlickerBulb import BulbState, FlickerBulb
-import constants
+import helpers
 
 """
 This module simulates a set of flickering fairy lights described here: https://youtu.be/zeOw5MZWq24?t=268
@@ -37,51 +37,7 @@ class FlickeringFairyLights:
 
     def tick(self) -> List[Color]:
         [flickerBulb.tick() for flickerBulb in self.flickerBulbs]
-        flickerBulbStates: list[BulbState] = list(
+        flickerBulbStates: List[BulbState] = list(
             map(lambda b: b.state, self.flickerBulbs))
-        leds = generateFullListOfColours(flickerBulbStates)
+        leds = helpers.generateFullListOfColours(flickerBulbStates)
         return leds
-
-
-def generateFullListOfColours(flickerBulbStates: list(BulbState)):
-    numberOn = flickerBulbStates.count(BulbState.ON)
-    numberDim = flickerBulbStates.count(BulbState.DIM)
-    total = math.floor(numberOn + (numberDim / 2))
-
-    on = constants.flickerColours[total]
-
-    bulbs = [
-        determineBrightness(flickerBulbStates[0], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[1], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[2], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[3], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[4], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[5], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[6], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[7], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[8], on),
-        on, on, on, on,
-        determineBrightness(flickerBulbStates[9], on),
-        on, on, on, on,
-    ]
-
-    assert len(bulbs) == 50
-
-    return bulbs
-
-
-def determineBrightness(bulbState: BulbState, on: Color):
-    if bulbState == BulbState.ON:
-        return on
-    elif bulbState == BulbState.DIM:
-        return constants.flickerMid
-    else:
-        return constants.off

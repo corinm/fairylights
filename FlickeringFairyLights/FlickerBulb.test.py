@@ -1,5 +1,5 @@
 import unittest
-from FlickerBulb import BulbState, FlickerBulb
+from FlickeringFairyLights.FlickerBulb import BulbState, FlickerBulb
 
 
 class TestFlickerBulb(unittest.TestCase):
@@ -56,7 +56,7 @@ class TestFlickerBulb(unittest.TestCase):
 
         for i in range(5):
             fb.tick()
-            assert(fb.temp > 95, True)
+            self.assertEqual(fb.temp > 95, True)
 
         self.assertEqual(fb.temp, 93)
         self.assertEqual(fb.state, BulbState.DIM)

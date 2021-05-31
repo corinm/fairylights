@@ -8,9 +8,11 @@ rpi-ws281x = "*"
 adafruit-circuitpython-neopixel = "*"
 adafruit-blinka = "*"
 colour = "*"
+transitions = "*"
 
 [dev-packages]
 autopep8 = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.7"
