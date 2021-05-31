@@ -18,6 +18,9 @@ class RandomTwinkling:
         # Return the next bulb and increment counter
         bulb = self.shuffledBulbIndexes[self.counter]
         self.counter += 1
+
+        # bulb.twinkle()
+
         return bulb
 
     def shuffle(self):

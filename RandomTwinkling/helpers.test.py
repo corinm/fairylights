@@ -1,9 +1,7 @@
-from random import shuffle
 import unittest
 
 import helpers
 import random
-import functools
 import collections
 
 
@@ -106,6 +104,13 @@ class TestHelpers(unittest.TestCase):
 
         for i in range(50):
             self.assertEqual(counter.get(i), 1)
+
+    def test_generates_new_list_each_time(self):
+        random.seed(1)
+        shuffled1 = helpers.createShuffledList(50, random)
+        shuffled2 = helpers.createShuffledList(50, random)
+
+        self.assertNotEqual(shuffled1, shuffled2)
 
 
 if __name__ == '__main__':
