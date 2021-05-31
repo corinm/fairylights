@@ -1,20 +1,22 @@
 import unittest
 
-from FlickerBulb import BulbState
-from FlickeringFairyLights import generateFullListOfColours
-import constants
+from FlickeringFairyLights.FlickerBulb import BulbState
+import FlickeringFairyLights.helpers as helpers
+import FlickeringFairyLights.constants as constants
 
 
 class TestFlickeringFairyLight(unittest.TestCase):
     def test_all_flicker_bulbs_on_returns_all_24V(self):
-        colours = generateFullListOfColours([BulbState.ON for i in range(10)])
+        colours = helpers.generateFullListOfColours(
+            [BulbState.ON for i in range(10)])
         self.assertEqual(len(colours), 50)
 
         for i in range(50):
             self.assertEqual(colours[i], constants.flicker2_4V)
 
     def test_all_flicker_bulbs_off_returns_all_3V_except_flicker_bulbs(self):
-        colours = generateFullListOfColours([BulbState.OFF for i in range(10)])
+        colours = helpers.generateFullListOfColours(
+            [BulbState.OFF for i in range(10)])
         self.assertEqual(len(colours), 50)
 
         for i in range(50):
@@ -24,8 +26,8 @@ class TestFlickeringFairyLight(unittest.TestCase):
                 self.assertEqual(colours[i], constants.flicker3V)
 
     def test_bulbs_are_correct_colours_1ON_1DIM(self):
-        colours = generateFullListOfColours([BulbState.ON, BulbState.DIM, BulbState.OFF, BulbState.OFF,
-                                            BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF])
+        colours = helpers.generateFullListOfColours([BulbState.ON, BulbState.DIM, BulbState.OFF, BulbState.OFF,
+                                                     BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF])
         self.assertEqual(len(colours), 50)
 
         for i in range(50):
@@ -39,8 +41,8 @@ class TestFlickeringFairyLight(unittest.TestCase):
                 self.assertEqual(colours[i], constants.flickerColours[1])
 
     def test_bulbs_are_correct_colours_1ON_2DIM(self):
-        colours = generateFullListOfColours([BulbState.ON, BulbState.DIM, BulbState.DIM, BulbState.OFF,
-                                            BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF])
+        colours = helpers.generateFullListOfColours([BulbState.ON, BulbState.DIM, BulbState.DIM, BulbState.OFF,
+                                                     BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF, BulbState.OFF])
         self.assertEqual(len(colours), 50)
 
         for i in range(50):
