@@ -1,6 +1,9 @@
-from typing import List
+from typing import Dict, List
+from colours import Color
 
 import helpers
+
+stateToColour: Dict[int, Color] = {}
 
 
 class RandomTwinkling:
@@ -10,22 +13,29 @@ class RandomTwinkling:
         self.shuffledBulbIndexes: List[int] = []
         self.shuffle()
 
-    def tick(self):
-        if (self.counter == len(self.shuffledBulbIndexes)):
-            self.shuffle()
-            self.counter = 0
+        self.bulbs: List[int] = [0 for i in range(numberOfBulbs)]
 
-        # Return the next bulb and increment counter
-        bulb = self.shuffledBulbIndexes[self.counter]
-        self.counter += 1
+    def tick(self) -> List[Color]:
+        # TODO Only do this sometimes, not every tick?
+        self.nextTwinkle()
 
-        # bulb.twinkle()
+        colours: List[Color] = [stateToColour[state] for state in self.bulbs]
 
-        return bulb
+        return colours
 
     def shuffle(self):
         self.shuffledBulbIndexes = helpers.createShuffledList(
             self.numberOfBulbs)
+
+    def nextTwinkle(self):
+        if (self.counter == len(self.shuffledBulbIndexes)):
+            self.shuffle()
+            self.counter = 0
+
+        bulb = self.shuffledBulbIndexes[self.counter]
+        self.counter += 1
+
+        return self.bulbs
 
 
 rt = RandomTwinkling(50)
