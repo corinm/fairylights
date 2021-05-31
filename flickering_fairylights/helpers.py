@@ -2,8 +2,8 @@ from typing import List
 import math
 from colour import Color
 
-from FlickeringFairyLights.FlickerBulb import BulbState
-import FlickeringFairyLights.constants as constants
+from flickering_fairylights.FlickerBulb import BulbState
+import flickering_fairylights.constants as constants
 
 
 def generateFullListOfColours(flickerBulbStates: List[BulbState]):
