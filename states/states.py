@@ -9,7 +9,6 @@ states = [
 transitions = [
     ['initialise', states[0], states[1]],
     {'trigger': 'buttonPressed', 'source': states[1], 'dest': states[2]},
-    {'trigger': 'buttonPressed', 'source': states[1], 'dest': states[2]},
     {'trigger': 'buttonPressed', 'source': states[2], 'dest': states[3]},
     {'trigger': 'buttonPressed', 'source': states[3], 'dest': states[1]},
 ]
