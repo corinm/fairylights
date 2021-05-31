@@ -1,10 +1,13 @@
 from transitions import Machine, State
 
+from flickering_fairylights import FlickeringFairyLights
+from random_twinkling.RandomTwinkling import RandomTwinkling
+
 states = [
     State(name='Init', on_enter=['initialise']),
-    State(name='FlickeringFairyLights'),
-    State(name='RandomTwinkling'),
-    State(name='FireFlies')]
+    State(name='FlickeringFairyLights', on_enter=['runFlickeringFairyLights']),
+    State(name='RandomTwinkling', on_enter=['runRandomTwinkling']),
+    State(name='Fireflies', on_enter=['runFireflies'])]
 
 transitions = [
     ['initialise', states[0], states[1]],
@@ -20,30 +23,34 @@ class FairyLights(object):
         self.display = display
         self.machine = Machine(self, states=states,
                                transitions=transitions, initial=states[0], after_state_change='showState')
+        self.to_FlickeringFairyLights()
 
     def showState(self):
+        print('SHOW_STATE')
         self.display(f'New state: {self.state}')
+
+    def runFlickeringFairyLights(self):
+        print('Flicker')
+        ff = FlickeringFairyLights()
+
+        while True:
+            ff.tick()
+
+    def runRandomTwinkling(self):
+        print('Twinkle')
+        rt = RandomTwinkling()
+
+        while True:
+            rt.tick()
+
+    def runFireflies(self):
+        print('*** 3')
 
 
 def main(button, display):
+    print('Starting...')
     fl = FairyLights(button, display)
     fl.initialise()
     fl.buttonPressed()
-
-
-button = 'button'
-
-
-class Button:
-    def __init__(self, callback):
-        self.callback = callback
-
-    def press(self):
-        self.callback()
-
-
-def display(title: str):
-    print(title)
-
-
-main(button, display)
+    fl.buttonPressed()
+    fl.buttonPressed()

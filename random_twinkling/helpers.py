@@ -1,8 +1,9 @@
 import math
 from typing import List
+import random
 
 
-def createShuffledList(numberOfBulbs, random):
+def createShuffledList(numberOfBulbs):
     numberOfBuckets = math.floor(numberOfBulbs / 10)
     buckets = [i for i in range(numberOfBuckets)]
     remainingIndexes: List[int] = [i for i in range(numberOfBulbs)]
