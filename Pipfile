@@ -9,6 +9,7 @@ adafruit-circuitpython-neopixel = "*"
 adafruit-blinka = "*"
 colour = "*"
 transitions = "*"
+adafruit-circuitpython-ssd1306 = "*"
 
 [dev-packages]
 autopep8 = "*"
