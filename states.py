@@ -4,13 +4,9 @@ from transitions import Machine, State
 
 from flickering_fairylights import run as runFlickeringFairylights
 from random_twinkling import run as runRandomTwinkling
+from display.MockDisplay import MockDisplay
 
 from time import sleep
-
-
-class Display:
-    def show(self, title: str):
-        print(title)
 
 
 class Button:
@@ -38,7 +34,7 @@ transitions = [
 
 class FairyLights(Machine):
 
-    def __init__(self, display: Display):
+    def __init__(self, display):
         print('Starting...')
         self.display = display
         self.machine = Machine(self, states=states,
@@ -47,7 +43,7 @@ class FairyLights(Machine):
         self.trigger('initialise')
 
     def showState(self):
-        self.display.show(f'New state: {self.state}')
+        self.display.renderMessage(f'> {self.state}')
 
     def buttonPressed(self):
         print('Button pressed')
@@ -71,7 +67,7 @@ class FairyLights(Machine):
 
 
 def main():
-    display = Display()
+    display = MockDisplay()
 
     fl = FairyLights(display)
 
