@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-rpi-ws281x = "*"
-adafruit-circuitpython-neopixel = "*"
 adafruit-blinka = "*"
-colour = "*"
-transitions = "*"
+adafruit-circuitpython-neopixel = "*"
 adafruit-circuitpython-ssd1306 = "*"
+colour = "*"
+rpi-ws281x = "*"
+transitions = "*"
 
 [dev-packages]
 autopep8 = "*"
