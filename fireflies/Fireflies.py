@@ -1,6 +1,6 @@
 from typing import Dict
 
-from Fireflies.Firefly import Direction, Firefly
+from .Firefly import Direction, Firefly
 
 leds = [0 for i in range(50)]
 Fireflies: Dict[int, Firefly] = {}

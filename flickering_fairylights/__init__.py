@@ -1,5 +1,4 @@
 from .FlickeringFairyLights import FlickeringFairyLights
-from .FlickerBulb import FlickerBulb
 
 from time import sleep
 
