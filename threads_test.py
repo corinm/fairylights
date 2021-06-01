@@ -40,7 +40,7 @@ class TestFsm():
         print('Starting...')
         self.machine = Machine(self, states=self.states,
                                transitions=self.transitions, initial=self.states[0], after_state_change='printState')
-        self.transition = False
+        self.p: multiprocessing.Process = None
         self.initialise()
 
     def printState(self):
@@ -48,24 +48,24 @@ class TestFsm():
 
     def runA(self):
         print('Running a')
-        self.p1 = multiprocessing.Process(target=runA)
-        self.p1.start()
+        self.p = multiprocessing.Process(target=runA)
+        self.p.start()
 
     def runB(self):
         print('Running b')
-        self.p2 = multiprocessing.Process(target=runB)
-        self.p2.start()
+        self.p = multiprocessing.Process(target=runB)
+        self.p.start()
 
     def runC(self):
         print('Running c')
-        self.p3 = multiprocessing.Process(target=runC)
-        self.p3.start()
+        self.p = multiprocessing.Process(target=runC)
+        self.p.start()
 
     def buttonPressed(self):
         print("Button pressed")
-        self.p1.terminate()
-        self.p2.terminate()
-        self.p3.terminate()
+        if self.p != None:
+            self.p.terminate()
+            self.p = None
         self.trigger('buttonPressed')
 
 

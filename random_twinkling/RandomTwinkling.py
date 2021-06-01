@@ -55,12 +55,3 @@ class RandomTwinkling:
                 self.bulbs[i] = 0
             else:
                 self.bulbs[i] += 1
-
-
-# rt = RandomTwinkling(50, Color(color='blue'))
-# print(rt.counter, rt.shuffledBulbIndexes)
-# rt.tick()
-# rt.tick()
-# rt.tick()
-# rt.tick()
-# print(rt.counter, rt.shuffledBulbIndexes)
