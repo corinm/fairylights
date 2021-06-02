@@ -5,6 +5,9 @@ import random_twinkling.helpers as helpers
 
 off = Color()
 
+STEPS_FROM_OFF_TO_ON = 5
+NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
+
 
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colour: Color):
@@ -12,7 +15,13 @@ class RandomTwinkling:
         self.colour = colour
         self.counter: int = 0
 
-        self.stateToColour: List[Color] = list(off.range_to(colour, 4))
+        up = list(
+            off.range_to(colour, STEPS_FROM_OFF_TO_ON))
+        down = list(colour.range_to(off, STEPS_FROM_OFF_TO_ON))
+
+        print(up)
+
+        self.stateToColour: List[Color] = up + down[1:]
 
         self.shuffledBulbIndexes: List[int] = []
         self.shuffle()
@@ -47,11 +56,10 @@ class RandomTwinkling:
         return self.bulbs
 
     def updateBulbs(self):
-        print(self.bulbs)
         for i in range(len(self.bulbs)):
             if self.bulbs[i] == 0:
                 pass
-            elif self.bulbs[i] >= 3:
+            elif self.bulbs[i] >= NUMBER_OF_STATES - 1:
                 self.bulbs[i] = 0
             else:
                 self.bulbs[i] += 1

@@ -88,7 +88,7 @@ def main():
 
     # sleep(5)
 
-    # button.press()
+    button.press()
     # sleep(5)
     # button.press()
     # sleep(5)

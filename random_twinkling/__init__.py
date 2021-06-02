@@ -5,9 +5,9 @@ from colour import Color
 
 
 def run(leds):
-    rt = RandomTwinkling(50, Color(color='blue'))
+    rt = RandomTwinkling(50, Color('#00494b'))
+
+    print(Color('#00494b').red, Color('#00494b').green, Color('#00494b').blue)
 
     while True:
-        print('rt.tick')
         leds.setLeds(rt.tick())
-        sleep(1)
