@@ -5,6 +5,7 @@ from transitions import Machine, State
 from flickering_fairylights import run as runFlickeringFairylights
 from random_twinkling import run as runRandomTwinkling
 from display.MockDisplay import MockDisplay
+from temperature_check.mockCheckTemperature import mockCheckTemperature as checkTemperature
 
 from time import sleep
 
@@ -33,14 +34,21 @@ transitions = [
 
 
 class FairyLights(Machine):
-
     def __init__(self, display):
         print('Starting...')
         self.display = display
         self.machine = Machine(self, states=states,
                                transitions=transitions, initial=states[0], after_state_change='showState')
         self.process: Union[multiprocessing.Process, None] = None
+        self.processMonitorTemperature: multiprocessing.Process = multiprocessing.Process(
+            target=self.monitorTemperature)
+        self.processMonitorTemperature.start()
         self.trigger('initialise')
+
+    def monitorTemperature(self):
+        while True:
+            print('Checking temp', checkTemperature())
+            sleep(10)
 
     def showState(self):
         self.display.renderMessage(f'> {self.state}')
