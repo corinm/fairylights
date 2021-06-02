@@ -26,4 +26,3 @@ class Leds:
             b = round(colour.blue * 255)
             self.strip.setPixelColorRGB(i, r, g, b)
         self.strip.show()
-        sleep(1)
