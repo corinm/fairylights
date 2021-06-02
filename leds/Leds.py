@@ -1,5 +1,7 @@
 from time import sleep
+
 import rpi_ws281x as ws
+from colour import Color
 
 # LED strip configuration:
 LED_COUNT = 50      # Number of LED pixels.
@@ -20,7 +22,12 @@ class Leds:
 
     def setLeds(self, colours):
         for i in range(self.strip.numPixels()):
-            colour = colours[i]
+
+            try:
+                colour = colours[i]
+            except IndexError:
+                colour = Color(None)
+
             r = round(colour.red * 255)
             g = round(colour.green * 255)
             b = round(colour.blue * 255)

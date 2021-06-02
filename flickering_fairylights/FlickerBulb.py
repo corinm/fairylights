@@ -26,7 +26,7 @@ class FlickerBulb:
 
     def tick(self):
         if self.state == BulbState.DIM:
-            if self.temp < ON_TEMP:
+            if self.temp <= ON_TEMP:
                 self.finishTurningOn()
             else:
                 self.finishTurningOff()
