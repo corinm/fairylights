@@ -1,6 +1,1 @@
-{
-    "python.pythonPath": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/python",
-    "python.linting.enabled": true,
-    "python.linting.mypyEnabled": true,
-    "mypy.runUsingActiveInterpreter": true
-}
+{}
