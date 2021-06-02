@@ -9,4 +9,3 @@ def run(leds):
     while True:
         print('ff.tick')
         leds.setLeds(ff.tick())
-        sleep(1)
