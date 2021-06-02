@@ -7,5 +7,4 @@ def run(leds):
     ff = FlickeringFairyLights()
 
     while True:
-        print('ff.tick')
         leds.setLeds(ff.tick())
