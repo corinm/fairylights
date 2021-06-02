@@ -18,3 +18,10 @@ Sources of inspiration:
 
 Based on:
 - https://www.instructables.com/How-to-Make-Proper-Rainbow-and-Random-Colors-With-/
+
+### TODO
+
+* Create own function to generate range of colours between a colour and black (off). Need to factor in gamma https://gist.github.com/hexagon5un/3df734ad08d8dc8d9ace0491ef97cc58
+* Implement this for rahdom_twinkling and check it generates sensible gradients
+* Example random_twinkling to accept a list of colours
+* Add rainbow to FSM
