@@ -19,11 +19,11 @@ class Leds:
         self.strip.begin()
 
     def setLeds(self, colours):
-        for i in range(strip.numPixels()):
+        for i in range(self.strip.numPixels()):
             colour = colours[i]
             r = round(colour.red * 255)
             g = round(colour.green * 255)
             b = round(colour.blue * 255)
-            strip.setPixelColorRGB(i, r, g, b)
-        strip.show()
+            self.strip.setPixelColorRGB(i, r, g, b)
+        self.strip.show()
         sleep(1)
