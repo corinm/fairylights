@@ -5,7 +5,7 @@ import random_twinkling.helpers as helpers
 
 off = Color()
 
-STEPS_FROM_OFF_TO_ON = 5
+STEPS_FROM_OFF_TO_ON = 19
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
 
 
@@ -18,8 +18,6 @@ class RandomTwinkling:
         up = list(
             off.range_to(colour, STEPS_FROM_OFF_TO_ON))
         down = list(colour.range_to(off, STEPS_FROM_OFF_TO_ON))
-
-        print(up)
 
         self.stateToColour: List[Color] = up + down[1:]
 
