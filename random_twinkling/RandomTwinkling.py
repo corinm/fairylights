@@ -49,7 +49,9 @@ class RandomTwinkling:
         bulb = self.shuffledBulbIndexes[self.counter]
         self.counter += 1
 
-        self.bulbs[bulb] = 1
+        # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
+        if (self.bulbs[bulb] == 0):
+            self.bulbs[bulb] = 1
 
         return self.bulbs
 
