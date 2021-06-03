@@ -28,8 +28,8 @@ class Leds:
             except IndexError:
                 colour = Color(None)
 
-            r = round(colour.red * 255)
-            g = round(colour.green * 255)
+            r = round(colour.green * 255)
+            g = round(colour.red * 255)
             b = round(colour.blue * 255)
             self.strip.setPixelColorRGB(i, r, g, b)
         self.strip.show()
