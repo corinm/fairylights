@@ -5,7 +5,7 @@ from colour import Color
 
 
 def run(leds):
-    rt = RandomTwinkling(50, Color('#00494b'))
+    rt = RandomTwinkling(50, Color('#006666'))
 
     print(Color('#00494b').red, Color('#00494b').green, Color('#00494b').blue)
 
