@@ -2,6 +2,7 @@ from typing import List
 from colour import Color
 
 import random_twinkling.helpers as helpers
+from utils.gradients import createGradientFromBlack, createGradientToBlack
 
 off = Color()
 
@@ -15,9 +16,8 @@ class RandomTwinkling:
         self.colour = colour
         self.counter: int = 0
 
-        up = list(
-            off.range_to(colour, STEPS_FROM_OFF_TO_ON))
-        down = list(colour.range_to(off, STEPS_FROM_OFF_TO_ON))
+        up = createGradientFromBlack(colour, STEPS_FROM_OFF_TO_ON)
+        down = createGradientToBlack(colour, STEPS_FROM_OFF_TO_ON)
 
         self.stateToColour: List[Color] = up + down[1:]
 
