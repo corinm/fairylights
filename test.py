@@ -9,7 +9,11 @@ try:
 
     STEPS_FROM_OFF_TO_ON = 5
     off = Color()
-    colour = Color('#00494b')
+
+    # 1 = GRB
+
+    colour = Color('#0000ff')
+    print(colour.red, colour.green, colour.blue)
 
     rangeLs = [(i / (STEPS_FROM_OFF_TO_ON - 1)) * colour.luminance
                for i in range(STEPS_FROM_OFF_TO_ON)]
