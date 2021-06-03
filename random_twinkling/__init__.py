@@ -5,7 +5,7 @@ from colour import Color
 
 
 def run(leds):
-    rt = RandomTwinkling(50, Color(rgb=(11, 77, 77)))
+    rt = RandomTwinkling(50, Color(rgb=(11/255, 77/255, 77/255)))
 
     while True:
         leds.setLeds(rt.tick())
