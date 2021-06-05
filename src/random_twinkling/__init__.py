@@ -11,11 +11,12 @@ from leds.Leds import Leds  # noqa
 
 from .RandomTwinkling import RandomTwinkling  # noqa
 
-yellow = Color(rgb=(11 / 255, 77 / 255, 57 / 255))
+blue = Color(rgb=(11 / 255, 77 / 255, 57 / 255))
+pink = Color(rgb=(57 / 255, 11 / 255, 77 / 255))
 
 
 def run(leds: Leds):
-    rt = RandomTwinkling(50, [yellow])
+    rt = RandomTwinkling(50, [blue, pink])
 
     while True:
         leds.setLeds(rt.tick())
