@@ -1,6 +1,8 @@
 {
     "mypy.dmypyExecutable": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/dmypy",
+    "mypy.runUsingActiveInterpreter": true,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
     "python.linting.flake8Path": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/flake8",
+    "python.pythonPath": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/python",
 }

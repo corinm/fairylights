@@ -1,7 +1,8 @@
 import unittest
 
 from colour import Color
-from gradients import createGradientFromBlack, createGradientToBlack
+
+from utils.gradients import createGradientFromBlack, createGradientToBlack
 
 
 class TestHelpers(unittest.TestCase):

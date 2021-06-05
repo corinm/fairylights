@@ -1,6 +1,6 @@
 import unittest
 
-from FlickeringFairyLights.FlickerBulb import BulbState, FlickerBulb
+from flickering_fairylights.FlickerBulb import BulbState, FlickerBulb
 
 
 class TestFlickerBulb(unittest.TestCase):
