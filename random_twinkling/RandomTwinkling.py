@@ -1,4 +1,5 @@
 from typing import List
+
 from colour import Color
 
 import random_twinkling.helpers as helpers
@@ -30,19 +31,17 @@ class RandomTwinkling:
         # TODO Only do this sometimes, not every tick?
         self.nextTwinkle()
 
-        colours: List[Color] = [self.stateToColour[state]
-                                for state in self.bulbs]
+        colours: List[Color] = [self.stateToColour[state] for state in self.bulbs]
 
         self.updateBulbs()
 
         return colours
 
     def shuffle(self):
-        self.shuffledBulbIndexes = helpers.createShuffledList(
-            self.numberOfBulbs)
+        self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
 
     def nextTwinkle(self):
-        if (self.counter == len(self.shuffledBulbIndexes)):
+        if self.counter == len(self.shuffledBulbIndexes):
             self.shuffle()
             self.counter = 0
 
@@ -50,7 +49,7 @@ class RandomTwinkling:
         self.counter += 1
 
         # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
-        if (self.bulbs[bulb] == 0):
+        if self.bulbs[bulb] == 0:
             self.bulbs[bulb] = 1
 
         return self.bulbs

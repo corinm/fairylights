@@ -1,7 +1,5 @@
 from .FlickeringFairyLights import FlickeringFairyLights
 
-from time import sleep
-
 
 def run(leds):
     ff = FlickeringFairyLights()

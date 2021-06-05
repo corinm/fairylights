@@ -1,4 +1,5 @@
 import unittest
+
 from FlickeringFairyLights.FlickerBulb import BulbState, FlickerBulb
 
 
@@ -64,5 +65,5 @@ class TestFlickerBulb(unittest.TestCase):
         self.assertEqual(fb.state, BulbState.ON)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

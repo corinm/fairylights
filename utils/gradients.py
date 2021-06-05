@@ -1,10 +1,10 @@
-from colour import Color
 from typing import List
+
+from colour import Color
 
 
 def createGradientFromBlack(colour: Color, steps: int) -> List[Color]:
-    rangeOfLuminosities = [(i / (steps - 1)) * colour.luminance
-                           for i in range(steps)]
+    rangeOfLuminosities = [(i / (steps - 1)) * colour.luminance for i in range(steps)]
 
     rangeOfColours = []
     for lum in rangeOfLuminosities:

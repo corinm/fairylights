@@ -1,14 +1,16 @@
 import multiprocessing
+from time import sleep
 from typing import Union
+
 from transitions import Machine, State
 
-from flickering_fairylights import run as runFlickeringFairylights
-from random_twinkling import run as runRandomTwinkling
 from display.MockDisplay import MockDisplay
-from temperature_check.mockCheckTemperature import mockCheckTemperature as checkTemperature
+from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
-
-from time import sleep
+from random_twinkling import run as runRandomTwinkling
+from temperature_check.mockCheckTemperature import (
+    mockCheckTemperature as checkTemperature,
+)
 
 
 class Button:
@@ -20,58 +22,66 @@ class Button:
 
 
 states = [
-    State(name='Init'),
-    State(name='FlickeringFairyLights'),
-    State(name='RandomTwinkling'),
+    State(name="Init"),
+    State(name="FlickeringFairyLights"),
+    State(name="RandomTwinkling"),
     # State(name='Fireflies')
 ]
 
 transitions = [
-    {'trigger': 'initialise', 'source': states[0], 'dest': states[1]},
-    {'trigger': 'buttonPressed', 'source': states[1], 'dest': states[2]},
-    {'trigger': 'buttonPressed', 'source': states[2], 'dest': states[1]},
+    {"trigger": "initialise", "source": states[0], "dest": states[1]},
+    {"trigger": "buttonPressed", "source": states[1], "dest": states[2]},
+    {"trigger": "buttonPressed", "source": states[2], "dest": states[1]},
     # {'trigger': 'buttonPressed', 'source': states[3], 'dest': states[1]},
 ]
 
 
 class FairyLights(Machine):
     def __init__(self, leds, display):
-        print('Starting...')
+        print("Starting...")
         self.leds = leds
         self.display = display
-        self.machine = Machine(self, states=states,
-                               transitions=transitions, initial=states[0], after_state_change='showState')
+        self.machine = Machine(
+            self,
+            states=states,
+            transitions=transitions,
+            initial=states[0],
+            after_state_change="showState",
+        )
         self.process: Union[multiprocessing.Process, None] = None
-        self.processMonitorTemperature: multiprocessing.Process = multiprocessing.Process(
-            target=self.monitorTemperature)
+        self.processMonitorTemperature: multiprocessing.Process = (
+            multiprocessing.Process(target=self.monitorTemperature)
+        )
         self.processMonitorTemperature.start()
-        self.trigger('initialise')
+        self.trigger("initialise")
 
     def monitorTemperature(self):
         while True:
-            print('Checking temp', checkTemperature())
+            print("Checking temp", checkTemperature())
             sleep(10)
 
     def showState(self):
-        self.display.renderMessage(f'> {self.state}')
+        self.display.renderMessage(f"> {self.state}")
 
     def buttonPressed(self):
-        print('Button pressed')
-        if self.process != None and self.process.is_alive() == True:
+        print("Button pressed")
+        if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
-        self.trigger('buttonPressed')
+        self.trigger("buttonPressed")
 
     def on_enter_FlickeringFairyLights(self):
-        print('Flicker')
+        print("Flicker")
         self.process = multiprocessing.Process(
-            target=runFlickeringFairylights, args=(self.leds,))
+            target=runFlickeringFairylights, args=(self.leds,)
+        )
         self.process.start()
 
     def on_enter_RandomTwinkling(self):
-        print('Twinkle')
+        print("Twinkle")
         self.process = multiprocessing.Process(
-            target=runRandomTwinkling, args=(self.leds,))
+            target=runRandomTwinkling, args=(self.leds,)
+        )
         self.process.start()
 
     # def runFireflies(self):
@@ -82,9 +92,9 @@ def main():
     display = MockDisplay()
     leds = Leds()
 
-    fl = FairyLights(leds, display)
+    FairyLights(leds, display)
 
-    button = Button(callback=fl.buttonPressed)
+    # button = Button(callback=fl.buttonPressed)
 
     # sleep(5)
 

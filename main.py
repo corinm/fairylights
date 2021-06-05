@@ -73,7 +73,7 @@
 
 from states.states import main
 
-button = 'button'
+button = "button"
 
 
 class Button:
@@ -85,7 +85,7 @@ class Button:
 
 
 def display(title: str):
-    print(f'State: {title}')
+    print(f"State: {title}")
 
 
 main(button, display)

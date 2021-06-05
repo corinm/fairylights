@@ -1,11 +1,12 @@
+from colour import Color
+
 from .RandomTwinkling import RandomTwinkling
 
-from time import sleep
-from colour import Color
+yellow = Color(rgb=(11 / 255, 77 / 255, 57 / 255))
 
 
 def run(leds):
-    rt = RandomTwinkling(50, Color(rgb=(11/255, 77/255, 57/255)))
+    rt = RandomTwinkling(50, yellow)
 
     while True:
         leds.setLeds(rt.tick())

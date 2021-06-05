@@ -1,7 +1,14 @@
 import random
 from enum import Enum
 
-from flickering_fairylights.constants import MIN_TEMP_INCREMENT, MAX_TEMP_INCREMENT, MIN_TEMP_DECREMENT, MAX_TEMP_DECREMENT, OFF_TEMP, ON_TEMP
+from flickering_fairylights.constants import (
+    MAX_TEMP_DECREMENT,
+    MAX_TEMP_INCREMENT,
+    MIN_TEMP_DECREMENT,
+    MIN_TEMP_INCREMENT,
+    OFF_TEMP,
+    ON_TEMP,
+)
 
 
 class BulbState(Enum):
