@@ -1,3 +1,5 @@
+from typing import List
+
 import rpi_ws281x as ws
 from colour import Color
 
@@ -25,7 +27,7 @@ class Leds:
         )
         self.strip.begin()
 
-    def setLeds(self, colours):
+    def setLeds(self, colours: List[Color]):
         for i in range(self.strip.numPixels()):
 
             try:
