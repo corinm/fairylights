@@ -1,45 +1,51 @@
-from transitions import Machine, State
-from time import sleep
 import multiprocessing
+from time import sleep
+
+from transitions import Machine, State
 
 
 def runA():
     while True:
-        print('Loop a')
+        print("Loop a")
         sleep(2)
 
 
 def runB():
     while True:
-        print('Loop b')
+        print("Loop b")
         sleep(2)
 
 
 def runC():
     while True:
-        print('Loop c')
+        print("Loop c")
         sleep(2)
 
 
-class TestFsm():
+class TestFsm:
     states = [
-        State(name='init'),
-        State(name='a', on_enter=['runA']),
-        State(name='b', on_enter=['runB']),
-        State(name='c', on_enter=['runC']),
+        State(name="init"),
+        State(name="a", on_enter=["runA"]),
+        State(name="b", on_enter=["runB"]),
+        State(name="c", on_enter=["runC"]),
     ]
 
     transitions = [
-        {'trigger': 'initialise', 'source': states[0], 'dest': states[1]},
-        {'trigger': 'buttonPressed', 'source': states[1], 'dest': states[2]},
-        {'trigger': 'buttonPressed', 'source': states[2], 'dest': states[3]},
-        {'trigger': 'buttonPressed', 'source': states[3], 'dest': states[1]},
+        {"trigger": "initialise", "source": states[0], "dest": states[1]},
+        {"trigger": "buttonPressed", "source": states[1], "dest": states[2]},
+        {"trigger": "buttonPressed", "source": states[2], "dest": states[3]},
+        {"trigger": "buttonPressed", "source": states[3], "dest": states[1]},
     ]
 
     def __init__(self):
-        print('Starting...')
-        self.machine = Machine(self, states=self.states,
-                               transitions=self.transitions, initial=self.states[0], after_state_change='printState')
+        print("Starting...")
+        self.machine = Machine(
+            self,
+            states=self.states,
+            transitions=self.transitions,
+            initial=self.states[0],
+            after_state_change="printState",
+        )
         self.p: multiprocessing.Process = None
         self.initialise()
 
@@ -47,26 +53,26 @@ class TestFsm():
         print("Now in state: ", self.state)
 
     def runA(self):
-        print('Running a')
+        print("Running a")
         self.p = multiprocessing.Process(target=runA)
         self.p.start()
 
     def runB(self):
-        print('Running b')
+        print("Running b")
         self.p = multiprocessing.Process(target=runB)
         self.p.start()
 
     def runC(self):
-        print('Running c')
+        print("Running c")
         self.p = multiprocessing.Process(target=runC)
         self.p.start()
 
     def buttonPressed(self):
         print("Button pressed")
-        if self.p != None:
+        if self.p is not None:
             self.p.terminate()
             self.p = None
-        self.trigger('buttonPressed')
+        self.trigger("buttonPressed")
 
 
 class Button:

@@ -1,12 +1,13 @@
+import multiprocessing
+from time import sleep
 from typing import Union
+
 import adafruit_ssd1306
-from PIL import Image, ImageDraw, ImageFont
 import busio
 from board import SCL, SDA
-from time import sleep
-import multiprocessing
+from PIL import Image, ImageDraw, ImageFont
 
-MODE = '1'  # 1-bit colour
+MODE = "1"  # 1-bit colour
 PIXEL_WIDTH = 128
 PIXEL_HEIGHT = 32
 
@@ -14,16 +15,16 @@ PIXEL_HEIGHT = 32
 class Display:
     def __init__(self):
         i2c = busio.I2C(SCL, SDA)
-        self.display = adafruit_ssd1306.SSD1306_I2C(
-            PIXEL_WIDTH, PIXEL_HEIGHT, i2c)
+        self.display = adafruit_ssd1306.SSD1306_I2C(PIXEL_WIDTH, PIXEL_HEIGHT, i2c)
         self.clearDisplay()
         self.image = Image.new(MODE, (self.display.width, self.display.height))
         self.draw = ImageDraw.Draw(self.image)
         self.draw.rectangle(
-            (0, 0, self.display.width, self.display.height), outline=0, fill=0)
+            (0, 0, self.display.width, self.display.height), outline=0, fill=0
+        )
         padding = -2
         self.top = padding
-        bottom = self.display.height - padding
+        # bottom = self.display.height - padding
         self.x = 0
         self.font = ImageFont.load_default()
 
@@ -40,11 +41,12 @@ class Display:
         self.clearAnyPreviousMessage()
 
         self.process = multiprocessing.Process(
-            target=self._renderMessage, args=(message,))
+            target=self._renderMessage, args=(message,)
+        )
         self.process.start()
 
     def clearAnyPreviousMessage(self):
-        if self.process != None and self.process.is_alive() == True:
+        if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
         self.clearDisplay()

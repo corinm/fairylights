@@ -1,8 +1,8 @@
+import collections
+import random
 import unittest
 
 import helpers
-import random
-import collections
 
 
 class TestHelpers(unittest.TestCase):
@@ -113,5 +113,5 @@ class TestHelpers(unittest.TestCase):
         self.assertNotEqual(shuffled1, shuffled2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -14,7 +14,7 @@ def tick():
     # Move any existing Fireflies
     for key, f in Fireflies.items():
         if f.direction == Direction.UP:
-            leds[key+1] = leds[key]
+            leds[key + 1] = leds[key]
 
         # Delete any finished Fireflies and clear led
         # Pick an empty led

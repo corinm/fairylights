@@ -1,9 +1,10 @@
-from typing import List
 import math
+from typing import List
+
 from colour import Color
 
-from flickering_fairylights.FlickerBulb import BulbState
 import flickering_fairylights.constants as constants
+from flickering_fairylights.FlickerBulb import BulbState
 
 
 def generateFullListOfColours(flickerBulbStates: List[BulbState]):
@@ -15,25 +16,55 @@ def generateFullListOfColours(flickerBulbStates: List[BulbState]):
 
     bulbs = [
         determineBrightness(flickerBulbStates[0], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[1], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[2], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[3], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[4], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[5], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[6], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[7], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[8], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
         determineBrightness(flickerBulbStates[9], on),
-        on, on, on, on,
+        on,
+        on,
+        on,
+        on,
     ]
 
     assert len(bulbs) == 50

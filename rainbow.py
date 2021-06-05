@@ -1,4 +1,5 @@
 import math
+
 from colour import Color
 
 
@@ -21,9 +22,9 @@ def angleToColour(angle: int):
     assert angle >= 0
     assert angle <= 360
 
-    r = wheel[(angle+120) % 360]
+    r = wheel[(angle + 120) % 360]
     g = wheel[angle]
-    b = wheel[(angle+240) % 360]
+    b = wheel[(angle + 240) % 360]
 
     return Color(rgb=(r / 255, g / 255, b / 255))
 

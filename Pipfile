@@ -14,6 +14,13 @@ transitions = "*"
 [dev-packages]
 autopep8 = "*"
 mypy = "*"
+black = "*"
+isort = "*"
+flake8 = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
