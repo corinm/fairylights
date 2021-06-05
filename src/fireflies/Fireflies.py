@@ -8,7 +8,7 @@ from utils.gradients import createGradientFromBlack, createGradientToBlack
 
 # yellowGreen1 = Color(rgb=(241 / 255, 250 / 255, 13 / 255))
 bright = Color(rgb=(96 / 255, 100 / 255, 5 / 255))
-dark = Color(rgb=(87 / 255, 96 / 255, 13 / 255))
+dark = Color(rgb=(38 / 255, 40 / 255, 2 / 255))
 
 STEPS = 10
 
@@ -110,7 +110,7 @@ class Fireflies:
         return len([f for f in self.fireflies if not f.done]) == 0
 
     def newFirelies(self):
-        upper = randrange(2, 5)
+        upper = randrange(2, 8 + 1)
         for i in range(self.numberOfLeds):
             if randrange(0, upper) == 0:
                 self.fireflies.append(FireflyStaticGlow(i))
