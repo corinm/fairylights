@@ -74,11 +74,14 @@ class Fireflies:
 
         if self.noActiveFireflies():
             if self.ticksUntilNextWave == 0:
-                self.ticksUntilNextWave = randrange(5, 50)
+                self.startNewCountdown()
             else:
                 self.ticksUntilNextWave -= 1
 
         return colours
+
+    def startNewCountdown(self):
+        self.ticksUntilNextWave = randrange(5, 150)
 
     def noFirefliesAndReadyForNextWave(self) -> bool:
         return len(self.fireflies) == 0 and self.ticksUntilNextWave == 0
@@ -87,8 +90,10 @@ class Fireflies:
         return len([f for f in self.fireflies if not f.done]) == 0
 
     def newFirelies(self):
+        upper = randrange(2, 5)
         for i in range(self.numberOfLeds):
-            self.fireflies.append(FireflyStaticGlow(i))
+            if randrange(0, upper) == 0:
+                self.fireflies.append(FireflyStaticGlow(i))
 
 
 # Types
