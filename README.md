@@ -15,8 +15,14 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 
 - Now generates a gradient where hue doesn't change
 - Fixed bug where shuffle combined with large number of steps led to bulbs starting a new twinkle before they'd finished a previous one
+- Now accepts a list of colours instead of just one
 - **Should**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
-- **Should**: Accept list of colours instead of just one
+- **Could**: Combine gamma with bell curve to create nice fade in and out effect
+
+#### Retro fairy lights
+
+Inspired by:
+- Vintage fairy lights e.g. Noma Pickwick
 
 ### Fireflies
 
