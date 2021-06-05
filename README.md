@@ -24,13 +24,19 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 Inspired by:
 - Vintage fairy lights e.g. Noma Pickwick
 
+- Colours: Pink, red and orange are good
+- **Should**: Improve green (slightly more blue?) and blue (slightly more greenish?)
+
 ### Fireflies
 
 Sources of inspiration:
 - https://www.youtube.com/watch?v=k72jGJTC_3o&t=43s
 - https://www.youtube.com/watch?v=Z7VZlaHWR1s
 
-- TODO
+- Initial type - static glow
+- **Should** implement a static flickering one
+- **Should** implement a moving glow one
+- **Should** vary them in series of "waves"
 
 ### Rainbow
 
