@@ -5,6 +5,7 @@ from typing import Union
 from transitions import Machine, State
 
 from display.MockDisplay import MockDisplay
+from fireflies import run as runFireflies
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
 from random_twinkling import run as runRandomTwinkling
@@ -26,14 +27,15 @@ states = [
     State(name="FlickeringFairyLights"),
     State(name="RandomTwinklingBluePink"),
     State(name="RandomTwinklingRetro"),
-    # State(name='Fireflies')
+    State(name="Fireflies"),
 ]
 
 transitions = [
     {"trigger": "initialise", "source": states[0], "dest": states[1]},
     {"trigger": "buttonPressed", "source": states[1], "dest": states[2]},
     {"trigger": "buttonPressed", "source": states[2], "dest": states[3]},
-    {"trigger": "buttonPressed", "source": states[3], "dest": states[1]},
+    {"trigger": "buttonPressed", "source": states[3], "dest": states[4]},
+    {"trigger": "buttonPressed", "source": states[4], "dest": states[1]},
 ]
 
 
@@ -92,8 +94,10 @@ class FairyLights(Machine):
         )
         self.process.start()
 
-    # def runFireflies(self):
-    #     print('Fireflies')
+    def on_enter_Fireflies(self):
+        print("Fireflies")
+        self.process = multiprocessing.Process(target=runFireflies, args=(self.leds,))
+        self.process.start()
 
 
 def main():
@@ -104,12 +108,12 @@ def main():
 
     button = Button(callback=fl.buttonPressed)
 
-    sleep(2)
+    sleep(0)
     button.press()
-    sleep(2)
+    sleep(0)
     button.press()
-    # sleep(5)
-    # button.press()
+    sleep(0)
+    button.press()
     # sleep(5)
     # button.press()
 

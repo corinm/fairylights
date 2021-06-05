@@ -25,7 +25,7 @@ red = Color(rgb=(184 * 0.7 / 255, 44 * 0.4 / 255, 8 * 0.4 / 255))
 
 styles: Dict[str, List[Color]] = {
     "BLUE_PINK": [blue80s, pink80s],
-    "RETRO": [pink, blue, orange, green, red],
+    "RETRO": [pink, blue80s, orange, green, red],
 }
 
 
