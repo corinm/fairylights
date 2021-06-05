@@ -43,3 +43,5 @@ flickerMid = flickerColours[5]  # For "DIM" flicker bulbs
 
 # Nice neon rainbow - by accident when trying to dim yellow
 # [<Color #609103>, <Color #1d8a03>, <Color #028225>, <Color #027b5a>, <Color #015d73>, <Color #01256b>, <Color #0d0164>, <Color #36015c>, <Color #540051>, <Color #4d0026>, <Color #450002>]
+
+pleasantWhite = Color(rgb=(255 / 255, 253 / 255, 128 / 255))
