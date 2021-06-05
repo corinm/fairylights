@@ -12,15 +12,19 @@ NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
 
 
 class RandomTwinkling:
-    def __init__(self, numberOfBulbs: int, colour: Color):
+    def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.numberOfBulbs: int = numberOfBulbs
-        self.colour = colour
         self.counter: int = 0
 
-        up = createGradientFromBlack(colour, STEPS_FROM_OFF_TO_ON)
-        down = createGradientToBlack(colour, STEPS_FROM_OFF_TO_ON)
+        self.stateToColourByColour: List[List[Color]] = []
 
-        self.stateToColour: List[Color] = up + down[1:]
+        for i in range(len(colours)):
+            up = createGradientFromBlack(colours[i], STEPS_FROM_OFF_TO_ON)
+            down = createGradientToBlack(colours[i], STEPS_FROM_OFF_TO_ON)
+            upAndDown: List[Color] = up + down[1:]
+            self.stateToColourByColour.append(upAndDown)
+
+        # self.stateToColour: List[Color] = up + down[1:]
 
         self.shuffledBulbIndexes: List[int] = []
         self.shuffle()
@@ -31,7 +35,10 @@ class RandomTwinkling:
         # TODO Only do this sometimes, not every tick?
         self.nextTwinkle()
 
-        colours: List[Color] = [self.stateToColour[state] for state in self.bulbs]
+        colour = 0
+        colours: List[Color] = [
+            self.stateToColourByColour[colour][state] for state in self.bulbs
+        ]
 
         self.updateBulbs()
 
