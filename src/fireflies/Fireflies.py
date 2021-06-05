@@ -29,7 +29,7 @@ class Firefly:
 class FireflyStaticGlow(Firefly):
     def __init__(self, position: int):
         super().__init__(position)
-        self.numberOfTicksWhileBright = randrange(10, 35)
+        self.numberOfTicksWhileBright = randrange(2, 30)
         self.waitingCount = 0
         self.delay = randrange(0, 25)
         self.delayCount = 0
@@ -58,12 +58,13 @@ class Fireflies:
     def __init__(self, numberOfLeds: int):
         self.numberOfLeds = numberOfLeds
         self.fireflies: List[Firefly] = []
-
-        for i in range(numberOfLeds):
-            self.fireflies.append(FireflyStaticGlow(i))
+        self.ticksUntilNextWave = 0
 
     def tick(self):
         colours = [black for i in range(50)]
+
+        if self.noFirefliesAndReadyForNextWave():
+            self.newFirelies()
 
         for firefly in self.fireflies:
             firefly.tick()
@@ -71,7 +72,23 @@ class Fireflies:
 
         self.fireflies = [f for f in self.fireflies if not f.done]
 
+        if self.noActiveFireflies():
+            if self.ticksUntilNextWave == 0:
+                self.ticksUntilNextWave = randrange(5, 50)
+            else:
+                self.ticksUntilNextWave -= 1
+
         return colours
+
+    def noFirefliesAndReadyForNextWave(self) -> bool:
+        return len(self.fireflies) == 0 and self.ticksUntilNextWave == 0
+
+    def noActiveFireflies(self) -> bool:
+        return len([f for f in self.fireflies if not f.done]) == 0
+
+    def newFirelies(self):
+        for i in range(self.numberOfLeds):
+            self.fireflies.append(FireflyStaticGlow(i))
 
 
 # Types
