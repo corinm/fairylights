@@ -1,5 +1,6 @@
+from enum import Enum
 from random import randrange
-from typing import List
+from typing import Dict, List
 
 from colour import Color
 
@@ -7,22 +8,41 @@ from utils.gradients import createGradientFromBlack, createGradientToBlack
 
 # yellowGreen1 = Color(rgb=(241 / 255, 250 / 255, 13 / 255))
 bright = Color(rgb=(96 / 255, 100 / 255, 5 / 255))
-dark = Color(rgb=(40 / 255, 76 / 255, 2 / 255))
+dark = Color(rgb=(87 / 255, 96 / 255, 13 / 255))
 
 STEPS = 10
 
-up = createGradientFromBlack(bright, STEPS)
-down = createGradientToBlack(bright, STEPS)
 
-gradient: List[Color] = up + down[1:]
+class FireflyColour(Enum):
+    BRIGHT = 1
+    DARKER = 2
+
+
+up1 = createGradientFromBlack(bright, STEPS)
+down1 = createGradientToBlack(bright, STEPS)
+gradient1: List[Color] = up1 + down1[1:]
+
+up2 = createGradientFromBlack(bright, STEPS)
+down2 = createGradientToBlack(bright, STEPS)
+gradient2: List[Color] = up2 + down2[1:]
+
+GRADIENT_LENGTH = STEPS * 2 - 1
 
 black = Color(None)
+
+gradients: Dict[FireflyColour, List[Color]] = {
+    FireflyColour.BRIGHT: gradient1,
+    FireflyColour.DARKER: gradient2,
+}
 
 
 class Firefly:
     def __init__(self, position: int):
         self.position: int = position
         self.state: int = 0
+        self.colour: FireflyColour = (
+            FireflyColour.BRIGHT if randrange(0, 2) == 0 else FireflyColour.DARKER
+        )
         self.done = False
 
 
@@ -41,7 +61,7 @@ class FireflyStaticGlow(Firefly):
         elif self.isBright() and self.isWaiting():
             self.waitingCount += 1
 
-        elif self.state >= len(gradient) - 1:
+        elif self.state >= GRADIENT_LENGTH - 1:
             self.done = True
 
         else:
@@ -68,7 +88,7 @@ class Fireflies:
 
         for firefly in self.fireflies:
             firefly.tick()
-            colours[firefly.position] = gradient[firefly.state]
+            colours[firefly.position] = gradients[firefly.colour][firefly.state]
 
         self.fireflies = [f for f in self.fireflies if not f.done]
 
