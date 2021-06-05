@@ -2,7 +2,7 @@ import collections
 import random
 import unittest
 
-import helpers
+import random_twinkling.helpers as helpers
 
 
 class TestHelpers(unittest.TestCase):
