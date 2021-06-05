@@ -24,15 +24,16 @@ class Button:
 states = [
     State(name="Init"),
     State(name="FlickeringFairyLights"),
-    State(name="RandomTwinkling"),
+    State(name="RandomTwinklingBluePink"),
+    State(name="RandomTwinklingRetro"),
     # State(name='Fireflies')
 ]
 
 transitions = [
     {"trigger": "initialise", "source": states[0], "dest": states[1]},
     {"trigger": "buttonPressed", "source": states[1], "dest": states[2]},
-    {"trigger": "buttonPressed", "source": states[2], "dest": states[1]},
-    # {'trigger': 'buttonPressed', 'source': states[3], 'dest': states[1]},
+    {"trigger": "buttonPressed", "source": states[2], "dest": states[3]},
+    {"trigger": "buttonPressed", "source": states[3], "dest": states[1]},
 ]
 
 
@@ -77,10 +78,17 @@ class FairyLights(Machine):
         )
         self.process.start()
 
-    def on_enter_RandomTwinkling(self):
-        print("Twinkle")
+    def on_enter_RandomTwinklingBluePink(self):
+        print("TwinkleBluePink")
         self.process = multiprocessing.Process(
-            target=runRandomTwinkling, args=(self.leds,)
+            target=runRandomTwinkling, args=(self.leds, "BLUE_PINK")
+        )
+        self.process.start()
+
+    def on_enter_RandomTwinklingRetro(self):
+        print("TwinkleRetro")
+        self.process = multiprocessing.Process(
+            target=runRandomTwinkling, args=(self.leds, "RETRO")
         )
         self.process.start()
 
@@ -96,8 +104,9 @@ def main():
 
     button = Button(callback=fl.buttonPressed)
 
-    # sleep(5)
-
+    sleep(2)
+    button.press()
+    sleep(2)
     button.press()
     # sleep(5)
     # button.press()
