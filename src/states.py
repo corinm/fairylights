@@ -92,13 +92,13 @@ def main():
     display = MockDisplay()
     leds = Leds()
 
-    FairyLights(leds, display)
+    fl = FairyLights(leds, display)
 
-    # button = Button(callback=fl.buttonPressed)
+    button = Button(callback=fl.buttonPressed)
 
     # sleep(5)
 
-    # button.press()
+    button.press()
     # sleep(5)
     # button.press()
     # sleep(5)
