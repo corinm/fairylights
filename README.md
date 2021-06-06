@@ -9,7 +9,6 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 - Flickering pretty much there
 - Colours pretty much there
 - **Could**: Allow choice of colour
-- **Should**: Check that tests still pass
 
 ### Random twinkling
 
