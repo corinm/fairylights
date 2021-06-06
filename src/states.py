@@ -108,7 +108,7 @@ def main():
 
     button = Button(callback=fl.buttonPressed)
 
-    sleep(10)
+    # sleep(10)
     button.press()
     sleep(10)
     button.press()
