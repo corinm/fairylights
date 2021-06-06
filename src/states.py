@@ -34,11 +34,11 @@ states = [
 
 transitions = [
     {"trigger": "initialise", "source": states[0], "dest": states[1]},
-    {"trigger": "buttonPressed", "source": states[1], "dest": states[2]},
-    {"trigger": "buttonPressed", "source": states[2], "dest": states[3]},
-    {"trigger": "buttonPressed", "source": states[3], "dest": states[4]},
-    {"trigger": "buttonPressed", "source": states[4], "dest": states[5]},
-    {"trigger": "buttonPressed", "source": states[5], "dest": states[1]},
+    {"trigger": "next", "source": states[1], "dest": states[2]},
+    {"trigger": "next", "source": states[2], "dest": states[3]},
+    {"trigger": "next", "source": states[3], "dest": states[4]},
+    {"trigger": "next", "source": states[4], "dest": states[5]},
+    {"trigger": "next", "source": states[5], "dest": states[1]},
 ]
 
 
@@ -69,12 +69,12 @@ class FairyLights(Machine):
     def showState(self):
         self.display.renderMessage(f"> {self.state}")
 
-    def buttonPressed(self):
+    def next(self):
         print("Button pressed")
         if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
-        self.trigger("buttonPressed")
+        self.trigger("next")
 
     def on_enter_FlickeringFairyLights(self):
         print("Flicker")
@@ -116,7 +116,7 @@ def main():
 
     fl = FairyLights(leds, display)
 
-    button = Button(callback=fl.buttonPressed)
+    button = Button(callback=fl.next)
 
     # sleep(10)
     button.press()
