@@ -28,8 +28,8 @@ states = [
     State(name="FlickeringFairyLights"),
     State(name="RandomTwinklingBluePink"),
     State(name="RandomTwinklingRetro"),
-    State(name="Fireflies"),
     State(name="RandomTwinklingRandomColours"),
+    State(name="Fireflies"),
 ]
 
 transitions = [
