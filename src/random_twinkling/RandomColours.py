@@ -11,25 +11,28 @@ sys.path.append(parentdir)
 from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
+from utils.randomColour import randomColour  # noqa
 
 from .RandomTwinkling import RandomTwinkling  # noqa
 
 
-class RandomColours(RandomTwinkling):
+class RandomColours:
     def __init__(self, numberOfLeds: int):
-        super().__init__(numberOfLeds, [])
         self.numberOfLeds = numberOfLeds
         self.resetTime()
+        self.colours: List[Color] = [randomColour(), randomColour()]
+        self.rt = RandomTwinkling(numberOfLeds, self.colours)
 
     def tick(self) -> List[Color]:
         if self.nextChange <= datetime.now():
             self.updateColours()
             self.resetTime()
 
-        return [Color() for _ in range(self.numberOfLeds)]
+        return self.rt.tick()
 
     def resetTime(self):
         self.nextChange = datetime.now() + timedelta(seconds=10)
 
     def updateColours(self):
-        pass
+        self.colours = [self.colours[1], randomColour()]
+        self.rt.queueNewColours(self.colours)

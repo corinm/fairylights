@@ -14,24 +14,89 @@ NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
 class Bulb:
     def __init__(self):
         self.state = 0
-        self.colour = 0
+        self.stateToColour: List[Color] = []
 
-    def start(self, colour: int):
+    def start(self, stateToColour: List[Color]):
         self.state = 1
-        self.colour = colour
+        self.stateToColour = stateToColour
 
-
-def noOp():
-    pass
+    def getColour(self):
+        if len(self.stateToColour) == 0:
+            return Color(None)
+        else:
+            return self.stateToColour[self.state]
 
 
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.numberOfBulbs: int = numberOfBulbs
         self.counter: int = 0
-        self.numberOfColours = len(colours)
+        self.nextColours = colours
+        self._setColours()
 
         self.colour = 0
+
+        self.shuffledBulbIndexes: List[int] = []
+        self._shuffle()
+
+        self.bulbs: List[Bulb] = [Bulb() for _ in range(numberOfBulbs)]
+
+        # Used to shedule a colour change right before a shuffle
+        self.newColoursAvailable = False
+
+    def tick(self) -> List[Color]:
+        # TODO Only do this sometimes, not every tick?
+        self._nextTwinkle()
+
+        colours: List[Color] = [bulb.getColour() for bulb in self.bulbs]
+
+        self._updateBulbs()
+
+        return colours
+
+    def _incrementColour(self):
+        self.colour += 1
+
+        if self.colour >= self.numberOfColours:
+            self.colour = 0
+
+    def _shuffle(self):
+        if self.newColoursAvailable:
+            self._setColours()
+
+        self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
+
+    def _nextTwinkle(self):
+        if self.counter == len(self.shuffledBulbIndexes):
+            self._shuffle()
+            self.counter = 0
+
+        bulbIndex = self.shuffledBulbIndexes[self.counter]
+        self.counter += 1
+
+        # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
+        if self.bulbs[bulbIndex].state == 0:
+            self.bulbs[bulbIndex].start(self.stateToColourByColour[self.colour])
+            self._incrementColour()
+
+        return self.bulbs
+
+    def _updateBulbs(self):
+        for i in range(len(self.bulbs)):
+            if self.bulbs[i].state == 0:
+                pass
+            elif self.bulbs[i].state >= NUMBER_OF_STATES - 1:
+                self.bulbs[i].state = 0
+            else:
+                self.bulbs[i].state += 1
+
+    def queueNewColours(self, colours: List[Color]):
+        self.newColoursAvailable = True
+        self.nextColours = colours
+
+    def _setColours(self):
+        colours = self.nextColours
+        self.numberOfColours = len(colours)
 
         self.stateToColourByColour: List[List[Color]] = []
 
@@ -41,58 +106,5 @@ class RandomTwinkling:
             upAndDown: List[Color] = up + down[1:]
             self.stateToColourByColour.append(upAndDown)
 
-        self.shuffledBulbIndexes: List[int] = []
-        self.shuffle()
-
-        self.bulbs: List[Bulb] = [Bulb() for _ in range(numberOfBulbs)]
-
-        # Used to shedule a colour change right before a shuffle
         self.newColoursAvailable = False
-
-    def tick(self) -> List[Color]:
-        # TODO Only do this sometimes, not every tick?
-        self.nextTwinkle()
-
-        colours: List[Color] = [
-            self.stateToColourByColour[bulb.colour][bulb.state] for bulb in self.bulbs
-        ]
-
-        self.updateBulbs()
-
-        return colours
-
-    def incrementColour(self):
-        self.colour += 1
-
-        if self.colour >= self.numberOfColours:
-            self.colour = 0
-
-    def shuffle(self):
-        self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
-
-    def nextTwinkle(self):
-        if self.counter == len(self.shuffledBulbIndexes):
-            self.shuffle()
-            self.counter = 0
-
-        bulbIndex = self.shuffledBulbIndexes[self.counter]
-        self.counter += 1
-
-        # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
-        if self.bulbs[bulbIndex].state == 0:
-            self.bulbs[bulbIndex].start(self.colour)
-            self.incrementColour()
-
-        return self.bulbs
-
-    def updateBulbs(self):
-        for i in range(len(self.bulbs)):
-            if self.bulbs[i].state == 0:
-                pass
-            elif self.bulbs[i].state >= NUMBER_OF_STATES - 1:
-                self.bulbs[i].state = 0
-            else:
-                self.bulbs[i].state += 1
-
-    def updateColours(self):
-        self.newColoursAvailable = True
+        self.nextColours = []
