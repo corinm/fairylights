@@ -34,9 +34,10 @@ Sources of inspiration:
 - https://www.youtube.com/watch?v=Z7VZlaHWR1s
 
 - Initial type - static glow
+- Fireflies light up in waves
+- Fireflies are randomly assigned one of two shades of green
 - **Should** implement a static flickering one
 - **Should** implement a moving glow one
-- **Should** vary them in series of "waves"
 
 ### Rainbow
 
