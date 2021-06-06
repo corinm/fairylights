@@ -1,4 +1,4 @@
-from fireflies.Fireflies import Fireflies
+from .Fireflies import Fireflies
 
 
 def run(leds):

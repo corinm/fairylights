@@ -18,6 +18,7 @@ black = "*"
 isort = "*"
 flake8 = "*"
 pre-commit = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"

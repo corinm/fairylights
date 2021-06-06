@@ -7,12 +7,12 @@ import random_twinkling.helpers as helpers
 
 class TestHelpers(unittest.TestCase):
     def test_generates_a_list_of_50_bulbs(self):
-        shuffled = helpers.createShuffledList(50, random)
+        shuffled = helpers.createShuffledList(50)
         self.assertEqual(len(shuffled), 50)
 
     def test_list_is_evenly_shuffled(self):
         random.seed(1)
-        shuffled = helpers.createShuffledList(50, random)
+        shuffled = helpers.createShuffledList(50)
 
         # 0-5 contain one number between 0 and 9, one between 10 and 19 etc.
         divided = map(lambda x: int(x / 10), shuffled[0:5])
@@ -97,7 +97,7 @@ class TestHelpers(unittest.TestCase):
 
     def test_every_number_appears_once(self):
         random.seed(1)
-        shuffled = helpers.createShuffledList(50, random)
+        shuffled = helpers.createShuffledList(50)
 
         # 0-5 contain one number between 0 and 9, one between 10 and 19 etc.
         counter = collections.Counter(shuffled)
@@ -107,8 +107,8 @@ class TestHelpers(unittest.TestCase):
 
     def test_generates_new_list_each_time(self):
         random.seed(1)
-        shuffled1 = helpers.createShuffledList(50, random)
-        shuffled2 = helpers.createShuffledList(50, random)
+        shuffled1 = helpers.createShuffledList(50)
+        shuffled2 = helpers.createShuffledList(50)
 
         self.assertNotEqual(shuffled1, shuffled2)
 

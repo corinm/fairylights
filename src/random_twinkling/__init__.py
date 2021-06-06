@@ -11,6 +11,7 @@ from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
 
+from .RandomColours import RandomColours  # noqa
 from .RandomTwinkling import RandomTwinkling  # noqa
 
 blue80s = Color(rgb=(11 / 255, 77 / 255, 57 / 255))
@@ -34,3 +35,10 @@ def run(leds: Leds, style: str):
 
     while True:
         leds.setLeds(rt.tick())
+
+
+def runRandomColours(leds: Leds):
+    rc = RandomColours(50)
+
+    while True:
+        leds.setLeds(rc.tick())

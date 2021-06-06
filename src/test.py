@@ -1,6 +1,7 @@
 from colour import Color
 
 from leds.Leds import Leds
+from random_twinkling import runRandomColours
 
 try:
     # pink = Color(rgb=(91 / 255, 0 / 255, 45 / 255))
@@ -16,9 +17,8 @@ try:
     dark = Color(rgb=(38 / 255, 40 / 255, 2 / 255))
 
     leds = Leds()
-    colours = [bright, dark]
-    leds.setLeds([colours[i % len(colours)] for i in range(50)])
 
+    runRandomColours(leds)
 
 except KeyboardInterrupt:
     # Cleanup

@@ -21,6 +21,10 @@ class Bulb:
         self.colour = colour
 
 
+def noOp():
+    pass
+
+
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.numberOfBulbs: int = numberOfBulbs
@@ -37,12 +41,13 @@ class RandomTwinkling:
             upAndDown: List[Color] = up + down[1:]
             self.stateToColourByColour.append(upAndDown)
 
-        # self.stateToColour: List[Color] = up + down[1:]
-
         self.shuffledBulbIndexes: List[int] = []
         self.shuffle()
 
         self.bulbs: List[Bulb] = [Bulb() for _ in range(numberOfBulbs)]
+
+        # Used to shedule a colour change right before a shuffle
+        self.newColoursAvailable = False
 
     def tick(self) -> List[Color]:
         # TODO Only do this sometimes, not every tick?
@@ -88,3 +93,6 @@ class RandomTwinkling:
                 self.bulbs[i].state = 0
             else:
                 self.bulbs[i].state += 1
+
+    def updateColours(self):
+        self.newColoursAvailable = True
