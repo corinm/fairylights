@@ -16,9 +16,13 @@ from .RandomTwinkling import RandomTwinkling  # noqa
 
 
 class RandomColours:
-    def __init__(self, numberOfLeds: int, randomAlgorithm):
-        self.randomAlgorithm = randomAlgorithm
+    def __init__(
+        self, numberOfLeds: int, randomAlgorithm, secondsBetweenColourChanges=10
+    ):
         self.numberOfLeds = numberOfLeds
+        self.randomAlgorithm = randomAlgorithm
+        self.secondsBetweenColourChanges = secondsBetweenColourChanges
+
         self.resetTime()
         self.colours: List[Color] = [self.randomAlgorithm(), self.randomAlgorithm()]
         self.rt = RandomTwinkling(numberOfLeds, self.colours)
@@ -31,7 +35,9 @@ class RandomColours:
         return self.rt.tick()
 
     def resetTime(self):
-        self.nextChange = datetime.now() + timedelta(seconds=10)
+        self.nextChange = datetime.now() + timedelta(
+            seconds=self.secondsBetweenColourChanges
+        )
 
     def updateColours(self):
         self.colours = [self.colours[1], self.randomAlgorithm()]

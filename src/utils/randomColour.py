@@ -39,7 +39,6 @@ RANGE_OF_ANALAGOUS_COLOURS = int(360 / 9 * 3)
 
 
 def randomColourAnalogous():
-    # TODO: This is going to keep increasing in size as it iterates
     angleAtStartOfRange = randrange(0, 360)
 
     iterations = 0
@@ -59,5 +58,16 @@ def randomColourAnalogous():
         end = angleAtStartOfRange + RANGE_OF_ANALAGOUS_COLOURS
         print(angleAtStartOfRange, end)
         return angleToColour(randrange(angleAtStartOfRange, end) % 360)
+
+    return nextColour
+
+
+def colourWheel():
+    angle = randrange(0, 360)
+
+    def nextColour():
+        nonlocal angle
+        angle = (angle + 15) % 360
+        return angleToColour(angle)
 
     return nextColour
