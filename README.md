@@ -55,3 +55,8 @@ Based on:
 
 - TODO
 
+### Other ideas
+
+- Static version of retro colours
+- Pale twinkling stars / ice effect - much more subtle twinkle that existing kind
+- 

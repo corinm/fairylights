@@ -9,7 +9,7 @@ from fireflies import run as runFireflies
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
 from random_twinkling import run as runRandomTwinkling
-from random_twinkling import runRandomColours
+from random_twinkling import runRandomAnalagousColours
 from temperature_check.mockCheckTemperature import (
     mockCheckTemperature as checkTemperature,
 )
@@ -105,7 +105,7 @@ class FairyLights(Machine):
     def on_enter_RandomTwinklingRandomColours(self):
         print("RandomTwinklingRandomColours")
         self.process = multiprocessing.Process(
-            target=runRandomColours, args=(self.leds,)
+            target=runRandomAnalagousColours, args=(self.leds,)
         )
         self.process.start()
 
@@ -125,7 +125,7 @@ def main():
     # sleep(10)
     button.press()
     # sleep(10)
-    button.press()
+    # button.press()
 
 
 main()
