@@ -59,4 +59,5 @@ Based on:
 
 - Static version of retro colours
 - Pale twinkling stars / ice effect - much more subtle twinkle that existing kind
-- 
+- ^ Should have similar interface to twinkling so that it accepts same colour generator functions
+- Define states in an e.g. yaml file and load them dynamically - currently the states.py file is very boilerplatey
