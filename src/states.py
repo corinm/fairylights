@@ -9,7 +9,11 @@ from fireflies import run as runFireflies
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
 from random_twinkling import run as runRandomTwinkling
-from random_twinkling import runRandomAnalagousColours
+from random_twinkling import (
+    runColoursWheel,
+    runRandomAnalagousColours,
+    runRandomColours,
+)
 from temperature_check.mockCheckTemperature import (
     mockCheckTemperature as checkTemperature,
 )
@@ -29,6 +33,8 @@ states = [
     State(name="RandomTwinklingBluePink"),
     State(name="RandomTwinklingRetro"),
     State(name="RandomTwinklingRandomColours"),
+    State(name="RandomTwinklingRandomAnalagousColours"),
+    State(name="RandomTwinklingColourWheel"),
     State(name="Fireflies"),
 ]
 
@@ -38,7 +44,9 @@ transitions = [
     {"trigger": "next", "source": states[2], "dest": states[3]},
     {"trigger": "next", "source": states[3], "dest": states[4]},
     {"trigger": "next", "source": states[4], "dest": states[5]},
-    {"trigger": "next", "source": states[5], "dest": states[1]},
+    {"trigger": "next", "source": states[5], "dest": states[6]},
+    {"trigger": "next", "source": states[6], "dest": states[7]},
+    {"trigger": "next", "source": states[7], "dest": states[1]},
 ]
 
 
@@ -105,7 +113,21 @@ class FairyLights(Machine):
     def on_enter_RandomTwinklingRandomColours(self):
         print("RandomTwinklingRandomColours")
         self.process = multiprocessing.Process(
+            target=runRandomColours, args=(self.leds,)
+        )
+        self.process.start()
+
+    def on_enter_RandomTwinklingRandomAnalgousColours(self):
+        print("RandomTwinklingRandomAnalagousColours")
+        self.process = multiprocessing.Process(
             target=runRandomAnalagousColours, args=(self.leds,)
+        )
+        self.process.start()
+
+    def on_enter_RandomTwinklingColourWheel(self):
+        print("RandomTwinklingColourWheel")
+        self.process = multiprocessing.Process(
+            target=runColoursWheel, args=(self.leds,)
         )
         self.process.start()
 
@@ -125,6 +147,8 @@ def main():
     # sleep(10)
     button.press()
     # sleep(10)
+    button.press()
+    button.press()
     # button.press()
 
 
