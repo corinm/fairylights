@@ -10,6 +10,8 @@ sys.path.append(parentdir)
 from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
+from utils.randomColour import randomColour as trulyRandom  # noqa
+from utils.randomColour import randomColourAnalogous  # noqa
 
 from .RandomColours import RandomColours  # noqa
 from .RandomTwinkling import RandomTwinkling  # noqa
@@ -38,7 +40,15 @@ def run(leds: Leds, style: str):
 
 
 def runRandomColours(leds: Leds):
-    rc = RandomColours(50)
+    rc = RandomColours(50, trulyRandom)
 
     while True:
         leds.setLeds(rc.tick())
+
+
+def runRandomAnalagousColours(leds: Leds):
+    func = randomColourAnalogous()
+    rac = RandomColours(50, func)
+
+    while True:
+        leds.setLeds(rac.tick())

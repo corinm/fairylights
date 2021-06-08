@@ -31,8 +31,7 @@ class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.numberOfBulbs: int = numberOfBulbs
         self.counter: int = 0
-        self.nextColours = colours
-        self._setColours()
+        self.updateColours(colours)
 
         self.colour = 0
 
@@ -40,9 +39,6 @@ class RandomTwinkling:
         self._shuffle()
 
         self.bulbs: List[Bulb] = [Bulb() for _ in range(numberOfBulbs)]
-
-        # Used to shedule a colour change right before a shuffle
-        self.newColoursAvailable = False
 
     def tick(self) -> List[Color]:
         # TODO Only do this sometimes, not every tick?
@@ -61,9 +57,6 @@ class RandomTwinkling:
             self.colour = 0
 
     def _shuffle(self):
-        if self.newColoursAvailable:
-            self._setColours()
-
         self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
 
     def _nextTwinkle(self):
@@ -90,12 +83,7 @@ class RandomTwinkling:
             else:
                 self.bulbs[i].state += 1
 
-    def queueNewColours(self, colours: List[Color]):
-        self.newColoursAvailable = True
-        self.nextColours = colours
-
-    def _setColours(self):
-        colours = self.nextColours
+    def updateColours(self, colours: List[Color]):
         self.numberOfColours = len(colours)
 
         self.stateToColourByColour: List[List[Color]] = []
@@ -105,6 +93,3 @@ class RandomTwinkling:
             down = createGradientToBlack(colours[i], STEPS_FROM_OFF_TO_ON)
             upAndDown: List[Color] = up + down[1:]
             self.stateToColourByColour.append(upAndDown)
-
-        self.newColoursAvailable = False
-        self.nextColours = []
