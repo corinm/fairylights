@@ -53,10 +53,11 @@ class FairyLights(Machine):
         self.machine = Machine(
             self,
             states=states,
-            initial=states[0],
+            initial=states[len(states) - 1],
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
+        self.next()
 
     def next(self):
         print("About to transition")
@@ -82,9 +83,15 @@ def main():
     leds = Leds()
     fl = FairyLights(leds)
 
-    while True:
-        fl.next()
-        sleep(5)
+    fl.next()
+    fl.next()
+    fl.next()
+    fl.next()
+    sleep(0)
+
+    # while True:
+    #     sleep(5)
+    #     fl.next()
 
 
 main()
