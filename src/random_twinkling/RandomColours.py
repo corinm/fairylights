@@ -48,7 +48,3 @@ class RandomColours:
     def updateColours(self):
         self.colours = self.colours[1:] + [self.randomAlgorithm()]
         self.rt.updateColours(self.colours)
-        print(
-            [colour.luminance for colour in self.colours],
-            [colour.saturation for colour in self.colours],
-        )

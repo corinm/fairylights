@@ -11,6 +11,7 @@ from colour import Color  # noqa
 from leds.Leds import Leds  # noqa
 from utils.randomColour import colourWheel  # noqa
 from utils.randomColour import randomAnalogousWeighted  # noqa
+from utils.randomColour import randomColour137Degrees  # noqa
 from utils.randomColour import randomColourAnalogous  # noqa
 from utils.randomColour import randomComplimentary  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
@@ -59,6 +60,20 @@ def runRandomAnalagousWeightedColours(leds: Leds):
 
 def runRandomComplimentary(leds: Leds):
     rc = RandomColours(50, randomComplimentary(6), numberOfColours=6)
+
+    while True:
+        leds.setLeds(rc.tick())
+
+
+def runRandomComplimentaryMoving(leds: Leds):
+    rc = RandomColours(50, randomComplimentary(6), numberOfColours=6)
+
+    while True:
+        leds.setLeds(rc.tick())
+
+
+def runRandomColour137Degress(leds: Leds):
+    rc = RandomColours(50, randomColour137Degrees(), 5, 6)
 
     while True:
         leds.setLeds(rc.tick())
