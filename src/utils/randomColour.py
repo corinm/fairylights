@@ -1,5 +1,6 @@
 import math
 from random import randrange
+from typing import List
 
 from colour import Color
 
@@ -58,6 +59,49 @@ def randomColourAnalogous():
         end = angleAtStartOfRange + RANGE_OF_ANALAGOUS_COLOURS
         print(angleAtStartOfRange, end)
         return angleToColour(randrange(angleAtStartOfRange, end) % 360)
+
+    return nextColour
+
+
+class Segment:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+
+
+def randomAnalogousWeighted():
+    angleAtStartOfRange = randrange(0, 360)
+    segmentSize = int(360 / 12)
+
+    segments: List[Segment] = [
+        Segment(angleAtStartOfRange, angleAtStartOfRange + segmentSize),
+        Segment(
+            angleAtStartOfRange + segmentSize, angleAtStartOfRange + segmentSize * 2
+        ),
+        Segment(
+            angleAtStartOfRange + segmentSize * 2, angleAtStartOfRange + segmentSize * 3
+        ),
+    ]
+
+    currentSegment = 0
+
+    def nextColour():
+        nonlocal currentSegment
+
+        angle = randrange(segments[currentSegment].start, segments[currentSegment].end)
+
+        colour = angleToColour(angle % 360)
+
+        # if currentSegment < 2:
+        #     colour.luminance = 0.2
+        # colour.saturation = 0.5
+
+        currentSegment += 1
+
+        if currentSegment >= 3:
+            currentSegment = 0
+
+        return colour
 
     return nextColour
 
