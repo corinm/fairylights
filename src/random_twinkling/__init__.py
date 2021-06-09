@@ -11,6 +11,7 @@ from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
 from utils.randomColour import colourWheel  # noqa
+from utils.randomColour import randomAnalogousWeighted  # noqa
 from utils.randomColour import randomColourAnalogous  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
 
@@ -53,6 +54,14 @@ def runRandomAnalagousColours(leds: Leds):
 
     while True:
         leds.setLeds(rac.tick())
+
+
+def runRandomAnalagousWeightedColours(leds: Leds):
+    func = randomAnalogousWeighted()
+    rawc = RandomColours(50, func, numberOfColours=3)
+
+    while True:
+        leds.setLeds(rawc.tick())
 
 
 def runColoursWheel(leds: Leds):

@@ -4,7 +4,6 @@ from typing import Union
 
 from transitions import Machine, State
 
-from display.MockDisplay import MockDisplay
 from fireflies import run as runFireflies
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
@@ -12,6 +11,7 @@ from random_twinkling import run as runRandomTwinkling
 from random_twinkling import (
     runColoursWheel,
     runRandomAnalagousColours,
+    runRandomAnalagousWeightedColours,
     runRandomColours,
 )
 from temperature_check.mockCheckTemperature import (
@@ -34,6 +34,7 @@ states = [
     State(name="RandomTwinklingRetro"),
     State(name="RandomTwinklingRandomColours"),
     State(name="RandomTwinklingRandomAnalagousColours"),
+    State(name="RandomTwinklingRandomAnalagousWeightedColours"),
     State(name="RandomTwinklingColourWheel"),
     State(name="Fireflies"),
 ]
@@ -46,21 +47,20 @@ transitions = [
     {"trigger": "next", "source": states[4], "dest": states[5]},
     {"trigger": "next", "source": states[5], "dest": states[6]},
     {"trigger": "next", "source": states[6], "dest": states[7]},
-    {"trigger": "next", "source": states[7], "dest": states[1]},
+    {"trigger": "next", "source": states[7], "dest": states[8]},
+    {"trigger": "next", "source": states[8], "dest": states[1]},
 ]
 
 
 class FairyLights(Machine):
-    def __init__(self, leds, display):
+    def __init__(self, leds):
         print("Starting...")
         self.leds = leds
-        self.display = display
         self.machine = Machine(
             self,
             states=states,
             transitions=transitions,
             initial=states[0],
-            after_state_change="showState",
         )
         self.process: Union[multiprocessing.Process, None] = None
         self.processMonitorTemperature: multiprocessing.Process = (
@@ -73,9 +73,6 @@ class FairyLights(Machine):
         while True:
             print("Checking temp", checkTemperature())
             sleep(10)
-
-    def showState(self):
-        self.display.renderMessage(f"> {self.state}")
 
     def next(self):
         print("Button pressed")
@@ -117,10 +114,17 @@ class FairyLights(Machine):
         )
         self.process.start()
 
-    def on_enter_RandomTwinklingRandomAnalgousColours(self):
+    def on_enter_RandomTwinklingRandomAnalagousColours(self):
         print("RandomTwinklingRandomAnalagousColours")
         self.process = multiprocessing.Process(
             target=runRandomAnalagousColours, args=(self.leds,)
+        )
+        self.process.start()
+
+    def on_enter_RandomTwinklingRandomAnalagousWeightedColours(self):
+        print("RandomTwinklingRandomAnalagousWeightedColours")
+        self.process = multiprocessing.Process(
+            target=runRandomAnalagousWeightedColours, args=(self.leds,)
         )
         self.process.start()
 
@@ -133,10 +137,9 @@ class FairyLights(Machine):
 
 
 def main():
-    display = MockDisplay()
     leds = Leds()
 
-    fl = FairyLights(leds, display)
+    fl = FairyLights(leds)
 
     button = Button(callback=fl.next)
 
