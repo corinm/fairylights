@@ -107,6 +107,45 @@ def randomAnalogousWeighted():
     return nextColour
 
 
+def randomComplimentary(numberOfColours=3):
+    angleAtStart = randrange(0, 360)
+
+    segmentSize = int(360 / 12)
+
+    segment1 = Segment(angleAtStart, angleAtStart + segmentSize)
+    opposite = Segment(angleAtStart + 180, angleAtStart + 180 + segmentSize)
+
+    counter = 0
+
+    def nextColour():
+        nonlocal counter
+
+        segment = segment1 if counter == 0 else opposite
+        angle = randrange(segment.start, segment.end)
+        colour = angleToColour(angle % 360)
+
+        print("Counter", counter)
+
+        if counter != 0:
+            if counter % 2 == 1:
+                print("1")
+                colour.luminance = 0.15
+            else:
+                print("2")
+                colour.saturation = 0.5
+
+        print(colour, colour.luminance, colour.saturation)
+
+        counter += 1
+
+        if counter >= numberOfColours:
+            counter = 0
+
+        return colour
+
+    return nextColour
+
+
 def colourWheel():
     angle = randrange(0, 360)
 
