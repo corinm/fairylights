@@ -1,6 +1,5 @@
 import os
 import sys
-from typing import Dict, List
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -28,14 +27,9 @@ orange = Color(rgb=(199 * 0.8 / 255, 90 * 0.8 / 255, 0 * 0.8 / 255))
 green = Color(rgb=(54 * 0.4 / 255, 139 / 255, 27 * 0.4 / 255))
 red = Color(rgb=(184 * 0.7 / 255, 44 * 0.4 / 255, 8 * 0.4 / 255))
 
-styles: Dict[str, List[Color]] = {
-    "BLUE_PINK": [blue80s, pink80s],
-    "RETRO": [pink, blue80s, orange, green, red],
-}
 
-
-def run(leds: Leds, style: str):
-    rt = RandomTwinkling(50, styles[style])
+def runTwinklingRetro(leds: Leds):
+    rt = RandomTwinkling(50, [pink, blue80s, orange, green, red])
 
     while True:
         leds.setLeds(rt.tick())

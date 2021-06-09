@@ -1,54 +1,48 @@
 import multiprocessing
 from time import sleep
-from typing import Union
+from typing import List, Union
 
 from transitions import Machine, State
 
 from fireflies import run as runFireflies
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
-from random_twinkling import run as runRandomTwinkling
 from random_twinkling import (
     runColoursWheel,
     runRandomAnalagousColours,
     runRandomAnalagousWeightedColours,
     runRandomColours,
-)
-from temperature_check.mockCheckTemperature import (
-    mockCheckTemperature as checkTemperature,
+    runTwinklingRetro,
 )
 
 
-class Button:
-    def __init__(self, callback):
-        self.callback = callback
+class StateWithRunMethod(State):
+    def __init__(
+        self,
+        name,
+        on_enter=None,
+        on_exit=None,
+        ignore_invalid_triggers=None,
+        run=lambda *args: None,
+    ):
+        super().__init__(name, on_enter, on_exit, ignore_invalid_triggers)
+        self.run = run
 
-    def press(self):
-        self.callback()
 
-
-states = [
-    State(name="Init"),
-    State(name="FlickeringFairyLights"),
-    State(name="RandomTwinklingBluePink"),
-    State(name="RandomTwinklingRetro"),
-    State(name="RandomTwinklingRandomColours"),
-    State(name="RandomTwinklingRandomAnalagousColours"),
-    State(name="RandomTwinklingRandomAnalagousWeightedColours"),
-    State(name="RandomTwinklingColourWheel"),
-    State(name="Fireflies"),
-]
-
-transitions = [
-    {"trigger": "initialise", "source": states[0], "dest": states[1]},
-    {"trigger": "next", "source": states[1], "dest": states[2]},
-    {"trigger": "next", "source": states[2], "dest": states[3]},
-    {"trigger": "next", "source": states[3], "dest": states[4]},
-    {"trigger": "next", "source": states[4], "dest": states[5]},
-    {"trigger": "next", "source": states[5], "dest": states[6]},
-    {"trigger": "next", "source": states[6], "dest": states[7]},
-    {"trigger": "next", "source": states[7], "dest": states[8]},
-    {"trigger": "next", "source": states[8], "dest": states[1]},
+states: List[State] = [
+    StateWithRunMethod(name="FlickeringFairyLights", run=runFlickeringFairylights),
+    StateWithRunMethod(name="RandomTwinklingRetro", run=runTwinklingRetro),
+    StateWithRunMethod(name="RandomTwinklingRandomColours", run=runRandomColours),
+    StateWithRunMethod(
+        name="RandomTwinklingRandomAnalagousColours",
+        run=runRandomAnalagousColours,
+    ),
+    StateWithRunMethod(
+        name="RandomTwinklingRandomAnalagousWeightedColours",
+        run=runRandomAnalagousWeightedColours,
+    ),
+    StateWithRunMethod(name="RandomTwinklingColourWheel", run=runColoursWheel),
+    StateWithRunMethod(name="Fireflies", run=runFireflies),
 ]
 
 
@@ -59,100 +53,38 @@ class FairyLights(Machine):
         self.machine = Machine(
             self,
             states=states,
-            transitions=transitions,
             initial=states[0],
         )
+        self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
-        self.processMonitorTemperature: multiprocessing.Process = (
-            multiprocessing.Process(target=self.monitorTemperature)
-        )
-        self.processMonitorTemperature.start()
-        self.trigger("initialise")
-
-    def monitorTemperature(self):
-        while True:
-            print("Checking temp", checkTemperature())
-            sleep(10)
 
     def next(self):
-        print("Button pressed")
+        print("About to transition")
         if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
-        self.trigger("next")
+        self.trigger("next_state")
 
-    def on_enter_FlickeringFairyLights(self):
-        print("Flicker")
-        self.process = multiprocessing.Process(
-            target=runFlickeringFairylights, args=(self.leds,)
-        )
-        self.process.start()
+    def on_enter(self):
+        print("On enter", self.state)
 
-    def on_enter_RandomTwinklingBluePink(self):
-        print("TwinkleBluePink")
-        self.process = multiprocessing.Process(
-            target=runRandomTwinkling, args=(self.leds, "BLUE_PINK")
-        )
-        self.process.start()
+        runMethod = self.machine.states[self.state].run
 
-    def on_enter_RandomTwinklingRetro(self):
-        print("TwinkleRetro")
-        self.process = multiprocessing.Process(
-            target=runRandomTwinkling, args=(self.leds, "RETRO")
-        )
-        self.process.start()
+        if not callable(runMethod):
+            print("run method not callable")
+            return
 
-    def on_enter_Fireflies(self):
-        print("Fireflies")
-        self.process = multiprocessing.Process(target=runFireflies, args=(self.leds,))
-        self.process.start()
-
-    def on_enter_RandomTwinklingRandomColours(self):
-        print("RandomTwinklingRandomColours")
-        self.process = multiprocessing.Process(
-            target=runRandomColours, args=(self.leds,)
-        )
-        self.process.start()
-
-    def on_enter_RandomTwinklingRandomAnalagousColours(self):
-        print("RandomTwinklingRandomAnalagousColours")
-        self.process = multiprocessing.Process(
-            target=runRandomAnalagousColours, args=(self.leds,)
-        )
-        self.process.start()
-
-    def on_enter_RandomTwinklingRandomAnalagousWeightedColours(self):
-        print("RandomTwinklingRandomAnalagousWeightedColours")
-        self.process = multiprocessing.Process(
-            target=runRandomAnalagousWeightedColours, args=(self.leds,)
-        )
-        self.process.start()
-
-    def on_enter_RandomTwinklingColourWheel(self):
-        print("RandomTwinklingColourWheel")
-        self.process = multiprocessing.Process(
-            target=runColoursWheel, args=(self.leds,)
-        )
+        self.process = multiprocessing.Process(target=runMethod, args=(self.leds,))
         self.process.start()
 
 
 def main():
     leds = Leds()
-
     fl = FairyLights(leds)
 
-    button = Button(callback=fl.next)
-
-    # sleep(10)
-    button.press()
-    # sleep(10)
-    button.press()
-    # sleep(10)
-    button.press()
-    # sleep(10)
-    button.press()
-    button.press()
-    # button.press()
+    while True:
+        fl.next()
+        sleep(5)
 
 
 main()
