@@ -12,6 +12,7 @@ from random_twinkling import (
     runRandomAnalagousColours,
     runRandomAnalagousWeightedColours,
     runRandomColours,
+    runRandomComplimentary,
     runTwinklingRetro,
 )
 
@@ -30,18 +31,17 @@ class StateWithRunMethod(State):
 
 
 states: List[State] = [
-    StateWithRunMethod(name="FlickeringFairyLights", run=runFlickeringFairylights),
-    StateWithRunMethod(name="RandomTwinklingRetro", run=runTwinklingRetro),
-    StateWithRunMethod(name="RandomTwinklingRandomColours", run=runRandomColours),
+    StateWithRunMethod(name="Flickering", run=runFlickeringFairylights),
+    StateWithRunMethod(name="Twinkling_Retro", run=runTwinklingRetro),
+    StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
     StateWithRunMethod(
-        name="RandomTwinklingRandomAnalagousColours",
-        run=runRandomAnalagousColours,
+        name="Twinkling_AnalagousColours", run=runRandomAnalagousColours
     ),
     StateWithRunMethod(
-        name="RandomTwinklingRandomAnalagousWeightedColours",
-        run=runRandomAnalagousWeightedColours,
+        name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours
     ),
-    StateWithRunMethod(name="RandomTwinklingColourWheel", run=runColoursWheel),
+    StateWithRunMethod(name="Twinkling_Complimentary", run=runRandomComplimentary),
+    StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),
     StateWithRunMethod(name="Fireflies", run=runFireflies),
 ]
 
@@ -83,6 +83,7 @@ def main():
     leds = Leds()
     fl = FairyLights(leds)
 
+    fl.next()
     fl.next()
     fl.next()
     fl.next()
