@@ -57,7 +57,6 @@ def randomColourAnalogous():
                 angleAtStartOfRange -= 360
 
         end = angleAtStartOfRange + RANGE_OF_ANALAGOUS_COLOURS
-        print(angleAtStartOfRange, end)
         return angleToColour(randrange(angleAtStartOfRange, end) % 360)
 
     return nextColour
@@ -107,8 +106,33 @@ def randomAnalogousWeighted():
     return nextColour
 
 
-def randomComplimentary(numberOfColours=3):
-    angleAtStart = randrange(0, 360)
+# def randomComplimentaryMoving(numberOfColours=3):
+#     angleAtStart = randrange(0, 360)
+#     counter = 0
+#     rc = randomComplimentary(numberOfColours=numberOfColours, angleAtStart=angleAtStart)
+
+#     def nextColour():
+#         nonlocal angleAtStart
+#         nonlocal counter
+#         nonlocal rc
+
+#         counter += 1
+
+#         if counter > 10:
+#             counter = 0
+#             angleAtStart += 137
+#             rc = randomComplimentary(
+#                 numberOfColours=numberOfColours, angleAtStart=angleAtStart
+#             )
+
+#         return rc()
+
+#     return nextColour
+
+
+def randomComplimentary(numberOfColours=3, angleAtStart=None):
+    if angleAtStart is None:
+        angleAtStart = randrange(0, 360)
 
     segmentSize = int(360 / 12)
 
@@ -120,21 +144,17 @@ def randomComplimentary(numberOfColours=3):
     def nextColour():
         nonlocal counter
 
+        print("Next colour. Angle at start: ", angleAtStart)
+
         segment = segment1 if counter == 0 else opposite
         angle = randrange(segment.start, segment.end)
         colour = angleToColour(angle % 360)
 
-        print("Counter", counter)
-
         if counter != 0:
             if counter % 2 == 1:
-                print("1")
                 colour.luminance = 0.15
             else:
-                print("2")
                 colour.saturation = 0.5
-
-        print(colour, colour.luminance, colour.saturation)
 
         counter += 1
 
@@ -142,6 +162,21 @@ def randomComplimentary(numberOfColours=3):
             counter = 0
 
         return colour
+
+    return nextColour
+
+
+def randomColour137Degrees():
+    angle = randrange(0, 360)
+
+    def nextColour():
+        nonlocal angle
+        angle += 137
+
+        if angle >= 360:
+            angle -= 360
+
+        return angleToColour(angle)
 
     return nextColour
 
