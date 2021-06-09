@@ -92,9 +92,10 @@ def randomAnalogousWeighted():
 
         colour = angleToColour(angle % 360)
 
-        # if currentSegment < 2:
-        #     colour.luminance = 0.2
-        # colour.saturation = 0.5
+        if currentSegment == 0:
+            colour.luminance = 0.15
+        elif currentSegment == 1:
+            colour.saturation = 0.5
 
         currentSegment += 1
 
