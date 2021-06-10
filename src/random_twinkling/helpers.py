@@ -3,14 +3,14 @@ import random
 from typing import List
 
 
-def createShuffledList(numberOfBulbs):
-    numberOfBuckets = math.floor(numberOfBulbs / 10)
-    buckets = [i for i in range(numberOfBuckets)]
+def createShuffledList(numberOfBulbs: int) -> List[int]:
+    numberOfBuckets: int = math.floor(numberOfBulbs / 10)
+    buckets: List[int] = [i for i in range(numberOfBuckets)]
     remainingIndexes: List[int] = [i for i in range(numberOfBulbs)]
     remainingIndexesByBucket: List[List[int]] = [[] for i in range(numberOfBuckets)]
 
     for n in remainingIndexes:
-        bucketIndex = math.floor(n / 10)
+        bucketIndex: int = math.floor(n / 10)
         remainingIndexesByBucket[bucketIndex].append(n)
 
     shuffledBulbIndexes: List[int] = []
@@ -19,8 +19,8 @@ def createShuffledList(numberOfBulbs):
         random.shuffle(buckets)
 
         for bucketIndex in buckets:
-            remainingIndexesInBucket = remainingIndexesByBucket[bucketIndex]
-            chosenIndex = remainingIndexesInBucket[
+            remainingIndexesInBucket: List[int] = remainingIndexesByBucket[bucketIndex]
+            chosenIndex: int = remainingIndexesInBucket[
                 random.randrange(0, len(remainingIndexesInBucket))
             ]
 

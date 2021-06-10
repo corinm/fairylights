@@ -3,27 +3,11 @@ from typing import List
 from colour import Color
 
 import random_twinkling.helpers as helpers
-from utils.colours import off
+from random_twinkling.TwinkleBulb import TwinkleBulb
 from utils.gradients import createGradientFromBlack, createGradientToBlack
 
 STEPS_FROM_OFF_TO_ON = 19
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
-
-
-class Bulb:
-    def __init__(self):
-        self.state = 0
-        self.stateToColour: List[Color] = []
-
-    def start(self, stateToColour: List[Color]):
-        self.state = 1
-        self.stateToColour = stateToColour
-
-    def getColour(self):
-        if len(self.stateToColour) == 0:
-            return off
-        else:
-            return self.stateToColour[self.state]
 
 
 class RandomTwinkling:
@@ -37,7 +21,9 @@ class RandomTwinkling:
         self.shuffledBulbIndexes: List[int] = []
         self._shuffle()
 
-        self.bulbs: List[Bulb] = [Bulb() for _ in range(numberOfBulbs)]
+        self.bulbs: List[TwinkleBulb] = [
+            TwinkleBulb(NUMBER_OF_STATES) for _ in range(numberOfBulbs)
+        ]
 
     def tick(self) -> List[Color]:
         # TODO Only do this sometimes, not every tick?
@@ -67,7 +53,7 @@ class RandomTwinkling:
         self.counter += 1
 
         # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
-        if self.bulbs[bulbIndex].state == 0:
+        if self.bulbs[bulbIndex].isNotTwinkling():
             self.bulbs[bulbIndex].start(self.stateToColourByColour[self.colour])
             self._incrementColour()
 
@@ -75,12 +61,12 @@ class RandomTwinkling:
 
     def _updateBulbs(self):
         for i in range(len(self.bulbs)):
-            if self.bulbs[i].state == 0:
+            if self.bulbs[i].isNotTwinkling():
                 pass
-            elif self.bulbs[i].state >= NUMBER_OF_STATES - 1:
-                self.bulbs[i].state = 0
+            elif self.bulbs[i].hasFinished():
+                self.bulbs[i].resetState()
             else:
-                self.bulbs[i].state += 1
+                self.bulbs[i].incrementState()
 
     def updateColours(self, colours: List[Color]):
         self.numberOfColours = len(colours)
