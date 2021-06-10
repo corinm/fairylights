@@ -19,17 +19,13 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 - **Should**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
 - **Could**: Combine gamma with bell curve to create nice fade in and out effect
 
-#### Blue / pink
-
-- 80s!
-
 #### Retro fairy lights
 
 Inspired by vintage fairy lights e.g. Noma Pickwick
 
 - Colours: Pink, red, orange, green, blue
 
-#### Random colours twinkling
+#### Random colours
 
 - Iterates through pairs of colours over time
 
