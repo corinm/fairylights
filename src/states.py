@@ -35,9 +35,7 @@ states: List[State] = [
     StateWithRunMethod(name="Flickering", run=runFlickeringFairylights),
     StateWithRunMethod(name="Twinkling_Retro", run=runTwinklingRetro),
     StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
-    StateWithRunMethod(
-        name="Twinkling_AnalagousColours", run=runRandomAnalagousColours
-    ),
+    StateWithRunMethod(name="Twinkling_Analagous", run=runRandomAnalagousColours),
     StateWithRunMethod(
         name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours
     ),
@@ -62,14 +60,13 @@ class FairyLights(Machine):
         self.next()
 
     def next(self):
-        print("About to transition")
         if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
         self.trigger("next_state")
 
     def on_enter(self):
-        print("On enter", self.state)
+        print("Transitioned to: ", self.state)
 
         runMethod = self.machine.states[self.state].run
 
@@ -85,17 +82,17 @@ def main():
     leds = Leds()
     fl = FairyLights(leds)
 
-    fl.next()
-    fl.next()
-    fl.next()
-    fl.next()
-    fl.next()
-    fl.next()
-    sleep(0)
+    # fl.next()
+    # fl.next()
+    # fl.next()
+    # fl.next()
+    # fl.next()
+    # fl.next()
+    # sleep(0)
 
-    # while True:
-    #     sleep(5)
-    #     fl.next()
+    while True:
+        sleep(10)
+        fl.next()
 
 
 main()

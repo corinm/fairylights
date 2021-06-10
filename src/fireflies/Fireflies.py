@@ -4,11 +4,8 @@ from typing import Dict, List
 
 from colour import Color
 
+from utils.colours import fireflies, off
 from utils.gradients import createGradientFromBlack, createGradientToBlack
-
-# yellowGreen1 = Color(rgb=(241 / 255, 250 / 255, 13 / 255))
-bright = Color(rgb=(96 / 255, 100 / 255, 5 / 255))
-dark = Color(rgb=(38 / 255, 40 / 255, 2 / 255))
 
 STEPS = 10
 
@@ -18,17 +15,15 @@ class FireflyColour(Enum):
     DARKER = 2
 
 
-up1 = createGradientFromBlack(bright, STEPS)
-down1 = createGradientToBlack(bright, STEPS)
+up1 = createGradientFromBlack(fireflies["bright"], STEPS)
+down1 = createGradientToBlack(fireflies["bright"], STEPS)
 gradient1: List[Color] = up1 + down1[1:]
 
-up2 = createGradientFromBlack(bright, STEPS)
-down2 = createGradientToBlack(bright, STEPS)
+up2 = createGradientFromBlack(fireflies["darker"], STEPS)
+down2 = createGradientToBlack(fireflies["darker"], STEPS)
 gradient2: List[Color] = up2 + down2[1:]
 
 GRADIENT_LENGTH = STEPS * 2 - 1
-
-black = Color(None)
 
 gradients: Dict[FireflyColour, List[Color]] = {
     FireflyColour.BRIGHT: gradient1,
@@ -81,7 +76,7 @@ class Fireflies:
         self.ticksUntilNextWave = 0
 
     def tick(self):
-        colours = [black for i in range(50)]
+        colours = [off for i in range(50)]
 
         if self.noFirefliesAndReadyForNextWave():
             self.newFirelies()
