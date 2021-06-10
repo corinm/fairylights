@@ -4,7 +4,7 @@ from typing import Callable, List, Tuple
 from colour import Color
 
 from fireflies.FireflyColour import FireflyColour
-from fireflies.patterns import staticGlow
+from fireflies.patterns import flicker, staticGlow
 from utils.colours import off
 
 
@@ -54,29 +54,6 @@ class Firefly:
         return self.delayCounter < self.delay
 
 
-# class FireflyStaticGlow(Firefly):
-#     def __init__(self, position: int):
-#         super().__init__(position)
-#         self.numberOfTicksWhileBright = randrange(2, 30)
-#         self.waitingCount = 0
-
-#     def tick(self):
-#         if self.delayCounter < self.delay:
-#             self.delayCounter += 1
-
-#         elif self.isBright() and self.isWaiting():
-#             self.waitingCount += 1
-
-#         else:
-#             self.state += 1
-
-#     def isBright(self) -> bool:
-#         return self.state == STEPS
-
-#     def isWaiting(self) -> bool:
-#         return self.waitingCount < self.numberOfTicksWhileBright
-
-
 class Fireflies:
     def __init__(self, numberOfLeds: int):
         self.numberOfLeds = numberOfLeds
@@ -114,9 +91,10 @@ class Fireflies:
 
     def newFirelies(self):
         upper = randrange(2, 8 + 1)
+        algo = flicker if randrange(0, 3) == 0 else staticGlow
         for i in range(self.numberOfLeds):
             if randrange(0, upper) == 0:
-                self.fireflies.append(Firefly(i, staticGlow))
+                self.fireflies.append(Firefly(i, algo))
 
 
 # Types

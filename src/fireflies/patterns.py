@@ -46,3 +46,72 @@ def staticGlow(
         return (colour, False)
 
     return tick
+
+
+flickerGradient10: List[Color] = [
+    up1[1],
+    up1[1],
+    up1[1],
+    up1[2],
+    up1[2],
+    up1[3],
+    up1[2],
+    up1[1],
+    up1[1],
+    up1[1],
+]
+
+flickerGradient30: List[Color] = [
+    up1[1],
+    off,
+    off,
+    off,
+    off,
+    up1[2],
+    up1[2],
+    off,
+    off,
+    off,
+    off,
+    off,
+    up1[1],
+    up1[3],
+    up1[5],
+    up1[5],
+    up1[5],
+    fireflies["bright"],
+    fireflies["bright"],
+    up1[5],
+    up1[5],
+    up1[3],
+    up1[3],
+    up1[1],
+    off,
+    off,
+    off,
+    off,
+    off,
+    up1[1],
+]
+
+
+def flicker(
+    ticksActive: int, colour: FireflyColour
+) -> Callable[[], Tuple[Color, bool]]:
+    state: int = 0
+
+    gradient: List[Color] = flickerGradient10 if ticksActive < 15 else flickerGradient30
+
+    def tick() -> Tuple[Color, bool]:
+        nonlocal state
+
+        state += 1
+
+        if state >= len(gradient):
+            return (off, True)
+
+        colour = gradient[state]
+
+        return (colour, False)
+
+    return tick
