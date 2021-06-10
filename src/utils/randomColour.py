@@ -144,8 +144,6 @@ def randomComplimentary(numberOfColours=3, angleAtStart=None):
     def nextColour():
         nonlocal counter
 
-        print("Next colour. Angle at start: ", angleAtStart)
-
         segment = segment1 if counter == 0 else opposite
         angle = randrange(segment.start, segment.end)
         colour = angleToColour(angle % 360)

@@ -1,12 +1,12 @@
 import os
 import sys
 from datetime import datetime, timedelta
-from typing import List
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
+from typing import Callable, List  # noqa
 
 from colour import Color  # noqa
 
@@ -19,17 +19,17 @@ class RandomColours:
     def __init__(
         self,
         numberOfLeds: int,
-        randomAlgorithm,
+        randomColourAlgorithm: Callable[[], Color],
         secondsBetweenColourChanges=10,
         numberOfColours=2,
     ):
         self.numberOfLeds = numberOfLeds
-        self.randomAlgorithm = randomAlgorithm
+        self.randomColourAlgorithm: Callable[[], Color] = randomColourAlgorithm
         self.secondsBetweenColourChanges = secondsBetweenColourChanges
 
         self.resetTime()
         self.colours: List[Color] = [
-            self.randomAlgorithm() for _ in range(numberOfColours)
+            self.randomColourAlgorithm() for _ in range(numberOfColours)
         ]
         self.rt = RandomTwinkling(numberOfLeds, self.colours)
 
@@ -46,5 +46,5 @@ class RandomColours:
         )
 
     def updateColours(self):
-        self.colours = self.colours[1:] + [self.randomAlgorithm()]
+        self.colours = self.colours[1:] + [self.randomColourAlgorithm()]
         self.rt.updateColours(self.colours)

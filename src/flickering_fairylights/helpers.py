@@ -3,8 +3,8 @@ from typing import List
 
 from colour import Color
 
-import flickering_fairylights.constants as constants
 from flickering_fairylights.FlickerBulb import BulbState
+from utils.colours import flickerColours, flickerMid, off
 
 
 def generateFullListOfColours(flickerBulbStates: List[BulbState]):
@@ -12,7 +12,7 @@ def generateFullListOfColours(flickerBulbStates: List[BulbState]):
     numberDim = flickerBulbStates.count(BulbState.DIM)
     total = math.floor(numberOn + (numberDim / 2))
 
-    on = constants.flickerColours[total]
+    on = flickerColours[total]
 
     bulbs = [
         determineBrightness(flickerBulbStates[0], on),
@@ -76,6 +76,6 @@ def determineBrightness(bulbState: BulbState, on: Color):
     if bulbState == BulbState.ON:
         return on
     elif bulbState == BulbState.DIM:
-        return constants.flickerMid
+        return flickerMid
     else:
-        return constants.off
+        return off

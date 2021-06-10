@@ -3,9 +3,8 @@ from typing import List
 from colour import Color
 
 import random_twinkling.helpers as helpers
+from utils.colours import off
 from utils.gradients import createGradientFromBlack, createGradientToBlack
-
-off = Color()
 
 STEPS_FROM_OFF_TO_ON = 19
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
@@ -22,7 +21,7 @@ class Bulb:
 
     def getColour(self):
         if len(self.stateToColour) == 0:
-            return Color(None)
+            return off
         else:
             return self.stateToColour[self.state]
 
