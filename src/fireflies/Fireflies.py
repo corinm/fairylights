@@ -1,72 +1,80 @@
-from enum import Enum
 from random import randrange
-from typing import Dict, List
+from typing import Callable, List, Tuple
 
 from colour import Color
 
-from utils.colours import fireflies, off
-from utils.gradients import createGradientFromBlack, createGradientToBlack
-
-STEPS = 10
-
-
-class FireflyColour(Enum):
-    BRIGHT = 1
-    DARKER = 2
+from fireflies.FireflyColour import FireflyColour
+from fireflies.patterns import staticGlow
+from utils.colours import off
 
 
-up1 = createGradientFromBlack(fireflies["bright"], STEPS)
-down1 = createGradientToBlack(fireflies["bright"], STEPS)
-gradient1: List[Color] = up1 + down1[1:]
+def randomColour() -> FireflyColour:
+    return FireflyColour.BRIGHT if randrange(0, 2) == 0 else FireflyColour.DARK
 
-up2 = createGradientFromBlack(fireflies["darker"], STEPS)
-down2 = createGradientToBlack(fireflies["darker"], STEPS)
-gradient2: List[Color] = up2 + down2[1:]
 
-GRADIENT_LENGTH = STEPS * 2 - 1
+def randomDelay() -> int:
+    return randrange(0, 25)
 
-gradients: Dict[FireflyColour, List[Color]] = {
-    FireflyColour.BRIGHT: gradient1,
-    FireflyColour.DARKER: gradient2,
-}
+
+def randomTicksActive() -> int:
+    return randrange(2, 30)
 
 
 class Firefly:
-    def __init__(self, position: int):
+    def __init__(
+        self,
+        position: int,
+        activeAlgorithm: Callable[
+            [int, FireflyColour], Callable[[], Tuple[Color, bool]]
+        ],
+    ):
         self.position: int = position
-        self.state: int = 0
-        self.colour: FireflyColour = (
-            FireflyColour.BRIGHT if randrange(0, 2) == 0 else FireflyColour.DARKER
+        ticksActive = randomTicksActive()
+        colour: FireflyColour = randomColour()
+        self.activeAlgorithm: Callable[[], Tuple[Color, bool]] = activeAlgorithm(
+            ticksActive, colour
         )
-        self.done = False
 
+        self.delay: int = randomDelay()
+        self.delayCounter: int = 0
+        self.isDone: bool = False
 
-class FireflyStaticGlow(Firefly):
-    def __init__(self, position: int):
-        super().__init__(position)
-        self.numberOfTicksWhileBright = randrange(2, 30)
-        self.waitingCount = 0
-        self.delay = randrange(0, 25)
-        self.delayCount = 0
-
-    def tick(self):
-        if self.delayCount < self.delay:
-            self.delayCount += 1
-
-        elif self.isBright() and self.isWaiting():
-            self.waitingCount += 1
-
-        elif self.state >= GRADIENT_LENGTH - 1:
-            self.done = True
-
+    def tick(self) -> Color:
+        if self.isWaitingToStart():
+            self.delayCounter += 1
+            return off
+        elif self.isDone:
+            return off
         else:
-            self.state += 1
+            (colour, isDone) = self.activeAlgorithm()
+            self.isDone = isDone
+            return colour
 
-    def isBright(self) -> bool:
-        return self.state == STEPS
+    def isWaitingToStart(self) -> bool:
+        return self.delayCounter < self.delay
 
-    def isWaiting(self) -> bool:
-        return self.waitingCount < self.numberOfTicksWhileBright
+
+# class FireflyStaticGlow(Firefly):
+#     def __init__(self, position: int):
+#         super().__init__(position)
+#         self.numberOfTicksWhileBright = randrange(2, 30)
+#         self.waitingCount = 0
+
+#     def tick(self):
+#         if self.delayCounter < self.delay:
+#             self.delayCounter += 1
+
+#         elif self.isBright() and self.isWaiting():
+#             self.waitingCount += 1
+
+#         else:
+#             self.state += 1
+
+#     def isBright(self) -> bool:
+#         return self.state == STEPS
+
+#     def isWaiting(self) -> bool:
+#         return self.waitingCount < self.numberOfTicksWhileBright
 
 
 class Fireflies:
@@ -82,10 +90,10 @@ class Fireflies:
             self.newFirelies()
 
         for firefly in self.fireflies:
-            firefly.tick()
-            colours[firefly.position] = gradients[firefly.colour][firefly.state]
+            colour = firefly.tick()
+            colours[firefly.position] = colour
 
-        self.fireflies = [f for f in self.fireflies if not f.done]
+        self.fireflies = [f for f in self.fireflies if not f.isDone]
 
         if self.noActiveFireflies():
             if self.ticksUntilNextWave == 0:
@@ -102,13 +110,13 @@ class Fireflies:
         return len(self.fireflies) == 0 and self.ticksUntilNextWave == 0
 
     def noActiveFireflies(self) -> bool:
-        return len([f for f in self.fireflies if not f.done]) == 0
+        return len([f for f in self.fireflies if not f.isDone]) == 0
 
     def newFirelies(self):
         upper = randrange(2, 8 + 1)
         for i in range(self.numberOfLeds):
             if randrange(0, upper) == 0:
-                self.fireflies.append(FireflyStaticGlow(i))
+                self.fireflies.append(Firefly(i, staticGlow))
 
 
 # Types
