@@ -93,9 +93,16 @@ class Fireflies:
         return len([f for f in self.fireflies if not f.isDone]) == 0
 
     def newFirelies(self):
+        # Half the time it's just a small number
+        if random() <= 0.5:
+            for i in range(self.numberOfLeds):
+                if random() <= 0.1:
+                    self.fireflies.append(Firefly(i, self.algo))
+            return
+
         # Decide what % of fireflies will light up
         #   Longer time since last wave -> more fireflies
-        timeModifier = math.floor(self.ticksSinceLastWave / 3)
+        timeModifier = math.floor(self.ticksSinceLastWave / 4)
         lower = 10 + timeModifier
         upper = 30 + timeModifier
         print(self.ticksSinceLastWave, lower, upper)
