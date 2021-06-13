@@ -1,4 +1,6 @@
 import multiprocessing
+import signal
+import sys
 from time import sleep
 from typing import List, Union
 
@@ -79,6 +81,13 @@ class FairyLights(Machine):
         self.process.start()
 
 
+def sigterm_handler(_signo, _stack_frame):
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, sigterm_handler)
+
+
 def main():
     leds = Leds()
     fl = FairyLights(leds)
@@ -91,9 +100,16 @@ def main():
     # fl.next()
     # sleep(0)
 
-    while True:
-        sleep(10)
-        fl.next()
+    try:
+        while True:
+            sleep(60)
+            fl.next()
+
+    except KeyboardInterrupt:
+        leds.clear()
+
+    finally:
+        leds.clear()
 
 
 main()
