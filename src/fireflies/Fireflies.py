@@ -4,7 +4,6 @@ from typing import Callable, List, Tuple
 from colour import Color
 
 from fireflies.FireflyColour import FireflyColour
-from fireflies.patterns import flicker, staticGlow
 from utils.colours import off
 
 
@@ -55,10 +54,11 @@ class Firefly:
 
 
 class Fireflies:
-    def __init__(self, numberOfLeds: int):
+    def __init__(self, numberOfLeds: int, algo):
         self.numberOfLeds = numberOfLeds
         self.fireflies: List[Firefly] = []
         self.ticksUntilNextWave = 0
+        self.algo = algo
 
     def tick(self):
         colours = [off for i in range(50)]
@@ -91,10 +91,9 @@ class Fireflies:
 
     def newFirelies(self):
         upper = randrange(2, 8 + 1)
-        algo = flicker if randrange(0, 3) == 0 else staticGlow
         for i in range(self.numberOfLeds):
             if randrange(0, upper) == 0:
-                self.fireflies.append(Firefly(i, algo))
+                self.fireflies.append(Firefly(i, self.algo))
 
 
 # Types
