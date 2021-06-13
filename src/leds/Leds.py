@@ -3,6 +3,8 @@ from typing import List
 import rpi_ws281x as ws
 from colour import Color
 
+from utils.colours import off
+
 # LED strip configuration:
 LED_COUNT = 50  # Number of LED pixels.
 LED_PIN = 18  # GPIO pin connected to the pixels (18 uses PWM!)
@@ -40,3 +42,6 @@ class Leds:
             b = round(colour.blue * 255)
             self.strip.setPixelColorRGB(i, r, g, b)
         self.strip.show()
+
+    def clear(self):
+        self.setLeds([off])
