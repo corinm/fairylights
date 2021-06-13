@@ -1,4 +1,4 @@
-from fireflies import runFlicker as run
+from fireflies import runStaticGlow as run
 from leds.Leds import Leds
 
 try:

@@ -1,4 +1,5 @@
-from random import randrange
+import math
+from random import random, randrange
 from typing import Callable, List, Tuple
 
 from colour import Color
@@ -58,6 +59,7 @@ class Fireflies:
         self.numberOfLeds = numberOfLeds
         self.fireflies: List[Firefly] = []
         self.ticksUntilNextWave = 0
+        self.ticksSinceLastWave = 0
         self.algo = algo
 
     def tick(self):
@@ -82,6 +84,7 @@ class Fireflies:
 
     def startNewCountdown(self):
         self.ticksUntilNextWave = randrange(5, 150)
+        self.ticksSinceLastWave = self.ticksUntilNextWave
 
     def noFirefliesAndReadyForNextWave(self) -> bool:
         return len(self.fireflies) == 0 and self.ticksUntilNextWave == 0
@@ -90,9 +93,17 @@ class Fireflies:
         return len([f for f in self.fireflies if not f.isDone]) == 0
 
     def newFirelies(self):
-        upper = randrange(2, 8 + 1)
+        # Decide what % of fireflies will light up
+        #   Longer time since last wave -> more fireflies
+        timeModifier = math.floor(self.ticksSinceLastWave / 3)
+        lower = 10 + timeModifier
+        upper = 30 + timeModifier
+        print(self.ticksSinceLastWave, lower, upper)
+        percentage = randrange(lower, upper) / 100
+
+        # Once % determined, use this to create fireflies
         for i in range(self.numberOfLeds):
-            if randrange(0, upper) == 0:
+            if random() <= percentage:
                 self.fireflies.append(Firefly(i, self.algo))
 
 
