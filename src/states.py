@@ -4,7 +4,7 @@ from typing import List, Union
 
 from transitions import Machine, State
 
-from fireflies import run as runFireflies
+from fireflies import runFlicker, runStaticGlow
 from flickering_fairylights import run as runFlickeringFairylights
 from leds.Leds import Leds
 from random_twinkling import (
@@ -42,7 +42,8 @@ states: List[State] = [
     StateWithRunMethod(name="Twinkling_Complimentary", run=runRandomComplimentary),
     StateWithRunMethod(name="Twinkling_137Degrees", run=runRandomColour137Degress),
     StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),
-    StateWithRunMethod(name="Fireflies", run=runFireflies),
+    StateWithRunMethod(name="Fireflies_StaticGlow", run=runStaticGlow),
+    StateWithRunMethod(name="Fireflies_StaticFlicker", run=runFlicker),
 ]
 
 

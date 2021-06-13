@@ -38,9 +38,9 @@ Inspired by:
 Features:
 
 - Initial type - static glow
+- Implemented a static flickering one
 - Fireflies light up in waves
 - Fireflies are randomly assigned one of two shades of green
-- **Should** implement a static flickering one
 - **Should** implement a moving glow one
 
 

@@ -1,4 +1,4 @@
-from fireflies import run
+from fireflies import runFlicker as run
 from leds.Leds import Leds
 
 try:
