@@ -102,30 +102,6 @@ def randomAnalogousWeighted(numberOfColours: int):
     return nextColour
 
 
-# def randomComplimentaryMoving(numberOfColours=3):
-#     angleAtStart = randrange(0, 360)
-#     counter = 0
-#     rc = randomComplimentary(numberOfColours=numberOfColours, angleAtStart=angleAtStart)
-
-#     def nextColour():
-#         nonlocal angleAtStart
-#         nonlocal counter
-#         nonlocal rc
-
-#         counter += 1
-
-#         if counter > 10:
-#             counter = 0
-#             angleAtStart += 137
-#             rc = randomComplimentary(
-#                 numberOfColours=numberOfColours, angleAtStart=angleAtStart
-#             )
-
-#         return rc()
-
-#     return nextColour
-
-
 def randomComplimentary(numberOfColours=3, angleAtStart=None):
     if angleAtStart is None:
         angleAtStart = randrange(0, 360)
