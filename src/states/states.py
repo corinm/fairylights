@@ -7,6 +7,7 @@ from fireflies import runFlicker, runStaticGlow
 from flickering_fairylights import run as runFlickeringFairylights
 from random_twinkling import (
     runColoursWheel,
+    runColoursWheelFast,
     runRandomAnalagousColours,
     runRandomAnalagousWeightedColours,
     runRandomColour137Degress,
@@ -38,6 +39,7 @@ states: List[State] = [
     StateWithRunMethod(name="Twinkling_Complimentary", run=runRandomComplimentary),
     StateWithRunMethod(name="Twinkling_137Degrees", run=runRandomColour137Degress),
     StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),
+    StateWithRunMethod(name="Twinkling_ColourWheelFast", run=runColoursWheelFast),
     StateWithRunMethod(name="Fireflies_StaticGlow", run=runStaticGlow),
     StateWithRunMethod(name="Fireflies_StaticFlicker", run=runFlicker),
 ]
@@ -51,7 +53,7 @@ class FairyLights(Machine):
             self,
             states=states,
             # initial=states[len(states) - 1],
-            initial=states[3],
+            initial=states[7],
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None

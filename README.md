@@ -1,5 +1,16 @@
 # fairylights
 
+## Quick start
+
+        pipenv install
+        sudo pipenv run python3 src/main.py
+
+Or
+
+Install dependencies manually then:
+
+        sudo python3 src/main.py
+
 ## Setup
 
 1. Set up a service
@@ -20,35 +31,40 @@
 
 3. Start the service
 
-        sudo systemctl start fairylights
-        sudo systemctl stop fairylights
+        sudo systemctl start fairylights.service
+        sudo systemctl stop fairylights.service
 
 ## States
 
-### Flickering fairy lights
+### Random twinkling - various colour effects
 
-Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
+This is a traditional twinkling effect where bulbs fade in and out at random
+Can be combined with different algorithms for generating different colours/palettes - see `src/utils/randomColours.py` for examples
 
-- Flickering pretty much there
-- Colours pretty much there
-- **Could**: Allow choice of colour
-
-### Random twinkling
+Features/todo:
 
 - Now generates a gradient where hue doesn't change
 - Fixed bug where shuffle combined with large number of steps led to bulbs starting a new twinkle before they'd finished a previous one
 - Now accepts a list of colours instead of just one
-- Now supports updating the list of colours after instantiation
-- **Should**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
+- Now supports updating the list of colours after instantiation, every certain number of seconds
+- Now supports regenerating the whole palette every certain number of seconds
+- **Should**: Speed up transition between palettes as it's just noticeable - ~80ms
+- **Could**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
 - **Could**: Combine gamma with bell curve to create nice fade in and out effect
 
 #### Retro fairy lights
 
-Inspired by vintage fairy lights e.g. Noma Pickwick
+Inspired by vintage fairy lights e.g. Noma Pickwick. Uses the existing twinkling effect but with hand-picked colours: Pink, red, orange, green, blue
 
-- Colours: Pink, red, orange, green, blue
+#### Analagous colours
 
-#### Random colours
+Creates a palette made up of 3 colours that are next to each other on the colour wheel. These colours change over time, as does the palette.
+
+#### Analagous weighted colours
+
+As above, but colours are arranged to be more pleasing
+
+#### Complimentary colours
 
 - Iterates through pairs of colours over time
 
@@ -65,6 +81,15 @@ Features:
 - Fireflies light up in waves
 - Fireflies are randomly assigned one of two shades of green
 - **Should** implement a moving glow one
+
+
+### Flickering fairy lights
+
+Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
+
+- Flickering pretty much there
+- Colours pretty much there
+- **Could**: Allow choice of colour
 
 
 ### Rainbow
