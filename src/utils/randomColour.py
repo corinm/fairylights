@@ -101,6 +101,8 @@ def randomAnalogousWeighted():
         if currentSegment >= 3:
             currentSegment = 0
 
+        print(colour)
+
         return colour
 
     return nextColour
