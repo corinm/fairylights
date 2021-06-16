@@ -1,5 +1,5 @@
 from time import time
-from typing import Dict, List
+from typing import List
 
 from colour import Color
 
@@ -16,10 +16,9 @@ class RandomTwinkling:
         self.numberOfBulbs: int = numberOfBulbs
         self.counter: int = 0
 
-        self.memo: Dict[Color, List[Color]] = {}
         self.updateColours(colours)
 
-        self.colourIndex: int = 0
+        self.currentColourIndex: int = 0
 
         self.shuffledBulbIndexes: List[int] = []
         self._shuffle()
@@ -49,14 +48,14 @@ class RandomTwinkling:
             )
             self.stateToColourByColour.append(stateToColour)
 
-        self.colourIndex = 0
+        self.currentColourIndex = 0
         print(time() - t1)
 
     def _incrementColour(self):
-        self.colourIndex += 1
+        self.currentColourIndex += 1
 
-        if self.colourIndex >= self.numberOfColours:
-            self.colourIndex = 0
+        if self.currentColourIndex >= self.numberOfColours:
+            self.currentColourIndex = 0
 
     def _shuffle(self):
         self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
@@ -66,17 +65,21 @@ class RandomTwinkling:
             self._shuffle()
             self.counter = 0
 
-        bulbIndex: int = self.shuffledBulbIndexes[self.counter]
-        bulb: TwinkleBulb = self.bulbs[bulbIndex]
+        bulb = self._getNextBulb()
         self.counter += 1
 
         # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
         if bulb.isReady():
-            colour: Color = self.stateToColourByColour[self.colourIndex]
+            colour: Color = self.stateToColourByColour[self.currentColourIndex]
             bulb.start(colour)
             self._incrementColour()
 
         return self.bulbs
+
+    def _getNextBulb(self) -> TwinkleBulb:
+        bulbIndex: int = self.shuffledBulbIndexes[self.counter]
+        bulb: TwinkleBulb = self.bulbs[bulbIndex]
+        return bulb
 
     def _updateBulbStates(self):
         for bulb in self.bulbs:
