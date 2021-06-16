@@ -12,7 +12,7 @@ repos:
         name: black
         stages: [commit]
         language: system
-        entry: pipenv run black
+        entry: pipenv run black --line-length 100
         types: [python]
 
       - id: flake8
