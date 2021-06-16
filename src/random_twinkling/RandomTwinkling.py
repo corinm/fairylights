@@ -3,49 +3,22 @@ from typing import List
 
 from colour import Color
 
-import random_twinkling.helpers as helpers
-from random_twinkling.TwinkleBulb import TwinkleBulb
+from utils.Bulb import Bulb
 from utils.gradients import createGradientFromAndToBlack
+from utils.ShuffledBulbs import ShuffledBulbs
+
+from .TwinkleBulb import TwinkleBulb
 
 STEPS_FROM_OFF_TO_ON = 19
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
-
-
-class ShuffledBulbs:
-    def __init__(self, numberOfBulbs: int):
-        self.numberOfBulbs: int = numberOfBulbs
-        self.counter: int = 0
-        self.shuffledBulbIndexes: List[int] = []
-        self._shuffle()
-        self.bulbs: List[TwinkleBulb] = [
-            TwinkleBulb(NUMBER_OF_STATES) for _ in range(numberOfBulbs)
-        ]
-
-    def _shuffle(self):
-        self.shuffledBulbIndexes = helpers.createShuffledList(self.numberOfBulbs)
-
-    def getNextBulb(self) -> TwinkleBulb:
-        bulbIndex: int = self.shuffledBulbIndexes[self.counter]
-        bulb: TwinkleBulb = self.bulbs[bulbIndex]
-        self._incrementCounter()
-        return bulb
-
-    def _incrementCounter(self):
-        self.counter += 1
-
-        if self.counter == len(self.shuffledBulbIndexes):
-            self._shuffle()
-            self.counter = 0
-
-    def getBulbs(self) -> List[TwinkleBulb]:
-        return self.bulbs
 
 
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.updateColours(colours)
         self.currentColourIndex: int = 0
-        self.shuffledBulbs = ShuffledBulbs(numberOfBulbs)
+        bulbs: List[Bulb] = [TwinkleBulb(NUMBER_OF_STATES) for _ in range(numberOfBulbs)]
+        self.shuffledBulbs = ShuffledBulbs(bulbs)
 
     def tick(self) -> List[Color]:
         self._nextTwinkle()

@@ -34,9 +34,7 @@ states: List[State] = [
     StateWithRunMethod(name="Twinkling_Retro", run=runTwinklingRetro),
     StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
     StateWithRunMethod(name="Twinkling_Analagous", run=runRandomAnalagousColours),
-    StateWithRunMethod(
-        name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours
-    ),
+    StateWithRunMethod(name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours),
     StateWithRunMethod(name="Twinkling_Complimentary", run=runRandomComplimentary),
     StateWithRunMethod(name="Twinkling_137Degrees", run=runRandomColour137Degress),
     StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),

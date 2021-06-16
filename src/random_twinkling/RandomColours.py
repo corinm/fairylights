@@ -26,12 +26,10 @@ class RandomColours:
         self.numberOfLeds = numberOfLeds
         self.randomColourAlgorithm: Callable[[], Color] = randomColourAlgorithm
         self.secondsBetweenColourChanges = secondsBetweenColourChanges
+        self.numberOfColours: int = numberOfColours
 
         self.resetTime()
-        self.colours: List[Color] = [
-            self.randomColourAlgorithm() for _ in range(numberOfColours)
-        ]
-        self.rt = RandomTwinkling(numberOfLeds, self.colours)
+        self._newColours()
 
     def tick(self) -> List[Color]:
         if self.nextChange <= datetime.now():
@@ -41,10 +39,14 @@ class RandomColours:
         return self.rt.tick()
 
     def resetTime(self):
-        self.nextChange = datetime.now() + timedelta(
-            seconds=self.secondsBetweenColourChanges
-        )
+        self.nextChange = datetime.now() + timedelta(seconds=self.secondsBetweenColourChanges)
 
     def updateColours(self):
         self.colours = self.colours[1:] + [self.randomColourAlgorithm()]
         self.rt.updateColours(self.colours)
+
+    def _newColours(self):
+        self.colours: List[Color] = [
+            self.randomColourAlgorithm() for _ in range(self.numberOfColours)
+        ]
+        self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
