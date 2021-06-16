@@ -65,7 +65,10 @@ class RandomColours:
         return self.timeForNewColour <= datetime.now()
 
     def _readyForNewPalette(self) -> bool:
-        return self.timeForNewPalette <= datetime.now()
+        if self.secondsBetweenPaletteChanges == 0:
+            return False
+        else:
+            return self.timeForNewPalette <= datetime.now()
 
     def _newColour(self):
         self.colours = self.colours[1:] + [self.randomColourAlgorithm()]

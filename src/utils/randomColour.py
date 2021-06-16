@@ -36,28 +36,28 @@ def randomColour(numberOfColours: int):
     return angleToColour(angle)
 
 
-RANGE_OF_ANALAGOUS_COLOURS = int(360 / 9 * 3)
+RANGE_OF_ANALAGOUS_COLOURS = int(360 / 12 * 3)
 
 
 def randomColourAnalogous(numberOfColours: int):
+    """
+    Creates an arc on the colour wheel from a random starting angle that covers 3/12 (1/4) of the wheel
+    The starting angle is incremented every time a colour is chosen, causing the arc to gradually
+    move around the colour wheel
+    """
     angleAtStartOfRange = randrange(0, 360)
 
-    iterations = 0
-
     def nextColour():
-        nonlocal iterations
         nonlocal angleAtStartOfRange
-        iterations += 1
-
-        if iterations >= 1:
-            angleAtStartOfRange = angleAtStartOfRange + 5
-            iterations = 0
-
-            if angleAtStartOfRange >= 360:
-                angleAtStartOfRange -= 360
 
         end = angleAtStartOfRange + RANGE_OF_ANALAGOUS_COLOURS
-        return angleToColour(randrange(angleAtStartOfRange, end) % 360)
+        colour = angleToColour(randrange(angleAtStartOfRange, end) % 360)
+
+        angleAtStartOfRange = angleAtStartOfRange + 10
+        if angleAtStartOfRange >= 360:
+            angleAtStartOfRange -= 360
+
+        return colour
 
     return nextColour
 
@@ -69,6 +69,11 @@ class Segment:
 
 
 def randomAnalogousWeighted(numberOfColours: int):
+    """
+    This algorithm divides the arc into three segments and chooses colours from each segment in turn
+    Each time a colour is chosen its luminance or saturation are varied to emphasise one of the three segments over the other two
+    Note: Arc does NOT move over time
+    """
     angleAtStartOfRange = randrange(0, 360)
     segmentSize = int(360 / 12)
 
@@ -103,6 +108,11 @@ def randomAnalogousWeighted(numberOfColours: int):
 
 
 def randomComplimentary(numberOfColours=3, angleAtStart=None):
+    """
+    Colours are chosen from segments opposite each other on the colour wheel
+    The saturation and luminance of colours are varied to emphasise one segment over the other
+    and create a more interesting palette
+    """
     if angleAtStart is None:
         angleAtStart = randrange(0, 360)
 
@@ -137,6 +147,11 @@ def randomComplimentary(numberOfColours=3, angleAtStart=None):
 
 
 def randomColour137Degrees(numberOfColours: int):
+    """
+    Colours are chosen by choosing a random starting point on the colour wheel
+    then incrementing by 137deg each time a colour is requested
+    This creates a palette where colours overlap as little as possible
+    """
     angle = randrange(0, 360)
 
     def nextColour():
