@@ -45,42 +45,42 @@ def runRandomColours(leds: Leds):
 
 
 def runRandomAnalagousColours(leds: Leds):
-    rac = RandomColours(50, randomColourAnalogous())
+    rac = RandomColours(50, randomColourAnalogous)
 
     while True:
         leds.setLeds(rac.tick())
 
 
 def runRandomAnalagousWeightedColours(leds: Leds):
-    rawc = RandomColours(50, randomAnalogousWeighted(), numberOfColours=3)
+    rawc = RandomColours(50, randomAnalogousWeighted, numberOfColours=3)
 
     while True:
         leds.setLeds(rawc.tick())
 
 
 def runRandomComplimentary(leds: Leds):
-    rc = RandomColours(50, randomComplimentary(6), numberOfColours=6)
+    rc = RandomColours(50, randomComplimentary, numberOfColours=6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomComplimentaryMoving(leds: Leds):
-    rc = RandomColours(50, randomComplimentary(6), numberOfColours=6)
+    rc = RandomColours(50, randomComplimentary, numberOfColours=6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomColour137Degress(leds: Leds):
-    rc = RandomColours(50, randomColour137Degrees(), 5, 6)
+    rc = RandomColours(50, randomColour137Degrees, 5, 6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runColoursWheel(leds: Leds):
-    rac = RandomColours(50, colourWheel(), 4)
+    rac = RandomColours(50, colourWheel, 4)
 
     while True:
         leds.setLeds(rac.tick())

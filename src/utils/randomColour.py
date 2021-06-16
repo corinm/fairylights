@@ -31,7 +31,7 @@ def angleToColour(angle: int):
     return Color(rgb=(r / 255, g / 255, b / 255))
 
 
-def randomColour():
+def randomColour(numberOfColours: int):
     angle = randrange(0, 360)
     return angleToColour(angle)
 
@@ -39,7 +39,7 @@ def randomColour():
 RANGE_OF_ANALAGOUS_COLOURS = int(360 / 9 * 3)
 
 
-def randomColourAnalogous():
+def randomColourAnalogous(numberOfColours: int):
     angleAtStartOfRange = randrange(0, 360)
 
     iterations = 0
@@ -68,18 +68,14 @@ class Segment:
         self.end = end
 
 
-def randomAnalogousWeighted():
+def randomAnalogousWeighted(numberOfColours: int):
     angleAtStartOfRange = randrange(0, 360)
     segmentSize = int(360 / 12)
 
     segments: List[Segment] = [
         Segment(angleAtStartOfRange, angleAtStartOfRange + segmentSize),
-        Segment(
-            angleAtStartOfRange + segmentSize, angleAtStartOfRange + segmentSize * 2
-        ),
-        Segment(
-            angleAtStartOfRange + segmentSize * 2, angleAtStartOfRange + segmentSize * 3
-        ),
+        Segment(angleAtStartOfRange + segmentSize, angleAtStartOfRange + segmentSize * 2),
+        Segment(angleAtStartOfRange + segmentSize * 2, angleAtStartOfRange + segmentSize * 3),
     ]
 
     currentSegment = 0
@@ -100,8 +96,6 @@ def randomAnalogousWeighted():
 
         if currentSegment >= 3:
             currentSegment = 0
-
-        print(colour)
 
         return colour
 
@@ -166,7 +160,7 @@ def randomComplimentary(numberOfColours=3, angleAtStart=None):
     return nextColour
 
 
-def randomColour137Degrees():
+def randomColour137Degrees(numberOfColours: int):
     angle = randrange(0, 360)
 
     def nextColour():
@@ -181,7 +175,7 @@ def randomColour137Degrees():
     return nextColour
 
 
-def colourWheel():
+def colourWheel(numberOfColours: int):
     angle = randrange(0, 360)
 
     def nextColour():

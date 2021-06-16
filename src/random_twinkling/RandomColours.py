@@ -19,34 +19,64 @@ class RandomColours:
     def __init__(
         self,
         numberOfLeds: int,
-        randomColourAlgorithm: Callable[[], Color],
+        randomColourAlgorithmGenerator: Callable[[int], Callable[[], Color]],
+        secondsBetweenPaletteChanges=30,
         secondsBetweenColourChanges=10,
         numberOfColours=2,
     ):
-        self.numberOfLeds = numberOfLeds
-        self.randomColourAlgorithm: Callable[[], Color] = randomColourAlgorithm
-        self.secondsBetweenColourChanges = secondsBetweenColourChanges
+        self.numberOfLeds: int = numberOfLeds
+        self.randomColourAlgorithmGenerator: Callable[
+            [int], Callable[[], Color]
+        ] = randomColourAlgorithmGenerator
+        self.randomColourAlgorithm: Callable[[], Color] = randomColourAlgorithmGenerator(
+            numberOfColours
+        )
+        self.secondsBetweenPaletteChanges: int = secondsBetweenPaletteChanges
+        self.secondsBetweenColourChanges: int = secondsBetweenColourChanges
         self.numberOfColours: int = numberOfColours
 
-        self.resetTime()
-        self._newColours()
-
-    def tick(self) -> List[Color]:
-        if self.nextChange <= datetime.now():
-            self.updateColours()
-            self.resetTime()
-
-        return self.rt.tick()
-
-    def resetTime(self):
-        self.nextChange = datetime.now() + timedelta(seconds=self.secondsBetweenColourChanges)
-
-    def updateColours(self):
-        self.colours = self.colours[1:] + [self.randomColourAlgorithm()]
-        self.rt.updateColours(self.colours)
-
-    def _newColours(self):
         self.colours: List[Color] = [
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
         self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
+
+        self._resetNewPaletteTime()
+        self._resetNewColourTime()
+
+    def tick(self) -> List[Color]:
+        if self._readyForNewPalette():
+            self._newPalette()
+
+        elif self._readyForNewColour():
+            self._newColour()
+
+        return self.rt.tick()
+
+    def _newPalette(self):
+        self.randomColourAlgorithm = self.randomColourAlgorithmGenerator(self.numberOfColours)
+        self.colours: List[Color] = [
+            self.randomColourAlgorithm() for _ in range(self.numberOfColours)
+        ]
+        print("New palette:", [c.hex for c in self.colours])
+        self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
+        self._resetNewPaletteTime()
+
+    def _readyForNewColour(self) -> bool:
+        return self.timeForNewColour <= datetime.now()
+
+    def _readyForNewPalette(self) -> bool:
+        return self.timeForNewPalette <= datetime.now()
+
+    def _newColour(self):
+        self.colours = self.colours[1:] + [self.randomColourAlgorithm()]
+        print("New colour:", self.colours[len(self.colours) - 1].hex)
+        self.rt.updateColours(self.colours)
+        self._resetNewColourTime()
+
+    def _resetNewPaletteTime(self):
+        self.timeForNewPalette = datetime.now() + timedelta(
+            seconds=self.secondsBetweenPaletteChanges
+        )
+
+    def _resetNewColourTime(self):
+        self.timeForNewColour = datetime.now() + timedelta(seconds=self.secondsBetweenColourChanges)
