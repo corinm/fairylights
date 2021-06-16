@@ -52,7 +52,8 @@ class FairyLights(Machine):
         self.machine = Machine(
             self,
             states=states,
-            initial=states[len(states) - 1],
+            # initial=states[len(states) - 1],
+            initial=states[3],
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
