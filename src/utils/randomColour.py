@@ -94,7 +94,7 @@ def randomAnalogousWeighted():
         if currentSegment == 0:
             colour.luminance = 0.15
         elif currentSegment == 1:
-            colour.saturation = 0.7
+            colour.saturation = 0.8
 
         currentSegment += 1
 
