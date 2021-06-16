@@ -17,3 +17,10 @@ def createGradientFromBlack(colour: Color, steps: int) -> List[Color]:
 
 def createGradientToBlack(colour: Color, steps: int) -> List[Color]:
     return list(reversed(createGradientFromBlack(colour, steps)))
+
+
+def createGradientFromAndToBlack(colour: Color, stepsUp: int) -> List[Color]:
+    up = createGradientFromBlack(colour, stepsUp)
+    down = list(reversed(up))
+    upAndDown: List[Color] = up + down[1:]
+    return upAndDown

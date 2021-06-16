@@ -15,17 +15,28 @@ class TwinkleBulb:
         self._state = 1
         self._stateToColour = stateToColour
 
-    def getColour(self):
-        return off if self.isNotTwinkling() else self._stateToColour[self._state]
+    def tick(self):
+        if self._isNotTwinkling():
+            pass
+        elif self._hasFinished():
+            self._resetState()
+        else:
+            self._incrementState()
 
-    def isNotTwinkling(self) -> bool:
+    def getColour(self):
+        return off if self._isNotTwinkling() else self._stateToColour[self._state]
+
+    def isReady(self):
+        return self._isNotTwinkling()
+
+    def _isNotTwinkling(self) -> bool:
         return self._state == 0
 
-    def hasFinished(self) -> bool:
+    def _hasFinished(self) -> bool:
         return self._state >= self._numberOfStates - 1
 
-    def resetState(self) -> None:
+    def _resetState(self) -> None:
         self._state = 0
 
-    def incrementState(self) -> None:
+    def _incrementState(self) -> None:
         self._state += 1
