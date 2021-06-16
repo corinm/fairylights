@@ -1,3 +1,4 @@
+import functools
 from typing import List
 
 from colour import Color
@@ -19,7 +20,18 @@ def createGradientToBlack(colour: Color, steps: int) -> List[Color]:
     return list(reversed(createGradientFromBlack(colour, steps)))
 
 
-def createGradientFromAndToBlack(colour: Color, stepsUp: int) -> List[Color]:
+def colourToHexString(function):
+    def wrapper(*args):
+        args = [x.hex if type(x) == Color else x for x in args]
+        result = function(*args)
+        return result
+
+    return wrapper
+
+
+@functools.lru_cache()
+def createGradientFromAndToBlack(hex: str, stepsUp: int) -> List[Color]:
+    colour = Color(hex)
     up = createGradientFromBlack(colour, stepsUp)
     down = list(reversed(up))
     upAndDown: List[Color] = up + down[1:]

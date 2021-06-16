@@ -44,21 +44,13 @@ class RandomTwinkling:
         self.stateToColourByColour: List[List[Color]] = []
 
         for i in range(self.numberOfColours):
-            stateToColour = self._memoisedCreateStateToColour(colours[i])
+            stateToColour = createGradientFromAndToBlack(
+                colours[i].hex, STEPS_FROM_OFF_TO_ON
+            )
             self.stateToColourByColour.append(stateToColour)
 
         self.colourIndex = 0
         print(time() - t1)
-
-    def _memoisedCreateStateToColour(self, colour: Color) -> List[Color]:
-        if self.memo.get(colour.hex) is not None:
-            return self.memo[colour.hex]
-        else:
-            upAndDown: List[Color] = createGradientFromAndToBlack(
-                colour, STEPS_FROM_OFF_TO_ON
-            )
-            self.memo[colour.hex] = upAndDown
-            return upAndDown
 
     def _incrementColour(self):
         self.colourIndex += 1
