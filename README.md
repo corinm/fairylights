@@ -1,5 +1,28 @@
 # fairylights
 
+## Setup
+
+1. Set up a service
+
+        sudo systemctl --force --full edit fairylights.service
+
+2. Edit the configuration
+
+        [Unit]
+        Description=Fairylights
+        After=multi-user.target
+
+        [Service]
+        ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main.py
+
+        [Install]
+        WantedBy=multi-user.target
+
+3. Start the service
+
+        sudo systemctl start fairylights
+        sudo systemctl stop fairylights
+
 ## States
 
 ### Flickering fairy lights
