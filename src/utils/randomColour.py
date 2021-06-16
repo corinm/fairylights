@@ -94,7 +94,7 @@ def randomAnalogousWeighted():
         if currentSegment == 0:
             colour.luminance = 0.15
         elif currentSegment == 1:
-            colour.saturation = 0.5
+            colour.saturation = 0.7
 
         currentSegment += 1
 
@@ -152,7 +152,7 @@ def randomComplimentary(numberOfColours=3, angleAtStart=None):
             if counter % 2 == 1:
                 colour.luminance = 0.15
             else:
-                colour.saturation = 0.5
+                colour.saturation = 0.7
 
         counter += 1
 

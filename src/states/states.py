@@ -1,14 +1,10 @@
 import multiprocessing
-import signal
-import sys
-from time import sleep
 from typing import List, Union
 
 from transitions import Machine, State
 
 from fireflies import runFlicker, runStaticGlow
 from flickering_fairylights import run as runFlickeringFairylights
-from leds.Leds import Leds
 from random_twinkling import (
     runColoursWheel,
     runRandomAnalagousColours,
@@ -79,37 +75,3 @@ class FairyLights(Machine):
 
         self.process = multiprocessing.Process(target=runMethod, args=(self.leds,))
         self.process.start()
-
-
-def sigterm_handler(_signo, _stack_frame):
-    sys.exit(0)
-
-
-signal.signal(signal.SIGTERM, sigterm_handler)
-
-
-def main():
-    leds = Leds()
-    fl = FairyLights(leds)
-
-    # fl.next()
-    # fl.next()
-    # fl.next()
-    # fl.next()
-    # fl.next()
-    # fl.next()
-    # sleep(0)
-
-    try:
-        while True:
-            sleep(60)
-            fl.next()
-
-    except KeyboardInterrupt:
-        leds.clear()
-
-    finally:
-        leds.clear()
-
-
-main()
