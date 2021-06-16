@@ -2,10 +2,11 @@ from typing import List
 
 from colour import Color
 
+from utils.Bulb import Bulb
 from utils.colours import off
 
 
-class TwinkleBulb:
+class TwinkleBulb(Bulb):
     def __init__(self, numberOfStates: int):
         self._numberOfStates: int = numberOfStates
         self._state: int = 0
