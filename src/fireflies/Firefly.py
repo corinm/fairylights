@@ -19,13 +19,14 @@ class Firefly:
     def __init__(
         self,
         position: int,
-        activeAlgorithm: Callable[[int, FireflyColour], Callable[[], Tuple[Color, bool]]],
+        activeAlgorithm: Callable[[int, FireflyColour, int], Callable[[], Tuple[Color, bool]]],
         ticksActive: int = 10,
+        steps: int = 10,
     ):
         self.position: int = position
         colour: FireflyColour = randomColour()
         self.activeAlgorithm: Callable[[], Tuple[Color, bool]] = activeAlgorithm(
-            ticksActive, colour
+            ticksActive, colour, steps
         )
 
         self.delay: int = randomDelay()

@@ -6,6 +6,32 @@ from fireflies.FireflyColour import FireflyColour
 from utils.colours import fireflies, off
 from utils.gradients import createGradientFromBlack, createGradientToBlack
 
+
+def staticGlow(
+    ticksActive: int, colour: FireflyColour, steps: int = 10
+) -> Callable[[], Tuple[Color, bool]]:
+    state: int = 0
+
+    up1 = createGradientFromBlack(fireflies["bright"], steps)
+    down1 = createGradientToBlack(fireflies["bright"], steps)
+
+    gradient: List[Color] = up1 + [fireflies["bright"] for _ in range(ticksActive)] + down1
+
+    def tick() -> Tuple[Color, bool]:
+        nonlocal state
+
+        state += 1
+
+        if state >= len(gradient):
+            return (off, True)
+
+        colour = gradient[state]
+
+        return (colour, False)
+
+    return tick
+
+
 STEPS = 10
 
 up1 = createGradientFromBlack(fireflies["bright"], STEPS)
@@ -22,31 +48,6 @@ gradients: Dict[FireflyColour, List[Color]] = {
     FireflyColour.BRIGHT: gradient1,
     FireflyColour.DARK: gradient2,
 }
-
-
-def staticGlow(
-    ticksActive: int, colour: FireflyColour
-) -> Callable[[], Tuple[Color, bool]]:
-    state: int = 0
-
-    gradient: List[Color] = (
-        up1 + [fireflies["bright"] for _ in range(ticksActive)] + down1
-    )
-
-    def tick() -> Tuple[Color, bool]:
-        nonlocal state
-
-        state += 1
-
-        if state >= len(gradient):
-            return (off, True)
-
-        colour = gradient[state]
-
-        return (colour, False)
-
-    return tick
-
 
 flickerGradient10: List[Color] = [
     up1[1],
@@ -95,9 +96,7 @@ flickerGradient30: List[Color] = [
 ]
 
 
-def flicker(
-    ticksActive: int, colour: FireflyColour
-) -> Callable[[], Tuple[Color, bool]]:
+def flicker(ticksActive: int, colour: FireflyColour) -> Callable[[], Tuple[Color, bool]]:
     state: int = 0
 
     gradient: List[Color] = flickerGradient10 if ticksActive < 15 else flickerGradient30
