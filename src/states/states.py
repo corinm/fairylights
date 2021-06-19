@@ -1,4 +1,5 @@
 import multiprocessing
+from random import randrange
 from typing import List, Union
 
 from transitions import Machine, State
@@ -54,7 +55,7 @@ class FairyLights(Machine):
             self,
             states=states,
             # initial=states[len(states) - 1],
-            initial=states[8],
+            initial=states[randrange(0, len(states))],
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
