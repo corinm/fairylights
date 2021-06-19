@@ -72,6 +72,7 @@ As above, but colours are arranged to be more pleasing
 
 Inspired by:
 - https://www.youtube.com/watch?v=k72jGJTC_3o&t=43s
+- https://www.reddit.com/r/NatureIsFuckingLit/comments/o2dyj5/fireflies_flying/
 - https://www.youtube.com/watch?v=Z7VZlaHWR1s
 
 Features:
