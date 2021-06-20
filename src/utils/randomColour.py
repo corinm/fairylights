@@ -32,8 +32,11 @@ def angleToColour(angle: int):
 
 
 def randomColour(numberOfColours: int):
-    angle = randrange(0, 360)
-    return angleToColour(angle)
+    def nextColor():
+        angle = randrange(0, 360)
+        return angleToColour(angle)
+
+    return nextColor
 
 
 RANGE_OF_ANALAGOUS_COLOURS = int(360 / 12 * 3)

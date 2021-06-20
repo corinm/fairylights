@@ -66,7 +66,6 @@ class FirefliesWaves:
         timeModifier = math.floor(self.ticksSinceLastWave / 4)
         lower = 10 + timeModifier
         upper = 30 + timeModifier
-        print(self.ticksSinceLastWave, lower, upper)
         percentage = randrange(lower, upper) / 100
 
         # Once % determined, use this to create fireflies
