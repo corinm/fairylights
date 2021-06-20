@@ -96,7 +96,9 @@ flickerGradient30: List[Color] = [
 ]
 
 
-def flicker(ticksActive: int, colour: FireflyColour) -> Callable[[], Tuple[Color, bool]]:
+def flicker(
+    ticksActive: int, colour: FireflyColour, steps: int = 10
+) -> Callable[[], Tuple[Color, bool]]:
     state: int = 0
 
     gradient: List[Color] = flickerGradient10 if ticksActive < 15 else flickerGradient30

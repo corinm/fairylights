@@ -23,8 +23,6 @@ class FirefliesConstant:
 
         colours = [off for i in range(50)]
 
-        print(len(self.fireflies))
-
         for firefly in self.fireflies:
             colour = firefly.tick()
             colours[firefly.position] = colour
