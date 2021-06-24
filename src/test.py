@@ -1,24 +1,18 @@
 from leds.Leds import Leds
-from random_twinkling.RandomTwinkling import RandomTwinkling
-from utils.colours import coolors
+from utils.randomColour import randomSplitComplementary
+
+# from utils.colourWheel import COLOUR_WHEEL
 
 leds = Leds()
 
 try:
-    counter = 0
-    index = 0
-    rt = RandomTwinkling(50, coolors[index])
+    f = randomSplitComplementary()
+    leds.setLeds([f() for _ in range(50)])
 
-    while True:
-        if counter >= 200:
-            counter = 0
-            index += 1
-            print("Update")
-            rt.updateColours(coolors[index])
+    # print([c.luminance for c in COLOUR_WHEEL])
+    # print([c.saturation for c in COLOUR_WHEEL])
 
-        leds.setLeds(rt.tick())
-        counter += 1
-
+    # leds.setLeds([COLOUR_WHEEL[i % 12] for i in range(50)])
 
 except KeyboardInterrupt:
     # Cleanup

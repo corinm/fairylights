@@ -4,6 +4,8 @@ from typing import List
 
 from colour import Color
 
+from .colourWheel import COLOUR_WHEEL
+
 
 def generateColourWheel():
     wheel = []
@@ -110,7 +112,7 @@ def randomAnalogousWeighted(numberOfColours: int):
     return nextColour
 
 
-def randomComplimentary(numberOfColours=3, angleAtStart=None):
+def randomComplementary(numberOfColours=3, angleAtStart=None):
     """
     Colours are chosen from segments opposite each other on the colour wheel
     The saturation and luminance of colours are varied to emphasise one segment over the other
@@ -176,5 +178,40 @@ def colourWheel(numberOfColours: int):
         nonlocal angle
         angle = (angle + 15) % 360
         return angleToColour(angle)
+
+    return nextColour
+
+
+def randomSplitComplementary(numberOfColours: int = 5):
+    angle = randrange(0, 12)
+    index = 0
+
+    def nextColour():
+        nonlocal angle
+        nonlocal index
+
+        colour: Color = Color(None)
+
+        if index == 0:
+            colour = COLOUR_WHEEL[angle]
+        elif index == 1:
+            colour = COLOUR_WHEEL[(angle + 5) % 12]
+        elif index == 2:
+            colour = COLOUR_WHEEL[(angle + 7) % 12]
+        elif index == 3:
+            colour = Color(COLOUR_WHEEL[(angle + 5) % 12])
+            colour.saturation = 0.86
+        elif index == 4:
+            colour = Color(COLOUR_WHEEL[(angle + 7) % 12])
+            colour.saturation = 0.86
+
+        print(angle, index, colour)
+
+        index += 1
+
+        if index >= numberOfColours:
+            index = 0
+
+        return colour
 
     return nextColour

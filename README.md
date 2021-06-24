@@ -64,7 +64,7 @@ Creates a palette made up of 3 colours that are next to each other on the colour
 
 As above, but colours are arranged to be more pleasing
 
-#### Complimentary colours
+#### Complementary colours
 
 - Iterates through pairs of colours over time
 
