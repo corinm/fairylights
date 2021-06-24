@@ -14,7 +14,8 @@ from utils.randomColour import colourWheel  # noqa
 from utils.randomColour import randomAnalogousWeighted  # noqa
 from utils.randomColour import randomColour137Degrees  # noqa
 from utils.randomColour import randomColourAnalogous  # noqa
-from utils.randomColour import randomComplimentary  # noqa
+from utils.randomColour import randomComplementary  # noqa
+from utils.randomColour import randomSplitComplementary  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
 
 from .RandomColours import RandomColours  # noqa
@@ -64,15 +65,22 @@ def runRandomAnalagousWeightedColours(leds: Leds):
         leds.setLeds(rawc.tick())
 
 
-def runRandomComplimentary(leds: Leds):
-    rc = RandomColours(50, randomComplimentary, numberOfColours=6)
+def runRandomComplementary(leds: Leds):
+    rc = RandomColours(50, randomComplementary, numberOfColours=6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
-def runRandomComplimentaryMoving(leds: Leds):
-    rc = RandomColours(50, randomComplimentary, numberOfColours=6)
+def runRandomComplementaryMoving(leds: Leds):
+    rc = RandomColours(50, randomComplementary, numberOfColours=6)
+
+    while True:
+        leds.setLeds(rc.tick())
+
+
+def runRandomSplitComplementary(leds: Leds):
+    rc = RandomColours(50, randomSplitComplementary, numberOfColours=5)
 
     while True:
         leds.setLeds(rc.tick())

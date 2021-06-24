@@ -12,7 +12,8 @@ from random_twinkling import (
     runRandomAnalagousWeightedColours,
     runRandomColour137Degress,
     runRandomColours,
-    runRandomComplimentary,
+    runRandomComplementary,
+    runRandomSplitComplementary,
     runTwinklingRetro,
 )
 
@@ -38,7 +39,8 @@ states: List[State] = [
     StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
     StateWithRunMethod(name="Twinkling_Analagous", run=runRandomAnalagousColours),
     StateWithRunMethod(name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours),
-    StateWithRunMethod(name="Twinkling_Complimentary", run=runRandomComplimentary),
+    StateWithRunMethod(name="Twinkling_Complementary", run=runRandomComplementary),
+    StateWithRunMethod(name="Twinkling_SplitComplementary", run=runRandomSplitComplementary),
     StateWithRunMethod(name="Twinkling_137Degrees", run=runRandomColour137Degress),
     StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),
     StateWithRunMethod(name="Twinkling_ColourWheelFast", run=runColoursWheelFast),
@@ -57,7 +59,7 @@ class FairyLights(Machine):
             states=states,
             # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[1],
+            initial=states[5],
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None

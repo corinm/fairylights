@@ -38,6 +38,7 @@ class RandomColours:
         self.colours: List[Color] = [
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
+        print("New palette:", [c.hex for c in self.colours])
         self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
 
         self._resetNewPaletteTime()
