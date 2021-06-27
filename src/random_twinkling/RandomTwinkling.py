@@ -33,6 +33,8 @@ class RandomTwinkling:
         t1 = time()
         self.numberOfColours = len(colours)
 
+        print(self.numberOfColours, colours)
+
         self.stateToColourByColour: List[List[Color]] = []
 
         for i in range(self.numberOfColours):

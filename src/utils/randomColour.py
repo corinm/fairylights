@@ -4,6 +4,7 @@ from typing import List
 
 from colour import Color
 
+from .colours import coolors
 from .colourWheel import COLOUR_WHEEL
 
 
@@ -211,6 +212,24 @@ def randomSplitComplementary(numberOfColours: int = 5):
 
         if index >= numberOfColours:
             index = 0
+
+        return colour
+
+    return nextColour
+
+
+def randomCoolorPalettes(numberOfColours: int = 0):
+    currentPalleteIndex: int = randrange(0, len(coolors))
+    colourIndex = 0
+
+    def nextColour():
+        nonlocal colourIndex
+
+        colour: Color = coolors[currentPalleteIndex][colourIndex]
+        colourIndex += 1
+
+        if colourIndex >= len(coolors[currentPalleteIndex]):
+            colourIndex = 0
 
         return colour
 

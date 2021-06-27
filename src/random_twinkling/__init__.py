@@ -15,6 +15,7 @@ from utils.randomColour import randomAnalogousWeighted  # noqa
 from utils.randomColour import randomColour137Degrees  # noqa
 from utils.randomColour import randomColourAnalogous  # noqa
 from utils.randomColour import randomComplementary  # noqa
+from utils.randomColour import randomCoolorPalettes  # noqa
 from utils.randomColour import randomSplitComplementary  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
 
@@ -109,3 +110,10 @@ def runColoursWheelFast(leds: Leds):
 
     while True:
         leds.setLeds(rac.tick())
+
+
+def runCoolorPalettes(leds: Leds):
+    rc = RandomColours(50, randomCoolorPalettes, numberOfColours=10)
+
+    while True:
+        leds.setLeds(rc.tick())
