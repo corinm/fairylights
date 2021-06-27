@@ -15,7 +15,7 @@ from leds.Leds import Leds  # noqa
 from .RandomTwinkling import RandomTwinkling  # noqa
 
 
-class RandomColours:
+class RandomTwinklingFromColourAlgorithm:
     def __init__(
         self,
         numberOfLeds: int,

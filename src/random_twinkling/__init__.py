@@ -9,7 +9,7 @@ sys.path.append(parentdir)
 from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
-from utils.colours import retroColours  # noqa
+from utils.colours import coolors, retroColours  # noqa
 from utils.randomColour import colourWheel  # noqa
 from utils.randomColour import randomAnalogousWeighted  # noqa
 from utils.randomColour import randomColour137Degrees  # noqa
@@ -19,8 +19,9 @@ from utils.randomColour import randomCoolorPalettes  # noqa
 from utils.randomColour import randomSplitComplementary  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
 
-from .RandomColours import RandomColours  # noqa
 from .RandomTwinkling import RandomTwinkling  # noqa
+from .RandomTwinklingFromColourAlgorithm import RandomTwinklingFromColourAlgorithm  # noqa
+from .RandomTwinklingFromPalettes import RandomTwinklingFromPalettes  # noqa
 
 
 def runTwinklingRetro(leds: Leds):
@@ -40,14 +41,14 @@ def runTwinklingRetro(leds: Leds):
 
 
 def runRandomColours(leds: Leds):
-    rc = RandomColours(50, trulyRandom)
+    rc = RandomTwinklingFromColourAlgorithm(50, trulyRandom)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomAnalagousColours(leds: Leds):
-    rac = RandomColours(
+    rac = RandomTwinklingFromColourAlgorithm(
         50,
         randomColourAnalogous,
         secondsBetweenPaletteChanges=0,
@@ -60,42 +61,44 @@ def runRandomAnalagousColours(leds: Leds):
 
 
 def runRandomAnalagousWeightedColours(leds: Leds):
-    rawc = RandomColours(50, randomAnalogousWeighted, numberOfColours=3)
+    rawc = RandomTwinklingFromColourAlgorithm(50, randomAnalogousWeighted, numberOfColours=3)
 
     while True:
         leds.setLeds(rawc.tick())
 
 
 def runRandomComplementary(leds: Leds):
-    rc = RandomColours(50, randomComplementary, numberOfColours=6)
+    rc = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomComplementaryMoving(leds: Leds):
-    rc = RandomColours(50, randomComplementary, numberOfColours=6)
+    rc = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomSplitComplementary(leds: Leds):
-    rc = RandomColours(50, randomSplitComplementary, numberOfColours=5)
+    rc = RandomTwinklingFromColourAlgorithm(50, randomSplitComplementary, numberOfColours=5)
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runRandomColour137Degress(leds: Leds):
-    rc = RandomColours(50, randomColour137Degrees, secondsBetweenColourChanges=5, numberOfColours=6)
+    rc = RandomTwinklingFromColourAlgorithm(
+        50, randomColour137Degrees, secondsBetweenColourChanges=5, numberOfColours=6
+    )
 
     while True:
         leds.setLeds(rc.tick())
 
 
 def runColoursWheel(leds: Leds):
-    rac = RandomColours(
+    rac = RandomTwinklingFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=4
     )
 
@@ -104,7 +107,7 @@ def runColoursWheel(leds: Leds):
 
 
 def runColoursWheelFast(leds: Leds):
-    rac = RandomColours(
+    rac = RandomTwinklingFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=1
     )
 
@@ -113,7 +116,7 @@ def runColoursWheelFast(leds: Leds):
 
 
 def runCoolorPalettes(leds: Leds):
-    rc = RandomColours(50, randomCoolorPalettes, numberOfColours=10)
+    rt = RandomTwinklingFromPalettes(50, coolors)
 
     while True:
-        leds.setLeds(rc.tick())
+        leds.setLeds(rt.tick())
