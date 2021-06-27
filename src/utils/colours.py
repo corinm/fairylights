@@ -60,6 +60,9 @@ def process(colours: List[str]) -> List[Color]:
 """
    Colour palettes from coolors.co
 """
+
+# Green - blue
+# https://coolors.co/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77
 coolor1 = process(
     [
         "d9ed92",
@@ -75,6 +78,8 @@ coolor1 = process(
     ]
 )
 
+# Pink - purple - light blue
+# https://coolors.co/f72585-b5179e-7209b7-560bad-480ca8-3a0ca3-3f37c9-4361ee-4895ef-4cc9f0
 coolor2 = process(
     [
         "f72585",
@@ -90,8 +95,12 @@ coolor2 = process(
     ]
 )
 
+# Yellow - orange - pink - purple - blue
+# https://coolors.co/ffbe0b-fb5607-ff006e-8338ec-3a86ff
 coolor3 = process(["ffbe0b", "fb5607", "ff006e", "8338ec", "3a86ff"])
 
+# Purple - blue - cyan
+# https://coolors.co/7400b8-6930c3-5e60ce-5390d9-4ea8de-48bfe3-56cfe1-64dfdf-72efdd-80ffdb
 coolor4 = process(
     [
         "7400b8",
@@ -107,8 +116,12 @@ coolor4 = process(
     ]
 )
 
+# Purple - pink - yellow - blue - green
+# https://coolors.co/9b5de5-f15bb5-fee440-00bbf9-00f5d4
 coolor5 = process(["9b5de5", "f15bb5", "fee440", "00bbf9", "00f567"])
 
+# Red - purple - blues
+# https://coolors.co/b7094c-a01a58-892b64-723c70-5c4d7d-455e89-2e6f95-1780a1-0091ad
 coolor6 = process(
     [
         "b7094c",
@@ -123,11 +136,26 @@ coolor6 = process(
     ]
 )
 
+# Dark green - light green- Blue - Red - Orange
+# https://coolors.co/29bf12-abff4f-08bdbd-f21b3f-ff9914
 coolor7 = process(["29bf12", "abff4f", "08bdbd", "f21b3f", "ff9914"])
 
+# Purple - yellow - orange
+# https://coolors.co/3d348b-7678ed-f7b801-f18701-f35b04
 coolor8 = process(["3d348b", "7678ed", "f7b801", "f18701", "f35b04"])
 
+# Yellow - orange - red - purple - cyan
+# https://coolors.co/f9c80e-f86624-ea3546-662e9b-1dada8
 coolor9 = process(["f9c80e", "f86624", "ea3546", "662e9b", "43bccd"])
+
+# https://coolors.co/54478c-2c699a-048ba8-0db39e-16db93-83e377-b9e769-efea5a-f1c453-f29e4c
+coolor10 = process(
+    "54478c-2c699a-048ba8-0db39e-16db93-83e377-b9e769-efea5a-f1c453-f29e4c".split("-")
+)
+
+# https://coolors.co/26547c-ef476f-ffd166-06d6a0-fffcf9
+coolor11 = process("26547c-ef4758-ffd166-06d648".split("-"))
+
 
 coolors = [
     coolor1,
@@ -139,4 +167,6 @@ coolors = [
     coolor7,
     coolor8,
     coolor9,
+    coolor10,
+    coolor11,
 ]
