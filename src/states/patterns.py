@@ -33,8 +33,11 @@ class StateWithRunMethod(State):
         super().__init__(name, on_enter, on_exit, ignore_invalid_triggers)
         self.run = run
 
+    def serialise(self):
+        return self.name
 
-states: List[State] = [
+
+states: List[StateWithRunMethod] = [
     StateWithRunMethod(name="Flickering", run=runFlickeringFairylights),
     StateWithRunMethod(name="Twinkling_Retro", run=runTwinklingRetro),
     StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
@@ -51,8 +54,10 @@ states: List[State] = [
     StateWithRunMethod(name="Fireflies_StaticFlicker", run=runFlicker),
 ]
 
+statesSerialised = [(i, states[i].serialise()) for i in range(len(states))]
 
-class FairyLights(Machine):
+
+class FairyLightPatterns(Machine):
     def __init__(self, leds):
         print("Starting...")
         self.leds = leds
@@ -65,7 +70,6 @@ class FairyLights(Machine):
         )
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
-        self.next()
 
     def next(self):
         if self.process is not None and self.process.is_alive() is True:
