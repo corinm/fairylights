@@ -71,16 +71,13 @@ class FairyLightPatterns(Machine):
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
 
-    def next(self):
+    def _clearProcessIfExists(self):
         if self.process is not None and self.process.is_alive() is True:
             self.process.terminate()
             self.process = None
-        self.trigger("next_state")
 
-    def on_enter(self):
-        print("Transitioned to: ", self.state)
-
-        runMethod = self.machine.states[self.state].run
+    def _runState(self, state):
+        runMethod = self.machine.states[state].run
 
         if not callable(runMethod):
             print("run method not callable")
@@ -88,3 +85,15 @@ class FairyLightPatterns(Machine):
 
         self.process = multiprocessing.Process(target=runMethod, args=(self.leds,))
         self.process.start()
+
+    def next(self):
+        self._clearProcessIfExists()
+        self.trigger("next_state")
+
+    def on_enter(self):
+        print("Transitioned to: ", self.state)
+        self._runState(self.state)
+
+    def toPattern(self, stateName):
+        self._clearProcessIfExists()
+        self._runState(stateName)
