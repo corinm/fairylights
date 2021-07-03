@@ -84,6 +84,7 @@ class FairyLightPatterns(Machine):
             return
 
         self.process = multiprocessing.Process(target=runMethod, args=(self.leds,))
+        self.process.daemon = True
         self.process.start()
 
     def next(self):

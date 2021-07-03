@@ -10,13 +10,23 @@ app = Flask(__name__)
 api = Api(app)
 
 
+class Modes(Resource):
+    def get(self):
+        return modeStatesSerialised, 200
+
+
 class ModeCycle(Resource):
     def __init__(self, toCycle: Callable):
         self.toCycle = toCycle
 
     def get(self):
-        self.toStatic("Flickering")
+        self.toCycle()
         return None, 200
+
+
+class ModeStaticPatterns(Resource):
+    def get(self):
+        return statesSerialised, 200
 
 
 class ModeStatic(Resource):
@@ -28,23 +38,11 @@ class ModeStatic(Resource):
         return None, 200
 
 
-class Modes(Resource):
-    def get(self):
-        return modeStatesSerialised, 200
-
-
-class States(Resource):
-    def get(self):
-        return statesSerialised, 200
-
-
-api.add_resource(Modes, "/modes")
-api.add_resource(States, "/states")
-
-
 def runApiServer(toCycle: Callable, toStatic: Callable):
+    api.add_resource(Modes, "/modes")
     api.add_resource(ModeCycle, "/modes/cycle", resource_class_args=(toCycle,))
+    api.add_resource(ModeStaticPatterns, "/modes/static")
     api.add_resource(ModeStatic, "/modes/static/<pattern>", resource_class_args=(toStatic,))
 
     print("Starting api server")
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5001)
