@@ -39,15 +39,14 @@ class FairyLightModes(Machine):
         # self.patterns.machine.
 
         self.process = multiprocessing.Process(target=self._runCycle, args=(self.leds,))
-        self.process.daemon = True
         self.process.start()
 
     def _runCycle(self, leds):
-        self.patterns = FairyLightPatterns(leds)
+        patterns = FairyLightPatterns(leds)
 
         while True:
             print("Looping")
-            self.patterns.next()
+            patterns.next()
             sleep(15)
 
     def on_enter_static(self, pattern):
