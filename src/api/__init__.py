@@ -10,3 +10,6 @@ class Users(Resource):
 
 
 api.add_resource(Users, "/users")
+
+if __name__ == "__main__":
+    app.run()
