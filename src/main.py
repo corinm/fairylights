@@ -1,10 +1,9 @@
 import signal
 import sys
 
+from api.api import runApiServer
 from leds.Leds import Leds
 from states.modes import FairyLightModes
-
-# from api.api import runApiServer
 
 
 def sigterm_handler(_signo, _stack_frame):
@@ -15,9 +14,14 @@ def main():
     signal.signal(signal.SIGTERM, sigterm_handler)
 
     leds = Leds()
-    FairyLightModes(leds)
 
     try:
+        print("1")
+        fsm = FairyLightModes(leds)
+        print("2")
+        runApiServer(fsm.cycle, fsm.static)
+        print("3")
+
         while True:
             pass
 
