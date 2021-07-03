@@ -1,12 +1,14 @@
 from typing import Callable
 
 from flask import Flask
+from flask_cors import CORS
 from flask_restful import Api, Resource
 
 from states.modes import modeStatesSerialised
 from states.patterns import statesSerialised
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
 

@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Fairy lights</title>
+  </head>
+  <body>
+    <h1>Fairy lights</h1>
+    <select id="select"></select>
+    <button onclick="setPattern()">Set pattern</button>
+  </body>
+
+  <script>
+    const initialise = async () => {
+      const patterns = await fetchPatterns()
+
+      const select = document.getElementById('select')
+
+      for ([_, name] of patterns) {
+        const option = document.createElement('option')
+        option.appendChild(document.createTextNode(name))
+        select.appendChild(option)
+      }
+    }
+
+    const fetchPatterns = async () => {
+      const response = await fetch('http://192.168.0.29:5001/modes/static')
+      return response.json()
+    }
+
+    const setPattern = async () => {
+      const select = document.getElementById('select')
+      const pattern = select.value
+
+      await fetch(`http://192.168.0.29:5001/modes/static/${pattern}`)
+    }
+
+    initialise()
+  </script>
+</html>

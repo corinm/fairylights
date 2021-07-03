@@ -10,6 +10,7 @@ adafruit-circuitpython-ssd1306 = "*"
 colour = "*"
 rpi-ws281x = "*"
 transitions = "*"
+flask-cors = "*"
 
 [dev-packages]
 autopep8 = "*"
