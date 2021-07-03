@@ -73,10 +73,12 @@ class FairyLightPatterns(Machine):
 
     def _clearProcessIfExists(self):
         if self.process is not None and self.process.is_alive() is True:
+            print("TERMINATING PROCESS")
             self.process.terminate()
             self.process = None
 
     def _runState(self, state):
+        self._clearProcessIfExists()
         runMethod = self.machine.states[state].run
 
         if not callable(runMethod):
@@ -93,6 +95,7 @@ class FairyLightPatterns(Machine):
 
     def on_enter(self):
         print("Transitioned to: ", self.state)
+        self._clearProcessIfExists()
         self._runState(self.state)
 
     def toPattern(self, stateName):
