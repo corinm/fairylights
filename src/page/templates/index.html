@@ -6,6 +6,8 @@
     <h1>Fairy lights</h1>
     <select id="select"></select>
     <button onclick="setPattern()">Set pattern</button>
+    <button onclick="cycle()">Cycle through</button>
+    <button onclick="stop()">Stop</button>
   </body>
 
   <script>
@@ -32,6 +34,9 @@
 
       await fetch(`http://192.168.0.29:5001/modes/static/${pattern}`)
     }
+
+    const cycle = async () => fetch(`http://192.168.0.29:5001/modes/cycle`)
+    const stop = async () => fetch(`http://192.168.0.29:5001/modes/stop`)
 
     initialise()
   </script>
