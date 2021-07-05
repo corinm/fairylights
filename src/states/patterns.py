@@ -21,6 +21,11 @@ from random_twinkling import (
 # from random import randrange
 
 
+def runOff(leds):
+    print("runOff")
+    leds.clear()
+
+
 class StateWithRunMethod(State):
     def __init__(
         self,
@@ -52,6 +57,7 @@ states: List[StateWithRunMethod] = [
     StateWithRunMethod(name="Fireflies_StaticGlowShorter", run=runStaticGlowShorter),
     StateWithRunMethod(name="Fireflies_StaticGlow", run=runStaticGlow),
     StateWithRunMethod(name="Fireflies_StaticFlicker", run=runFlicker),
+    StateWithRunMethod(name="Off", run=runOff),
 ]
 
 statesSerialised = [(i, states[i].serialise()) for i in range(len(states))]
@@ -68,6 +74,7 @@ class FairyLightPatterns(Machine):
             # initial=states[randrange(0, len(states))],
             initial=states[9],
         )
+        self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
 
@@ -101,3 +108,9 @@ class FairyLightPatterns(Machine):
     def toPattern(self, stateName):
         self._clearProcessIfExists()
         self._runState(stateName)
+
+    def stop(self):
+        print("patterns.stop")
+        self.trigger("stop")
+        self.leds.clear()
+        print(self.state)
