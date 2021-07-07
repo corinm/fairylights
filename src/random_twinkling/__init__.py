@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Callable
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -24,7 +25,7 @@ from .RandomTwinklingFromColourAlgorithm import RandomTwinklingFromColourAlgorit
 from .RandomTwinklingFromPalettes import RandomTwinklingFromPalettes  # noqa
 
 
-def runTwinklingRetro(leds: Leds):
+def runTwinklingRetro(leds: Leds, shouldStop: Callable[[], bool]):
     rt = RandomTwinkling(
         50,
         [
@@ -36,7 +37,12 @@ def runTwinklingRetro(leds: Leds):
         ],
     )
 
-    while True:
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
         leds.setLeds(rt.tick())
 
 
