@@ -35,7 +35,8 @@ class ModeStatic(Resource):
     def __init__(self, toStatic: Callable[[Pattern], None]):
         self.toStatic: Callable[[Pattern], None] = toStatic
 
-    def get(self, pattern: Pattern):
+    def get(self, patternName: str):
+        pattern = Pattern[patternName]
         self.toStatic(pattern)
         return None, 200
 
@@ -53,7 +54,7 @@ def runApiServer(toCycle: Callable, toStatic: Callable, stop: Callable):
     api.add_resource(Modes, "/modes")
     api.add_resource(ModeCycle, "/modes/cycle", resource_class_args=(toCycle,))
     api.add_resource(ModeStaticPatterns, "/modes/static")
-    api.add_resource(ModeStatic, "/modes/static/<pattern>", resource_class_args=(toStatic,))
+    api.add_resource(ModeStatic, "/modes/static/<patternName>", resource_class_args=(toStatic,))
     api.add_resource(ModeStop, "/modes/stop", resource_class_args=(stop,))
 
     print("Starting api server")
