@@ -13,7 +13,7 @@ Install dependencies manually then:
 
 ## Setup
 
-1. Set up a service
+1. Set up a service for the lights and http api
 
         sudo systemctl --force --full edit fairylights.service
 
@@ -33,6 +33,27 @@ Install dependencies manually then:
 
         sudo systemctl start fairylights.service
         sudo systemctl stop fairylights.service
+
+4. Set up a service for the web page
+
+        sudo systemctl --force --full edit fairylights-page.service
+
+2. Edit the configuration
+
+        [Unit]
+        Description=Fairylights webpage
+        After=multi-user.target
+
+        [Service]
+        ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main2.py
+
+        [Install]
+        WantedBy=multi-user.target
+
+3. Start the service
+
+        sudo systemctl start fairylights-page.service
+        sudo systemctl stop fairylights-page.service
 
 ## States
 
