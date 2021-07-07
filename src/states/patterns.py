@@ -96,7 +96,6 @@ class FairyLightPatterns(Machine):
 
     def _clearProcessIfExists(self):
         if self.process is not None:
-            print("TERMINATING PROCESS")
             self.process.terminate()
             self.process = None
 
