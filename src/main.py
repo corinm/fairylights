@@ -18,6 +18,7 @@ def main():
     try:
         fsm = FairyLightModes(leds)
         runApiServer(fsm.cycle, fsm.static, fsm.stop)
+        print(">>> Main thread")
 
     finally:
         leds.clear()

@@ -1,4 +1,5 @@
 import multiprocessing
+from enum import Enum
 from typing import List, Union
 
 from transitions import Machine, State
@@ -21,6 +22,24 @@ from random_twinkling import (
 # from random import randrange
 
 
+class Pattern(Enum):
+    Flickering = 1
+    Twinkling_Retro = 2
+    Twinkling_Random = 3
+    Twinkling_Analagous = 4
+    Twinkling_AnalagousWeighted = 5
+    Twinkling_Complementary = 6
+    Twinkling_SplitComplementary = 7
+    Twinkling_137Degrees = 8
+    Twinkling_ColourWheel = 9
+    Twinkling_ColourWheelFast = 10
+    Twinkling_CoolorPalletes = 11
+    Fireflies_StaticGlowShorter = 12
+    Fireflies_StaticGlow = 13
+    Fireflies_StaticFlicker = 14
+    Off = 99
+
+
 def runOff(leds):
     print("runOff")
     leds.clear()
@@ -29,7 +48,7 @@ def runOff(leds):
 class StateWithRunMethod(State):
     def __init__(
         self,
-        name,
+        name: Pattern,
         on_enter=None,
         on_exit=None,
         ignore_invalid_triggers=None,
@@ -43,21 +62,23 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
-    StateWithRunMethod(name="Flickering", run=runFlickeringFairylights),
-    StateWithRunMethod(name="Twinkling_Retro", run=runTwinklingRetro),
-    StateWithRunMethod(name="Twinkling_Random", run=runRandomColours),
-    StateWithRunMethod(name="Twinkling_Analagous", run=runRandomAnalagousColours),
-    StateWithRunMethod(name="Twinkling_AnalagousWeighted", run=runRandomAnalagousWeightedColours),
-    StateWithRunMethod(name="Twinkling_Complementary", run=runRandomComplementary),
-    StateWithRunMethod(name="Twinkling_SplitComplementary", run=runRandomSplitComplementary),
-    StateWithRunMethod(name="Twinkling_137Degrees", run=runRandomColour137Degress),
-    StateWithRunMethod(name="Twinkling_ColourWheel", run=runColoursWheel),
-    StateWithRunMethod(name="Twinkling_ColourWheelFast", run=runColoursWheelFast),
-    StateWithRunMethod(name="Twinkling_CoolorPalletes", run=runCoolorPalettes),
-    StateWithRunMethod(name="Fireflies_StaticGlowShorter", run=runStaticGlowShorter),
-    StateWithRunMethod(name="Fireflies_StaticGlow", run=runStaticGlow),
-    StateWithRunMethod(name="Fireflies_StaticFlicker", run=runFlicker),
-    StateWithRunMethod(name="Off", run=runOff),
+    StateWithRunMethod(name=Pattern.Flickering, run=runFlickeringFairylights),
+    StateWithRunMethod(name=Pattern.Twinkling_Retro, run=runTwinklingRetro),
+    StateWithRunMethod(name=Pattern.Twinkling_Random, run=runRandomColours),
+    StateWithRunMethod(name=Pattern.Twinkling_Analagous, run=runRandomAnalagousColours),
+    StateWithRunMethod(
+        name=Pattern.Twinkling_AnalagousWeighted, run=runRandomAnalagousWeightedColours
+    ),
+    StateWithRunMethod(name=Pattern.Twinkling_Complementary, run=runRandomComplementary),
+    StateWithRunMethod(name=Pattern.Twinkling_SplitComplementary, run=runRandomSplitComplementary),
+    StateWithRunMethod(name=Pattern.Twinkling_137Degrees, run=runRandomColour137Degress),
+    StateWithRunMethod(name=Pattern.Twinkling_ColourWheel, run=runColoursWheel),
+    StateWithRunMethod(name=Pattern.Twinkling_ColourWheelFast, run=runColoursWheelFast),
+    StateWithRunMethod(name=Pattern.Twinkling_CoolorPalletes, run=runCoolorPalettes),
+    StateWithRunMethod(name=Pattern.Fireflies_StaticGlowShorter, run=runStaticGlowShorter),
+    StateWithRunMethod(name=Pattern.Fireflies_StaticGlow, run=runStaticGlow),
+    StateWithRunMethod(name=Pattern.Fireflies_StaticFlicker, run=runFlicker),
+    StateWithRunMethod(name=Pattern.Off, run=runOff),
 ]
 
 statesSerialised = [(i, states[i].serialise()) for i in range(len(states))]
@@ -74,25 +95,30 @@ class FairyLightPatterns(Machine):
             # initial=states[randrange(0, len(states))],
             initial=states[9],
         )
+        print(self.machine.states)
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
 
     def _clearProcessIfExists(self):
-        if self.process is not None and self.process.is_alive() is True:
+        if self.process is not None:
             print("TERMINATING PROCESS")
             self.process.terminate()
             self.process = None
 
-    def _runState(self, state):
+    def _runState(self, state: Pattern):
         self._clearProcessIfExists()
-        runMethod = self.machine.states[state].run
+        print(state.name)
+        runMethod = self.machine.states[state.name].run
 
         if not callable(runMethod):
             print("run method not callable")
             return
 
-        self.process = multiprocessing.Process(target=runMethod, args=(self.leds,))
+        self.process = multiprocessing.Process(
+            target=runMethod,
+            args=(self.leds,),
+        )
         self.process.daemon = True
         self.process.start()
 
@@ -105,7 +131,7 @@ class FairyLightPatterns(Machine):
         self._clearProcessIfExists()
         self._runState(self.state)
 
-    def toPattern(self, stateName):
+    def toPattern(self, stateName: Pattern):
         self._clearProcessIfExists()
         self._runState(stateName)
 
