@@ -95,7 +95,6 @@ class FairyLightPatterns(Machine):
             # initial=states[randrange(0, len(states))],
             initial=states[9],
         )
-        print(self.machine.states)
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(after=self.on_enter)
         self.process: Union[multiprocessing.Process, None] = None
@@ -108,7 +107,6 @@ class FairyLightPatterns(Machine):
 
     def _runState(self, state: Pattern):
         self._clearProcessIfExists()
-        print(state.name)
         runMethod = self.machine.states[state.name].run
 
         if not callable(runMethod):
@@ -139,4 +137,3 @@ class FairyLightPatterns(Machine):
         print("patterns.stop")
         self.trigger("stop")
         self.leds.clear()
-        print(self.state)

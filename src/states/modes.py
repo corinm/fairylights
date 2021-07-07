@@ -34,7 +34,6 @@ class FairyLightModes(Machine):
 
     def _runCycle(self):
         while True:
-            print("Looping")
             self.patterns.next()
             sleep(15)
 
