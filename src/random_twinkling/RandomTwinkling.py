@@ -13,17 +13,33 @@ STEPS_FROM_OFF_TO_ON = 19
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
 
 
+def allOff(colours: List[Color]) -> bool:
+    return all(c == Color(None) for c in colours)
+
+
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         self.updateColours(colours)
         self.currentColourIndex: int = 0
         bulbs: List[Bulb] = [TwinkleBulb(NUMBER_OF_STATES) for _ in range(numberOfBulbs)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)
+        self._stopping = False
+        self._ticksUntilCheck = 15
 
     def tick(self) -> List[Color]:
-        self._nextTwinkle()
+        if not self._stopping:
+            self._nextTwinkle()
 
         colours: List[Color] = [bulb.getColour() for bulb in self.shuffledBulbs.getBulbs()]
+
+        if self._stopping:
+            self._ticksUntilCheck -= 1
+
+        if self._stopping and self._ticksUntilCheck == 0 and allOff(colours):
+            self._stopping = False
+
+        if self._stopping and self._ticksUntilCheck == 0:
+            self._ticksUntilCheck = 15
 
         [bulb.tick() for bulb in self.shuffledBulbs.getBulbs()]
 
@@ -43,6 +59,12 @@ class RandomTwinkling:
 
         self.currentColourIndex = 0
         print(time() - t1)
+
+    def stop(self):
+        self._stopping = True
+
+    def isStopping(self) -> bool:
+        return self._stopping
 
     def _nextTwinkle(self):
         bulb = self.shuffledBulbs.getNextBulb()

@@ -1,8 +1,9 @@
-import multiprocessing
-from time import sleep
-from typing import List
+from time import sleep, time
+from typing import Callable, List, Union
 
 from transitions import Machine, State
+
+from utils.StoppableThread import StoppableThread
 
 from .patterns import FairyLightPatterns, Pattern
 
@@ -17,7 +18,7 @@ modeStatesSerialised = [(i, modeStates[i].name) for i in range(len(modeStates))]
 
 class FairyLightModes(Machine):
     def __init__(self, leds):
-        print("Starting...")
+        print("Starting FairyLightModes...")
         self.leds = leds
         self.machine = Machine(
             self,
@@ -29,38 +30,48 @@ class FairyLightModes(Machine):
         self.machine.add_transition("toCycle", source=["static", "cycle", "stopped"], dest="cycle")
         self.machine.add_transition("stop", source=["static", "cycle", "stopped"], dest="stopped")
         self.patterns = FairyLightPatterns(leds)
-        self.process = None
+        self.thread: Union[StoppableThread, None] = None
         self.trigger("start")
 
-    def _runCycle(self):
-        while True:
-            self.patterns.next()
-            sleep(15)
+    def _runCycle(self, shouldStop: Callable[[], bool]):
+        t = time() + 15
+        while not shouldStop():
+            if time() > t:
+                t = time() + 15
+                self.patterns.next()
+            else:
+                sleep(2)
 
     def on_enter_cycle(self):
         print("on_enter_cycle")
-        if self.process is not None:
-            self.process.terminate()
-            self.process = None
+        if self.thread is not None:
+            self.thread.stop()
+            self.thread.join()
+            self.thread = None
 
-        self.process = multiprocessing.Process(target=self._runCycle)
-        self.process.start()
+        self.thread = StoppableThread(target=self._runCycle, args=())
+        self.thread.setDaemon(True)
+        self.thread.start()
+        print("cycle thread started")
 
     def on_enter_static(self, pattern: Pattern):
         print("on_enter_static")
 
-        if self.process is not None:
-            self.process.terminate()
-            self.process = None
+        if self.thread is not None:
+            print("Stopping modes cycle thread")
+            self.thread.stop()
+            self.thread.join()
+            self.thread = None
 
         self.patterns.toPattern(pattern)
 
     def on_enter_stopped(self):
         print("modes.son_enter_stopped")
 
-        if self.process is not None:
-            self.process.terminate()
-            self.process = None
+        if self.thread is not None:
+            self.thread.stop()
+            self.thread.join()
+            self.thread = None
 
         self.patterns.stop()
 
