@@ -49,12 +49,9 @@ class StateWithRunMethod(State):
     def __init__(
         self,
         name: Pattern,
-        on_enter=None,
-        on_exit=None,
-        ignore_invalid_triggers=None,
         run=lambda *args: None,
     ):
-        super().__init__(name, on_enter, on_exit, ignore_invalid_triggers)
+        super().__init__(name, on_enter=None, on_exit=None, ignore_invalid_triggers=None)
         self.run = run
 
     def serialise(self):
@@ -62,23 +59,21 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
-    StateWithRunMethod(name=Pattern.Flickering, run=runFlickeringFairylights),
-    StateWithRunMethod(name=Pattern.Twinkling_Retro, run=runTwinklingRetro),
-    StateWithRunMethod(name=Pattern.Twinkling_Random, run=runRandomColours),
-    StateWithRunMethod(name=Pattern.Twinkling_Analagous, run=runRandomAnalagousColours),
-    StateWithRunMethod(
-        name=Pattern.Twinkling_AnalagousWeighted, run=runRandomAnalagousWeightedColours
-    ),
-    StateWithRunMethod(name=Pattern.Twinkling_Complementary, run=runRandomComplementary),
-    StateWithRunMethod(name=Pattern.Twinkling_SplitComplementary, run=runRandomSplitComplementary),
-    StateWithRunMethod(name=Pattern.Twinkling_137Degrees, run=runRandomColour137Degress),
-    StateWithRunMethod(name=Pattern.Twinkling_ColourWheel, run=runColoursWheel),
-    StateWithRunMethod(name=Pattern.Twinkling_ColourWheelFast, run=runColoursWheelFast),
-    StateWithRunMethod(name=Pattern.Twinkling_CoolorPalletes, run=runCoolorPalettes),
-    StateWithRunMethod(name=Pattern.Fireflies_StaticGlowShorter, run=runStaticGlowShorter),
-    StateWithRunMethod(name=Pattern.Fireflies_StaticGlow, run=runStaticGlow),
-    StateWithRunMethod(name=Pattern.Fireflies_StaticFlicker, run=runFlicker),
-    StateWithRunMethod(name=Pattern.Off, run=runOff),
+    StateWithRunMethod(Pattern.Flickering, runFlickeringFairylights),
+    StateWithRunMethod(Pattern.Twinkling_Retro, runTwinklingRetro),
+    StateWithRunMethod(Pattern.Twinkling_Random, runRandomColours),
+    StateWithRunMethod(Pattern.Twinkling_Analagous, runRandomAnalagousColours),
+    StateWithRunMethod(Pattern.Twinkling_AnalagousWeighted, runRandomAnalagousWeightedColours),
+    StateWithRunMethod(Pattern.Twinkling_Complementary, runRandomComplementary),
+    StateWithRunMethod(Pattern.Twinkling_SplitComplementary, runRandomSplitComplementary),
+    StateWithRunMethod(Pattern.Twinkling_137Degrees, runRandomColour137Degress),
+    StateWithRunMethod(Pattern.Twinkling_ColourWheel, runColoursWheel),
+    StateWithRunMethod(Pattern.Twinkling_ColourWheelFast, runColoursWheelFast),
+    StateWithRunMethod(Pattern.Twinkling_CoolorPalletes, runCoolorPalettes),
+    StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
+    StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
+    StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
+    StateWithRunMethod(Pattern.Off, runOff),
 ]
 
 statesSerialised = [(i, states[i].serialise()) for i in range(len(states))]
