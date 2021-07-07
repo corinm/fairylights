@@ -4,7 +4,7 @@ from typing import List
 
 from transitions import Machine, State
 
-from .patterns import FairyLightPatterns
+from .patterns import FairyLightPatterns, Pattern
 
 modeStates: List[State] = [
     State(name="stopped"),
@@ -47,7 +47,7 @@ class FairyLightModes(Machine):
         self.process = multiprocessing.Process(target=self._runCycle)
         self.process.start()
 
-    def on_enter_static(self, pattern):
+    def on_enter_static(self, pattern: Pattern):
         print("on_enter_static")
 
         if self.process is not None:
@@ -68,7 +68,7 @@ class FairyLightModes(Machine):
     def cycle(self):
         self.trigger("toCycle")
 
-    def static(self, pattern: str):
+    def static(self, pattern: Pattern):
         self.trigger("toStatic", pattern)
 
     def stop(self):
