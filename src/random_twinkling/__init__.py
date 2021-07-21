@@ -99,13 +99,18 @@ def runRandomSplitComplementary(leds: Leds, shouldStop: Callable[[], bool]):
         leds.setLeds(rt.tick())
 
 
-def runRandomColour137Degress(leds: Leds):
-    rc = RandomTwinklingFromColourAlgorithm(
+def runRandomColour137Degress(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(
         50, randomColour137Degrees, secondsBetweenColourChanges=5, numberOfColours=6
     )
 
-    while True:
-        leds.setLeds(rc.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
 def runColoursWheel(leds: Leds):

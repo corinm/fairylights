@@ -66,7 +66,7 @@ states: List[StateWithRunMethod] = [
     # StateWithRunMethod(Pattern.Twinkling_AnalagousWeighted, runRandomAnalagousWeightedColours),
     # StateWithRunMethod(Pattern.Twinkling_Complementary, runRandomComplementary),
     StateWithRunMethod(Pattern.Twinkling_SplitComplementary, runRandomSplitComplementary),
-    # StateWithRunMethod(Pattern.Twinkling_137Degrees, runRandomColour137Degress),
+    StateWithRunMethod(Pattern.Twinkling_137Degrees, runRandomColour137Degress),
     # StateWithRunMethod(Pattern.Twinkling_ColourWheel, runColoursWheel),
     # StateWithRunMethod(Pattern.Twinkling_ColourWheelFast, runColoursWheelFast),
     # StateWithRunMethod(Pattern.Twinkling_CoolorPalletes, runCoolorPalettes),
