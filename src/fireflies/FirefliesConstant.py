@@ -10,15 +10,16 @@ from .patterns import staticGlow
 
 
 def shouldAdd() -> bool:
-    return random() < 0.2
+    return random() < 0.05
 
 
 class FirefliesConstant:
     def __init__(self):
         self.fireflies: List[Firefly] = []
+        self._stopping = False
 
     def tick(self) -> List[Color]:
-        if shouldAdd():
+        if not self._stopping and shouldAdd():
             self._addMoreFireflies()
 
         colours = [off for i in range(50)]
@@ -28,6 +29,9 @@ class FirefliesConstant:
             colours[firefly.position] = colour
 
         self.fireflies = [f for f in self.fireflies if not f.isDone]
+
+        if len(self.fireflies) == 0:
+            self._stopping = False
 
         return colours
 
@@ -39,5 +43,11 @@ class FirefliesConstant:
         numberOfNewFireflies = randrange(1, 5)
         for i in range(min(numberOfNewFireflies, len(emptyPositions))):
             ticksActive = randrange(0, 5)
-            steps = randrange(4, 9)
+            steps = randrange(20, 40)
             self.fireflies.append(Firefly(emptyPositions[i], staticGlow, ticksActive, steps=steps))
+
+    def stop(self):
+        self._stopping = True
+
+    def isStopping(self) -> bool:
+        return self._stopping
