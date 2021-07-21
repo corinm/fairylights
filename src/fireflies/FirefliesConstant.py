@@ -19,7 +19,7 @@ class FirefliesConstant:
         self._stopping = False
 
     def tick(self) -> List[Color]:
-        if shouldAdd():
+        if not self._stopping and shouldAdd():
             self._addMoreFireflies()
 
         colours = [off for i in range(50)]
@@ -29,6 +29,9 @@ class FirefliesConstant:
             colours[firefly.position] = colour
 
         self.fireflies = [f for f in self.fireflies if not f.isDone]
+
+        if len(self.fireflies) == 0:
+            self._stopping = False
 
         return colours
 
