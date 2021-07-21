@@ -21,11 +21,12 @@ class FirefliesWaves:
         self.algo = algo
         self.ticksActiveRange = ticksActiveRange
         self.ticksBetweenWavesRange = ticksBetweenWavesRange
+        self._stopping = False
 
     def tick(self):
         colours = [off for i in range(50)]
 
-        if self.noFirefliesAndReadyForNextWave():
+        if not self._stopping and self.noFirefliesAndReadyForNextWave():
             self.newFirelies()
 
         for firefly in self.fireflies:
@@ -35,7 +36,9 @@ class FirefliesWaves:
         self.fireflies = [f for f in self.fireflies if not f.isDone]
 
         if self.noActiveFireflies():
-            if self.ticksUntilNextWave == 0:
+            if self._stopping:
+                self._stopping = False
+            elif self.ticksUntilNextWave == 0:
                 self.startNewCountdown()
             else:
                 self.ticksUntilNextWave -= 1
@@ -74,3 +77,9 @@ class FirefliesWaves:
                 lower, upper = self.ticksActiveRange
                 ticksActive = randrange(lower, upper + 1)
                 self.fireflies.append(Firefly(i, self.algo, ticksActive))
+
+    def stop(self):
+        self._stopping = True
+
+    def isStopping(self) -> bool:
+        return self._stopping

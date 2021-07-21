@@ -38,7 +38,7 @@ class RandomTwinklingFromColourAlgorithm:
         self.colours: List[Color] = [
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
-        print("New palette:", [c.hex for c in self.colours])
+        print("🌈  New palette:", [c.hex for c in self.colours])
         self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
 
         self._resetNewPaletteTime()
@@ -58,7 +58,7 @@ class RandomTwinklingFromColourAlgorithm:
         self.colours: List[Color] = [
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
-        print("New palette:", [c.hex for c in self.colours])
+        print("🌈  New palette:", [c.hex for c in self.colours])
         self.rt.updateColours(self.colours)
         self._resetNewPaletteTime()
 
@@ -84,3 +84,9 @@ class RandomTwinklingFromColourAlgorithm:
 
     def _resetNewColourTime(self):
         self.timeForNewColour = datetime.now() + timedelta(seconds=self.secondsBetweenColourChanges)
+
+    def stop(self):
+        self.rt.stop()
+
+    def isStopping(self) -> bool:
+        return self.rt.isStopping()
