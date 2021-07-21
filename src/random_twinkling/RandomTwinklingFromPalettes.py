@@ -57,3 +57,9 @@ class RandomTwinklingFromPalettes:
         self.timeForNewPalette = datetime.now() + timedelta(
             seconds=self.secondsBetweenPaletteChanges
         )
+
+    def stop(self):
+        self.rt.stop()
+
+    def isStopping(self) -> bool:
+        return self.rt.isStopping()

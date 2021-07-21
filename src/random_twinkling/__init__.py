@@ -46,15 +46,20 @@ def runTwinklingRetro(leds: Leds, shouldStop: Callable[[], bool]):
         leds.setLeds(rt.tick())
 
 
-def runRandomColours(leds: Leds):
-    rc = RandomTwinklingFromColourAlgorithm(50, trulyRandom)
+def runRandomColours(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(50, trulyRandom)
 
-    while True:
-        leds.setLeds(rc.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
-def runRandomAnalagousColours(leds: Leds):
-    rac = RandomTwinklingFromColourAlgorithm(
+def runRandomAnalagousColours(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(
         50,
         randomColourAnalogous,
         secondsBetweenPaletteChanges=0,
@@ -62,29 +67,50 @@ def runRandomAnalagousColours(leds: Leds):
         numberOfColours=3,
     )
 
-    while True:
-        leds.setLeds(rac.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
-def runRandomAnalagousWeightedColours(leds: Leds):
-    rawc = RandomTwinklingFromColourAlgorithm(50, randomAnalogousWeighted, numberOfColours=3)
+def runRandomAnalagousWeightedColours(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(50, randomAnalogousWeighted, numberOfColours=3)
 
-    while True:
-        leds.setLeds(rawc.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
 
+    rt.stop()
 
-def runRandomComplementary(leds: Leds):
-    rc = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
-
-    while True:
-        leds.setLeds(rc.tick())
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
-def runRandomComplementaryMoving(leds: Leds):
-    rc = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
+def runRandomComplementary(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
 
-    while True:
-        leds.setLeds(rc.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
+
+
+# TODO: Not using this, what was the benefit, should I delete it?
+def runRandomComplementaryMoving(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
+
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
 def runRandomSplitComplementary(leds: Leds, shouldStop: Callable[[], bool]):
@@ -113,26 +139,41 @@ def runRandomColour137Degress(leds: Leds, shouldStop: Callable[[], bool]):
         leds.setLeds(rt.tick())
 
 
-def runColoursWheel(leds: Leds):
-    rac = RandomTwinklingFromColourAlgorithm(
+def runColoursWheel(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=4
     )
 
-    while True:
-        leds.setLeds(rac.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
-def runColoursWheelFast(leds: Leds):
-    rac = RandomTwinklingFromColourAlgorithm(
+def runColoursWheelFast(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=1
     )
 
-    while True:
-        leds.setLeds(rac.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
-def runCoolorPalettes(leds: Leds):
+def runCoolorPalettes(leds: Leds, shouldStop: Callable[[], bool]):
     rt = RandomTwinklingFromPalettes(50, coolors)
 
-    while True:
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
         leds.setLeds(rt.tick())
