@@ -5,7 +5,7 @@ import unittest
 import random_twinkling.helpers as helpers
 
 
-class TestHelpers(unittest.TestCase):
+class TestHelpersCreateShuffledList(unittest.TestCase):
     def test_generates_a_list_of_50_bulbs(self):
         shuffled = helpers.createShuffledList(50)
         self.assertEqual(len(shuffled), 50)
@@ -111,6 +111,62 @@ class TestHelpers(unittest.TestCase):
         shuffled2 = helpers.createShuffledList(50)
 
         self.assertNotEqual(shuffled1, shuffled2)
+
+
+class TestHelpersCalculateLuminance(unittest.TestCase):
+    def test_1(self):
+        time = 0
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0)
+
+    def test_2(self):
+        time = 0.25
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.0375)
+
+    def test_3(self):
+        time = 0.5
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.075)
+
+    def test_4(self):
+        time = 0.75
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.1125)
+
+    def test_5(self):
+        time = 1
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.15)
+
+    def test_6(self):
+        time = 1.25
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.1125)
+
+    def test_7(self):
+        time = 1.5
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.075)
+
+    def test_8(self):
+        time = 1.75
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0.0375)
+
+    def test_9(self):
+        time = 2
+        timeToPeak = 1
+        maxLuminance = 0.15
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0)
 
 
 if __name__ == "__main__":

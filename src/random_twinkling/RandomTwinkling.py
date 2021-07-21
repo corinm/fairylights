@@ -4,7 +4,6 @@ from typing import List
 from colour import Color
 
 from utils.Bulb import Bulb
-from utils.gradients import createGradientFromAndToBlack
 from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
@@ -19,20 +18,29 @@ def allOff(colours: List[Color]) -> bool:
 
 class RandomTwinkling:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
-        self.updateColours(colours)
-        self.currentColourIndex: int = 0
-        bulbs: List[Bulb] = [TwinkleBulb(NUMBER_OF_STATES) for _ in range(numberOfBulbs)]
+        bulbs: List[Bulb] = [TwinkleBulb() for _ in range(numberOfBulbs)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)
+        self.currentColourIndex: int = 0
+        self.updateColours(colours)
         self._stopping = False
         self._ticksUntilCheck = 15
         self._count = 0
+        self._time = time()
+        self._timeToNextTwinkle = self._time + 0.2
 
     def tick(self) -> List[Color]:
-        if not self._stopping and self._count >= 4:
-            self._count = 0
+        now = time()
+        timeDelta = self._getTimeDelta(now)
+
+        # TODO: Do this based on amount of time passed
+        if not self._stopping and now > self._timeToNextTwinkle:
             self._nextTwinkle()
+            self._timeToNextTwinkle = now + 0.2
 
         self._count += 1
+
+        for bulb in self.shuffledBulbs.getBulbs():
+            bulb.incrementTimeDelta(timeDelta)
 
         colours: List[Color] = [bulb.getColour() for bulb in self.shuffledBulbs.getBulbs()]
 
@@ -45,24 +53,16 @@ class RandomTwinkling:
         if self._stopping and self._ticksUntilCheck == 0:
             self._ticksUntilCheck = 15
 
-        [bulb.tick() for bulb in self.shuffledBulbs.getBulbs()]
+        self._time = time()
+
+        print(colours)
 
         return colours
 
     def updateColours(self, colours: List[Color]):
-        t1 = time()
+        self.colours: List[Color] = colours
         self.numberOfColours = len(colours)
-
-        print(self.numberOfColours, colours)
-
-        self.stateToColourByColour: List[List[Color]] = []
-
-        for i in range(self.numberOfColours):
-            stateToColour = createGradientFromAndToBlack(colours[i].hex, STEPS_FROM_OFF_TO_ON)
-            self.stateToColourByColour.append(stateToColour)
-
         self.currentColourIndex = 0
-        print(time() - t1)
 
     def stop(self):
         self._stopping = True
@@ -71,18 +71,24 @@ class RandomTwinkling:
         return self._stopping
 
     def _nextTwinkle(self):
+        print("Twinkle")
         bulb = self.shuffledBulbs.getNextBulb()
 
         # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
+        print("Is ready", bulb.isReady())
         if bulb.isReady():
-            colour: Color = self.stateToColourByColour[self.currentColourIndex]
-            bulb.start(colour)
+            colour = Color(self.colours[self.currentColourIndex])
+            print("**** colour", colour)
+            bulb.setColourAtPeak(colour)
             self._incrementColour()
-
-        return self.shuffledBulbs.getBulbs()
 
     def _incrementColour(self):
         self.currentColourIndex += 1
 
         if self.currentColourIndex >= self.numberOfColours:
             self.currentColourIndex = 0
+
+    def _getTimeDelta(self, timeNow):
+        td = timeNow - self._time
+        self._time = timeNow
+        return td

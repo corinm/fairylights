@@ -1,17 +1,18 @@
-from typing import List
-
 from colour import Color
 
 
 class Bulb:
-    def __init__(self, numberOfStates: int) -> None:
+    def __init__(self) -> None:
         pass
 
-    def tick(self):
+    def setColourAtPeak(self, colour: Color) -> None:
         pass
 
-    def start(self, stateToColour: List[Color]) -> None:
+    def incrementTimeDelta(self, timeDelta) -> None:
         pass
 
     def getColour(self) -> Color:
+        pass
+
+    def isReady(self) -> bool:
         pass
