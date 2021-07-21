@@ -70,9 +70,9 @@ states: List[StateWithRunMethod] = [
     StateWithRunMethod(Pattern.Twinkling_ColourWheel, runColoursWheel),
     StateWithRunMethod(Pattern.Twinkling_ColourWheelFast, runColoursWheelFast),
     StateWithRunMethod(Pattern.Twinkling_CoolorPalletes, runCoolorPalettes),
-    # StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
-    # StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
-    # StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
+    StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
+    StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
+    StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
     StateWithRunMethod(Pattern.Off, runOff),
 ]
 
