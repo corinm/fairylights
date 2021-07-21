@@ -9,7 +9,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
 
-STEPS_FROM_OFF_TO_ON = 19
+STEPS_FROM_OFF_TO_ON = 60
 NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
 
 
@@ -25,10 +25,14 @@ class RandomTwinkling:
         self.shuffledBulbs = ShuffledBulbs(bulbs)
         self._stopping = False
         self._ticksUntilCheck = 15
+        self._count = 0
 
     def tick(self) -> List[Color]:
-        if not self._stopping:
+        if not self._stopping and self._count >= 4:
+            self._count = 0
             self._nextTwinkle()
+
+        self._count += 1
 
         colours: List[Color] = [bulb.getColour() for bulb in self.shuffledBulbs.getBulbs()]
 

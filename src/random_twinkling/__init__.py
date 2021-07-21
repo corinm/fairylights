@@ -87,11 +87,16 @@ def runRandomComplementaryMoving(leds: Leds):
         leds.setLeds(rc.tick())
 
 
-def runRandomSplitComplementary(leds: Leds):
-    rc = RandomTwinklingFromColourAlgorithm(50, randomSplitComplementary, numberOfColours=5)
+def runRandomSplitComplementary(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = RandomTwinklingFromColourAlgorithm(50, randomSplitComplementary, numberOfColours=5)
 
-    while True:
-        leds.setLeds(rc.tick())
+    while not shouldStop():
+        leds.setLeds(rt.tick())
+
+    rt.stop()
+
+    while rt.isStopping():
+        leds.setLeds(rt.tick())
 
 
 def runRandomColour137Degress(leds: Leds):
