@@ -59,7 +59,6 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
-    # StateWithRunMethod(Pattern.Flickering, runFlickeringFairylights),
     StateWithRunMethod(Pattern.Twinkling_Retro, runTwinklingRetro),
     StateWithRunMethod(Pattern.Twinkling_Random, runRandomColours),
     StateWithRunMethod(Pattern.Twinkling_Analagous, runRandomAnalagousColours),
@@ -73,6 +72,7 @@ states: List[StateWithRunMethod] = [
     # StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
     # StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
     # StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
+    # StateWithRunMethod(Pattern.Flickering, runFlickeringFairylights),
     StateWithRunMethod(Pattern.Off, runOff),
 ]
 
@@ -86,9 +86,9 @@ class FairyLightPatterns(Machine):
         self.machine = Machine(
             self,
             states=states,
-            # initial=states[len(states) - 1],
+            initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[10],
+            # initial=states[10],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(after=self.on_enter)
