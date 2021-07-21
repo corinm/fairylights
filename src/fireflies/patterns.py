@@ -4,11 +4,7 @@ from colour import Color
 
 from fireflies.FireflyColour import FireflyColour
 from utils.colours import fireflies, off
-from utils.gradients import (
-    createGradientFromAndToBlack,
-    createGradientFromBlack,
-    createGradientToBlack,
-)
+from utils.gradients import createGradientFromAndToBlack
 
 
 def staticGlow(
@@ -37,13 +33,8 @@ def staticGlow(
 
 STEPS = 10
 
-up1 = createGradientFromBlack(fireflies["bright"], STEPS)
-down1 = createGradientToBlack(fireflies["bright"], STEPS)
-gradient1: List[Color] = up1 + down1[1:]
-
-up2 = createGradientFromBlack(fireflies["darker"], STEPS)
-down2 = createGradientToBlack(fireflies["darker"], STEPS)
-gradient2: List[Color] = up2 + down2[1:]
+gradient1: List[Color] = createGradientFromAndToBlack(fireflies["bright"].hex, STEPS)
+gradient2: List[Color] = createGradientFromAndToBlack(fireflies["darker"].hex, STEPS)
 
 GRADIENT_LENGTH = STEPS * 2 - 1
 
@@ -52,51 +43,66 @@ gradients: Dict[FireflyColour, List[Color]] = {
     FireflyColour.DARK: gradient2,
 }
 
-flickerGradient10: List[Color] = [
-    up1[1],
-    up1[1],
-    up1[1],
-    up1[2],
-    up1[2],
-    up1[3],
-    up1[2],
-    up1[1],
-    up1[1],
-    up1[1],
-]
 
-flickerGradient30: List[Color] = [
-    up1[1],
-    off,
-    off,
-    off,
-    off,
-    up1[2],
-    up1[2],
-    off,
-    off,
-    off,
-    off,
-    off,
-    up1[1],
-    up1[3],
-    up1[5],
-    up1[5],
-    up1[5],
-    fireflies["bright"],
-    fireflies["bright"],
-    up1[5],
-    up1[5],
-    up1[3],
-    up1[3],
-    up1[1],
-    off,
-    off,
-    off,
-    off,
-    off,
-    up1[1],
-]
+def flatten(t):
+    return [item for sublist in t for item in sublist]
+
+
+flickerGradient10: List[Color] = flatten(
+    [
+        [c, c, c, c, c, c, c, c, c, c]
+        for c in [
+            gradient1[1],
+            gradient1[1],
+            gradient1[1],
+            gradient1[2],
+            gradient1[2],
+            gradient1[3],
+            gradient1[2],
+            gradient1[1],
+            gradient1[1],
+            gradient1[1],
+        ]
+    ]
+)
+
+flickerGradient30: List[Color] = flatten(
+    [
+        [c, c, c, c, c, c, c, c, c, c]
+        for c in [
+            gradient1[1],
+            off,
+            off,
+            off,
+            off,
+            gradient1[2],
+            gradient1[2],
+            off,
+            off,
+            off,
+            off,
+            off,
+            gradient1[1],
+            gradient1[3],
+            gradient1[5],
+            gradient1[5],
+            gradient1[5],
+            fireflies["bright"],
+            fireflies["bright"],
+            gradient1[5],
+            gradient1[5],
+            gradient1[3],
+            gradient1[3],
+            gradient1[1],
+            off,
+            off,
+            off,
+            off,
+            off,
+            gradient1[1],
+        ]
+    ]
+)
 
 
 def flicker(

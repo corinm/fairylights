@@ -8,7 +8,9 @@ from .patterns import flicker, staticGlow
 
 
 def runStaticGlow(leds: Leds, shouldStop: Callable[[], bool]):
-    ff = FirefliesWaves(50, staticGlow, ticksActiveRange=(2, 30), ticksBetweenWavesRange=(5, 150))
+    ff = FirefliesWaves(
+        50, staticGlow, ticksActiveRange=(40, 120), ticksBetweenWavesRange=(50, 400)
+    )
 
     while not shouldStop():
         leds.setLeds(ff.tick())
@@ -36,7 +38,9 @@ def runStaticGlowShorter(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runFlicker(leds: Leds, shouldStop: Callable[[], bool]):
-    ff = FirefliesWaves(50, flicker, ticksActiveRange=(2, 30), ticksBetweenWavesRange=(5, 150))
+    ff = FirefliesWaves(
+        50, flicker, ticksActiveRange=(2 * 4, 30 * 4), ticksBetweenWavesRange=(5 * 4, 150 * 4)
+    )
 
     while not shouldStop():
         leds.setLeds(ff.tick())
