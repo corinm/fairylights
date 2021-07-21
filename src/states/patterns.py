@@ -106,7 +106,6 @@ class FairyLightPatterns(Machine):
             self.thread = None
 
     def _runState(self, state: Pattern):
-        self._stopThread()
         print("STARTING NEW THREAD")
         runMethod = self.machine.states[state.name].run
 
@@ -126,6 +125,10 @@ class FairyLightPatterns(Machine):
     def on_enter(self):
         print("➡️  Transitioned to: ", self.state)
         self._runState(self.state)
+
+    def on_leave(self):
+        print("➡️  Leaving state to: ", self.state)
+        self._stopThread()
 
     def toPattern(self, stateName: Pattern):
         self._runState(stateName)
