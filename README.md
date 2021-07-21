@@ -2,11 +2,6 @@
 
 ## Quick start
 
-        pipenv install
-        sudo pipenv run python3 src/main.py
-
-Or
-
 Install dependencies manually then:
 
         sudo python3 src/main.py
@@ -57,6 +52,8 @@ Install dependencies manually then:
 
 ## States
 
+See 
+
 ### Random twinkling - various colour effects
 
 This is a traditional twinkling effect where bulbs fade in and out at random
@@ -69,7 +66,7 @@ Features/todo:
 - Now accepts a list of colours instead of just one
 - Now supports updating the list of colours after instantiation, every certain number of seconds
 - Now supports regenerating the whole palette every certain number of seconds
-- **Should**: Speed up transition between palettes as it's just noticeable - ~80ms
+- Is stoppable and on stopping fades out naturally as each bulb iterates to its off state
 - **Could**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
 - **Could**: Combine gamma with bell curve to create nice fade in and out effect
 
@@ -113,13 +110,6 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 - Colours pretty much there
 - **Could**: Allow choice of colour
 
-
-### Rainbow
-
-Based on:
-- https://www.instructables.com/How-to-Make-Proper-Rainbow-and-Random-Colors-With-/
-
-- TODO
 
 ### Other ideas
 
