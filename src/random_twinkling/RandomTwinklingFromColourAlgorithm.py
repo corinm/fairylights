@@ -84,3 +84,9 @@ class RandomTwinklingFromColourAlgorithm:
 
     def _resetNewColourTime(self):
         self.timeForNewColour = datetime.now() + timedelta(seconds=self.secondsBetweenColourChanges)
+
+    def stop(self):
+        self.rt.stop()
+
+    def isStopping(self) -> bool:
+        return self.rt.isStopping()
