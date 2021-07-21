@@ -18,6 +18,8 @@ def runStaticGlow(leds: Leds, shouldStop: Callable[[], bool]):
     while ff.isStopping():
         leds.setLeds(ff.tick())
 
+    print("--- Stopped")
+
 
 def runStaticGlowShorter(leds: Leds, shouldStop: Callable[[], bool]):
     ff = FirefliesConstant()
@@ -30,6 +32,8 @@ def runStaticGlowShorter(leds: Leds, shouldStop: Callable[[], bool]):
     while ff.isStopping():
         leds.setLeds(ff.tick())
 
+    print("--- Stopped")
+
 
 def runFlicker(leds: Leds, shouldStop: Callable[[], bool]):
     ff = FirefliesWaves(50, flicker, ticksActiveRange=(2, 30), ticksBetweenWavesRange=(5, 150))
@@ -41,3 +45,5 @@ def runFlicker(leds: Leds, shouldStop: Callable[[], bool]):
 
     while ff.isStopping():
         leds.setLeds(ff.tick())
+
+    print("--- Stopped")
