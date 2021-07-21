@@ -50,9 +50,9 @@ class RandomTwinkling:
         if self._stopping and self._ticksUntilCheck == 0:
             self._ticksUntilCheck = 15
 
-        [bulb.tick() for bulb in self.shuffledBulbs.getBulbs()]
-
-        self._time = time()
+        if timeSinceLastTick >= 0.008:
+            [bulb.tick() for bulb in self.shuffledBulbs.getBulbs()]
+            self._time = time()
 
         return colours
 
