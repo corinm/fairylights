@@ -124,7 +124,7 @@ class FairyLightPatterns(Machine):
         self.trigger("next_state")
 
     def on_enter(self):
-        print("Transitioned to: ", self.state)
+        print("➡️ Transitioned to: ", self.state)
         self._runState(self.state)
 
     def toPattern(self, stateName: Pattern):
