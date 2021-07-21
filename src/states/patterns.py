@@ -102,7 +102,7 @@ class FairyLightPatterns(Machine):
             self.thread.stop()
             print("CALLING JOIN")
             self.thread.join()
-            print("JOINED")
+            print("❌  JOINED")
             self.thread = None
 
     def _runState(self, state: Pattern):
@@ -124,7 +124,7 @@ class FairyLightPatterns(Machine):
         self.trigger("next_state")
 
     def on_enter(self):
-        print("➡️ Transitioned to: ", self.state)
+        print("➡️  Transitioned to: ", self.state)
         self._runState(self.state)
 
     def toPattern(self, stateName: Pattern):
