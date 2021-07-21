@@ -4,7 +4,11 @@ from colour import Color
 
 from fireflies.FireflyColour import FireflyColour
 from utils.colours import fireflies, off
-from utils.gradients import createGradientFromBlack, createGradientToBlack
+from utils.gradients import (
+    createGradientFromAndToBlack,
+    createGradientFromBlack,
+    createGradientToBlack,
+)
 
 
 def staticGlow(
@@ -12,10 +16,9 @@ def staticGlow(
 ) -> Callable[[], Tuple[Color, bool]]:
     state: int = 0
 
-    up1 = createGradientFromBlack(fireflies["bright"], steps)
-    down1 = createGradientToBlack(fireflies["bright"], steps)
+    c = fireflies["bright"].hex if colour == FireflyColour.BRIGHT else fireflies["darker"].hex
 
-    gradient: List[Color] = up1 + [fireflies["bright"] for _ in range(ticksActive)] + down1
+    gradient: List[Color] = createGradientFromAndToBlack(c, steps)
 
     def tick() -> Tuple[Color, bool]:
         nonlocal state

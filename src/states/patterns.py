@@ -86,9 +86,9 @@ class FairyLightPatterns(Machine):
         self.machine = Machine(
             self,
             states=states,
-            initial=states[len(states) - 1],
+            # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            # initial=states[0],
+            initial=states[9],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(after=self.on_enter)

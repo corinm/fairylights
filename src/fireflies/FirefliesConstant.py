@@ -10,7 +10,7 @@ from .patterns import staticGlow
 
 
 def shouldAdd() -> bool:
-    return random() < 0.2
+    return random() < 0.05
 
 
 class FirefliesConstant:
@@ -40,7 +40,7 @@ class FirefliesConstant:
         numberOfNewFireflies = randrange(1, 5)
         for i in range(min(numberOfNewFireflies, len(emptyPositions))):
             ticksActive = randrange(0, 5)
-            steps = randrange(4, 9)
+            steps = randrange(20, 40)
             self.fireflies.append(Firefly(emptyPositions[i], staticGlow, ticksActive, steps=steps))
 
     def stop(self):
