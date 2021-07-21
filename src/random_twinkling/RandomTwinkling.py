@@ -26,8 +26,13 @@ class RandomTwinkling:
         self._stopping = False
         self._ticksUntilCheck = 15
         self._count = 0
+        self._time = time()
 
     def tick(self) -> List[Color]:
+        timeSinceLastTick = time() - self._time
+
+        print(timeSinceLastTick)
+
         if not self._stopping and self._count >= 4:
             self._count = 0
             self._nextTwinkle()
@@ -46,6 +51,8 @@ class RandomTwinkling:
             self._ticksUntilCheck = 15
 
         [bulb.tick() for bulb in self.shuffledBulbs.getBulbs()]
+
+        self._time = time()
 
         return colours
 
