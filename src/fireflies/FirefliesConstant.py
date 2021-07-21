@@ -16,6 +16,7 @@ def shouldAdd() -> bool:
 class FirefliesConstant:
     def __init__(self):
         self.fireflies: List[Firefly] = []
+        self._stopping = False
 
     def tick(self) -> List[Color]:
         if shouldAdd():
@@ -41,3 +42,9 @@ class FirefliesConstant:
             ticksActive = randrange(0, 5)
             steps = randrange(4, 9)
             self.fireflies.append(Firefly(emptyPositions[i], staticGlow, ticksActive, steps=steps))
+
+    def stop(self):
+        self._stopping = True
+
+    def isStopping(self) -> bool:
+        return self._stopping
