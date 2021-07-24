@@ -8,8 +8,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
 
-STEPS_FROM_OFF_TO_ON = 60
-NUMBER_OF_STATES = STEPS_FROM_OFF_TO_ON * 2 - 1
+TIME_BETWEEN_TWINKLES = 0.2
 
 
 def allOff(colours: List[Color]) -> bool:
@@ -22,20 +21,19 @@ class RandomTwinkling:
         self.shuffledBulbs = ShuffledBulbs(bulbs)
         self.currentColourIndex: int = 0
         self.updateColours(colours)
-        self._stopping = False
-        self._ticksUntilCheck = 15
         self._count = 0
         self._time = time()
         self._timeToNextTwinkle = self._time + 0.2
+        self._stopping = False
+        self._timeToNextStoppedCheck = None
 
     def tick(self) -> List[Color]:
         now = time()
         timeDelta = self._getTimeDelta(now)
 
-        # TODO: Do this based on amount of time passed
         if not self._stopping and now > self._timeToNextTwinkle:
             self._nextTwinkle()
-            self._timeToNextTwinkle = now + 0.2
+            self._timeToNextTwinkle = now + TIME_BETWEEN_TWINKLES
 
         self._count += 1
 
@@ -45,19 +43,16 @@ class RandomTwinkling:
         colours: List[Color] = [bulb.getColour() for bulb in self.shuffledBulbs.getBulbs()]
 
         if self._stopping:
-            self._ticksUntilCheck -= 1
-
-        if self._stopping and self._ticksUntilCheck == 0 and allOff(colours):
-            self._stopping = False
-
-        if self._stopping and self._ticksUntilCheck == 0:
-            self._ticksUntilCheck = 15
+            self._checkIfStopped(now, colours)
 
         self._time = time()
 
-        print(colours)
-
         return colours
+
+    def _checkIfStopped(self, now: float, colours: List[Color]):
+        if self._timeToNextStoppedCheck is not None and now >= self._timeToNextStoppedCheck:
+            if allOff(colours):
+                self._stopping = False
 
     def updateColours(self, colours: List[Color]):
         self.colours: List[Color] = colours
@@ -66,19 +61,17 @@ class RandomTwinkling:
 
     def stop(self):
         self._stopping = True
+        self._timeToNextStoppedCheck = time() + 0.2
 
     def isStopping(self) -> bool:
         return self._stopping
 
     def _nextTwinkle(self):
-        print("Twinkle")
         bulb = self.shuffledBulbs.getNextBulb()
 
         # Only start a new twinkle if we're not mid-twinkle from a previous shuffle
-        print("Is ready", bulb.isReady())
         if bulb.isReady():
             colour = Color(self.colours[self.currentColourIndex])
-            print("**** colour", colour)
             bulb.setColourAtPeak(colour)
             self._incrementColour()
 
