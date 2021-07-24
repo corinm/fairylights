@@ -40,6 +40,8 @@ class FairyLightModes(Machine):
         self.trigger("start")
 
     def _runCycle(self, shouldStop: Callable[[], bool]):
+        self.patterns.next()
+
         t = time() + 15
         while not shouldStop():
             if time() > t:
@@ -50,12 +52,6 @@ class FairyLightModes(Machine):
 
     def on_enter_cycle(self):
         print("on_enter_cycle")
-        if self.thread is not None:
-            self.thread.stop()
-            self.thread.join()
-            self.thread = None
-            self.patterns.stop()  # Blocks until complete
-
         self.thread = StoppableThread(target=self._runCycle, args=())
         self.thread.setDaemon(True)
         self.thread.start()
