@@ -24,7 +24,7 @@
     }
 
     const fetchPatterns = async () => {
-      const response = await fetch('http://192.168.0.29:5001/modes/static')
+      const response = await fetch('{{apiUrl}}/modes/static')
       return response.json()
     }
 
@@ -32,11 +32,11 @@
       const select = document.getElementById('select')
       const pattern = select.value
 
-      await fetch(`http://192.168.0.29:5001/modes/static/${pattern}`)
+      await fetch(`{{apiUrl}}/modes/static/${pattern}`)
     }
 
-    const cycle = async () => fetch(`http://192.168.0.29:5001/modes/cycle`)
-    const stop = async () => fetch(`http://192.168.0.29:5001/modes/stop`)
+    const cycle = async () => fetch(`{{apiUrl}}/modes/cycle`)
+    const stop = async () => fetch(`{{apiUrl}}/modes/stop`)
 
     initialise()
   </script>
