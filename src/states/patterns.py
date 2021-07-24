@@ -95,39 +95,34 @@ class FairyLightPatterns(Machine):
         self.thread: Union[StoppableThread, None] = None
 
     def _stopThread(self):
-        print("CHECKING THREAD")
-        print(self.thread)
         if self.thread is not None:
-            print("ASKING THREAD TO STOP")
+            print("🗑️  Asking thread to stop")
             self.thread.stop()
-            print("CALLING JOIN")
             self.thread.join()
-            print("❌  JOINED")
+            print("🗑️  Thread joined")
             self.thread = None
 
     def _runState(self, state: Pattern):
-        print("STARTING NEW THREAD")
         runMethod = self.machine.states[state.name].run
 
         if not callable(runMethod):
-            print("run method not callable")
-            return
+            raise ValueError("run method not callable")
 
         self.thread = StoppableThread(target=runMethod, args=(self.leds,))
         self.thread.setDaemon(True)
-        print(">> Starting thread")
+        print("🏁 Starting thread")
         self.thread.start()
-        print(">> Thread started")
+        print("🏁 Thread started")
 
     def next(self):
         self.trigger("next_state")
 
     def on_enter(self):
-        print("➡️  Transitioned to: ", self.state)
+        print("⏭️  Entering:", self.state)
         self._runState(self.state)
 
     def on_exit(self):
-        print("➡️  Leaving state to: ", self.state)
+        print("⏭️  Leaving: ", self.state)
         self._stopThread()
 
     def toPattern(self, stateName: Pattern):

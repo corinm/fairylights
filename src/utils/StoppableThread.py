@@ -14,7 +14,6 @@ class StoppableThread(threading.Thread):
         self._stop_event = threading.Event()
 
     def stop(self):
-        print(">> stop called")
         self._stop_event.set()
 
     def join(self, *args, **kwargs):
@@ -23,7 +22,3 @@ class StoppableThread(threading.Thread):
 
     def run(self):
         self.target(*self.args, shouldStop=self._stop_event.is_set)
-        # while not self._stop_event.is_set():
-        #     print("Still running!")
-        #     time.sleep(2)
-        # print("stopped!")
