@@ -91,7 +91,7 @@ class FairyLightPatterns(Machine):
             # initial=states[10],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
-        self.machine.add_ordered_transitions(after=self.on_enter)
+        self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
         self.thread: Union[StoppableThread, None] = None
 
     def _stopThread(self):
@@ -126,7 +126,7 @@ class FairyLightPatterns(Machine):
         print("➡️  Transitioned to: ", self.state)
         self._runState(self.state)
 
-    def on_leave(self):
+    def on_exit(self):
         print("➡️  Leaving state to: ", self.state)
         self._stopThread()
 

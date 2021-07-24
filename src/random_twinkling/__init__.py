@@ -45,6 +45,8 @@ def runTwinklingRetro(leds: Leds, shouldStop: Callable[[], bool]):
     while rt.isStopping():
         leds.setLeds(rt.tick())
 
+    print("*** Stopped")
+
 
 def runRandomColours(leds: Leds, shouldStop: Callable[[], bool]):
     rt = RandomTwinklingFromColourAlgorithm(50, trulyRandom)
