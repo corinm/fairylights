@@ -102,6 +102,9 @@ class FairyLightPatterns(Machine):
             print("🗑️  Thread joined")
             self.thread = None
 
+    def stop(self):
+        self._stopThread()
+
     def _runState(self, state: Pattern):
         runMethod = self.machine.states[state.name].run
 
