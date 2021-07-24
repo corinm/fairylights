@@ -29,7 +29,7 @@ class RandomTwinklingFromPalettes:
 
         newPaletteIndex = randrange(len(self.palettes))
         self.colours: List[Color] = self.palettes[newPaletteIndex]
-        print("🌈  New palette:", [c.hex for c in self.colours])
+        print("    New palette:", [c.hex for c in self.colours])
         self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
 
         self._resetNewPaletteTime()
@@ -43,7 +43,7 @@ class RandomTwinklingFromPalettes:
     def _newPalette(self):
         newPaletteIndex = randrange(len(self.palettes))
         self.colours: List[Color] = self.palettes[newPaletteIndex]
-        print("🌈  New palette:", [c.hex for c in self.colours])
+        print("    New palette:", [c.hex for c in self.colours])
         self.rt.updateColours(self.colours)
         self._resetNewPaletteTime()
 
