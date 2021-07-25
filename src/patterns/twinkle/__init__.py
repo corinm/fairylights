@@ -20,13 +20,13 @@ from utils.randomColour import randomCoolorPalettes  # noqa
 from utils.randomColour import randomSplitComplementary  # noqa
 from utils.randomColour import randomColour as trulyRandom  # noqa
 
-from .RandomTwinkling import RandomTwinkling  # noqa
-from .RandomTwinklingFromColourAlgorithm import RandomTwinklingFromColourAlgorithm  # noqa
-from .RandomTwinklingFromPalettes import RandomTwinklingFromPalettes  # noqa
+from .Twinkle import Twinkle  # noqa
+from .TwinkleFromColourAlgorithm import TwinkleFromColourAlgorithm  # noqa
+from .TwinkleFromPalettes import TwinkleFromPalettes  # noqa
 
 
-def runTwinklingRetro(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinkling(
+def runTwinkleRetro(leds: Leds, shouldStop: Callable[[], bool]):
+    rt = Twinkle(
         50,
         [
             retroColours["pink"],
@@ -47,7 +47,7 @@ def runTwinklingRetro(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runRandomColours(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(50, trulyRandom)
+    rt = TwinkleFromColourAlgorithm(50, trulyRandom)
 
     while not shouldStop():
         leds.setLeds(rt.tick())
@@ -59,7 +59,7 @@ def runRandomColours(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runRandomAnalagousColours(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(
+    rt = TwinkleFromColourAlgorithm(
         50,
         randomColourAnalogous,
         secondsBetweenPaletteChanges=0,
@@ -77,7 +77,7 @@ def runRandomAnalagousColours(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runRandomAnalagousWeightedColours(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(50, randomAnalogousWeighted, numberOfColours=3)
+    rt = TwinkleFromColourAlgorithm(50, randomAnalogousWeighted, numberOfColours=3)
 
     while not shouldStop():
         leds.setLeds(rt.tick())
@@ -89,7 +89,7 @@ def runRandomAnalagousWeightedColours(leds: Leds, shouldStop: Callable[[], bool]
 
 
 def runRandomComplementary(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
+    rt = TwinkleFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
 
     while not shouldStop():
         leds.setLeds(rt.tick())
@@ -102,7 +102,7 @@ def runRandomComplementary(leds: Leds, shouldStop: Callable[[], bool]):
 
 # TODO: Not using this, what was the benefit, should I delete it?
 def runRandomComplementaryMoving(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
+    rt = TwinkleFromColourAlgorithm(50, randomComplementary, numberOfColours=6)
 
     while not shouldStop():
         leds.setLeds(rt.tick())
@@ -114,7 +114,7 @@ def runRandomComplementaryMoving(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runRandomSplitComplementary(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(50, randomSplitComplementary, numberOfColours=5)
+    rt = TwinkleFromColourAlgorithm(50, randomSplitComplementary, numberOfColours=5)
 
     while not shouldStop():
         leds.setLeds(rt.tick())
@@ -126,7 +126,7 @@ def runRandomSplitComplementary(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runRandomColour137Degress(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(
+    rt = TwinkleFromColourAlgorithm(
         50, randomColour137Degrees, secondsBetweenColourChanges=5, numberOfColours=6
     )
 
@@ -140,7 +140,7 @@ def runRandomColour137Degress(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runColoursWheel(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(
+    rt = TwinkleFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=4
     )
 
@@ -154,7 +154,7 @@ def runColoursWheel(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runColoursWheelFast(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromColourAlgorithm(
+    rt = TwinkleFromColourAlgorithm(
         50, colourWheel, secondsBetweenPaletteChanges=0, secondsBetweenColourChanges=1
     )
 
@@ -168,7 +168,7 @@ def runColoursWheelFast(leds: Leds, shouldStop: Callable[[], bool]):
 
 
 def runCoolorPalettes(leds: Leds, shouldStop: Callable[[], bool]):
-    rt = RandomTwinklingFromPalettes(50, coolors)
+    rt = TwinkleFromPalettes(50, coolors)
 
     while not shouldStop():
         leds.setLeds(rt.tick())

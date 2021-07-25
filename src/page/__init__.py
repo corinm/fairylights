@@ -7,8 +7,8 @@ app = Flask(__name__)
 # a route where we will display a welcome message via an HTML template
 @app.route("/")
 def hello():
-    message = "Hello, World"
-    return render_template("index.html", message=message)
+    apiUrl = "http://192.168.0.31:5001"
+    return render_template("index.html", apiUrl=apiUrl)
 
 
 def runPage():

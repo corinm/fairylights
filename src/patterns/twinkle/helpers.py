@@ -32,3 +32,17 @@ def createShuffledList(numberOfBulbs: int) -> List[int]:
     assert len(shuffledBulbIndexes) == numberOfBulbs
 
     return shuffledBulbIndexes
+
+
+def calculateLuminance(timeNow, timeToPeak, maxLuminance):
+    luminance = 0
+
+    if timeNow < timeToPeak * 2:
+        if timeNow <= timeToPeak:
+            luminance = (timeNow * 100 / timeToPeak) * maxLuminance / 100
+        else:
+            luminance = (
+                ((timeToPeak - (timeNow - timeToPeak)) * 100 / timeToPeak) * maxLuminance / 100
+            )
+
+    return luminance

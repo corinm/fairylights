@@ -2,7 +2,7 @@ from typing import Callable, Dict, List, Tuple
 
 from colour import Color
 
-from fireflies.FireflyColour import FireflyColour
+from patterns.fireflies.FireflyColour import FireflyColour
 from utils.colours import fireflies, off
 from utils.gradients import createGradientFromAndToBlack
 

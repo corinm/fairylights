@@ -3,9 +3,9 @@ from typing import List, Union
 
 from transitions import Machine, State
 
-from fireflies import runFlicker, runStaticGlow, runStaticGlowShorter  # noqa
-from flickering_fairylights import run as runFlickeringFairylights  # noqa
-from random_twinkling import (  # noqa
+from patterns.fireflies import runFlicker, runStaticGlow, runStaticGlowShorter  # noqa
+from patterns.flickering_fairylights import run as runFlickeringFairylights  # noqa
+from patterns.twinkle import (
     runColoursWheel,
     runColoursWheelFast,
     runCoolorPalettes,
@@ -15,7 +15,7 @@ from random_twinkling import (  # noqa
     runRandomColours,
     runRandomComplementary,
     runRandomSplitComplementary,
-    runTwinklingRetro,
+    runTwinkleRetro,
 )
 from utils.StoppableThread import StoppableThread
 
@@ -24,16 +24,16 @@ from utils.StoppableThread import StoppableThread
 
 class Pattern(Enum):
     Flickering = 1
-    Twinkling_Retro = 2
-    Twinkling_Random = 3
-    Twinkling_Analagous = 4
-    Twinkling_AnalagousWeighted = 5
-    Twinkling_Complementary = 6
-    Twinkling_SplitComplementary = 7
-    Twinkling_137Degrees = 8
-    Twinkling_ColourWheel = 9
-    Twinkling_ColourWheelFast = 10
-    Twinkling_CoolorPalletes = 11
+    Twinkle_Retro = 2
+    Twinkle_Random = 3
+    Twinkle_Analagous = 4
+    Twinkle_AnalagousWeighted = 5
+    Twinkle_Complementary = 6
+    Twinkle_SplitComplementary = 7
+    Twinkle_137Degrees = 8
+    Twinkle_ColourWheel = 9
+    Twinkle_ColourWheelFast = 10
+    Twinkle_CoolorPalletes = 11
     Fireflies_StaticGlowShorter = 12
     Fireflies_StaticGlow = 13
     Fireflies_StaticFlicker = 14
@@ -59,16 +59,16 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
-    StateWithRunMethod(Pattern.Twinkling_Retro, runTwinklingRetro),
-    StateWithRunMethod(Pattern.Twinkling_Random, runRandomColours),
-    StateWithRunMethod(Pattern.Twinkling_Analagous, runRandomAnalagousColours),
-    StateWithRunMethod(Pattern.Twinkling_AnalagousWeighted, runRandomAnalagousWeightedColours),
-    StateWithRunMethod(Pattern.Twinkling_Complementary, runRandomComplementary),
-    StateWithRunMethod(Pattern.Twinkling_SplitComplementary, runRandomSplitComplementary),
-    StateWithRunMethod(Pattern.Twinkling_137Degrees, runRandomColour137Degress),
-    StateWithRunMethod(Pattern.Twinkling_ColourWheel, runColoursWheel),
-    StateWithRunMethod(Pattern.Twinkling_ColourWheelFast, runColoursWheelFast),
-    StateWithRunMethod(Pattern.Twinkling_CoolorPalletes, runCoolorPalettes),
+    StateWithRunMethod(Pattern.Twinkle_Retro, runTwinkleRetro),
+    StateWithRunMethod(Pattern.Twinkle_Random, runRandomColours),
+    StateWithRunMethod(Pattern.Twinkle_Analagous, runRandomAnalagousColours),
+    StateWithRunMethod(Pattern.Twinkle_AnalagousWeighted, runRandomAnalagousWeightedColours),
+    StateWithRunMethod(Pattern.Twinkle_Complementary, runRandomComplementary),
+    StateWithRunMethod(Pattern.Twinkle_SplitComplementary, runRandomSplitComplementary),
+    StateWithRunMethod(Pattern.Twinkle_137Degrees, runRandomColour137Degress),
+    StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
+    StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
+    StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
     # StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
     # StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
     # StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
@@ -91,43 +91,41 @@ class FairyLightPatterns(Machine):
             # initial=states[10],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
-        self.machine.add_ordered_transitions(after=self.on_enter)
+        self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
         self.thread: Union[StoppableThread, None] = None
 
     def _stopThread(self):
-        print("CHECKING THREAD")
-        print(self.thread)
         if self.thread is not None:
-            print("ASKING THREAD TO STOP")
+            print("🗑️  Asking thread to stop")
             self.thread.stop()
-            print("CALLING JOIN")
             self.thread.join()
-            print("❌  JOINED")
+            print("🗑️  Thread joined")
             self.thread = None
 
+    def stop(self):
+        self._stopThread()
+
     def _runState(self, state: Pattern):
-        print("STARTING NEW THREAD")
         runMethod = self.machine.states[state.name].run
 
         if not callable(runMethod):
-            print("run method not callable")
-            return
+            raise ValueError("run method not callable")
 
         self.thread = StoppableThread(target=runMethod, args=(self.leds,))
         self.thread.setDaemon(True)
-        print(">> Starting thread")
+        print("🏁 Starting thread")
         self.thread.start()
-        print(">> Thread started")
+        print("🏁 Thread started")
 
     def next(self):
         self.trigger("next_state")
 
     def on_enter(self):
-        print("➡️  Transitioned to: ", self.state)
+        print("⏭️  Entering:", self.state)
         self._runState(self.state)
 
-    def on_leave(self):
-        print("➡️  Leaving state to: ", self.state)
+    def on_exit(self):
+        print("⏭️  Leaving: ", self.state)
         self._stopThread()
 
     def toPattern(self, stateName: Pattern):

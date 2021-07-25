@@ -2,7 +2,7 @@ import math
 from random import random, randrange
 from typing import Callable, List, Tuple
 
-from fireflies.Firefly import Firefly
+from patterns.fireflies.Firefly import Firefly
 from utils.colours import off
 
 

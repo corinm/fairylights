@@ -2,8 +2,8 @@ from typing import List
 
 from colour import Color
 
-import flickering_fairylights.helpers as helpers
-from flickering_fairylights.FlickerBulb import BulbState, FlickerBulb
+import patterns.flickering_fairylights.helpers as helpers
+from patterns.flickering_fairylights.FlickerBulb import BulbState, FlickerBulb
 
 """
 This module simulates a set of flickering fairy lights described here: https://youtu.be/zeOw5MZWq24?t=268
@@ -37,8 +37,6 @@ class FlickeringFairyLights:
 
     def tick(self) -> List[Color]:
         [flickerBulb.tick() for flickerBulb in self.flickerBulbs]
-        flickerBulbStates: List[BulbState] = list(
-            map(lambda b: b.state, self.flickerBulbs)
-        )
+        flickerBulbStates: List[BulbState] = list(map(lambda b: b.state, self.flickerBulbs))
         leds = helpers.generateFullListOfColours(flickerBulbStates)
         return leds
