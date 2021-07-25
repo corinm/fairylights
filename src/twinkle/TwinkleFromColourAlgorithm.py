@@ -12,10 +12,10 @@ from colour import Color  # noqa
 
 from leds.Leds import Leds  # noqa
 
-from .RandomTwinkling import RandomTwinkling  # noqa
+from .Twinkle import Twinkle  # noqa
 
 
-class RandomTwinklingFromColourAlgorithm:
+class TwinkleFromColourAlgorithm:
     def __init__(
         self,
         numberOfLeds: int,
@@ -39,7 +39,7 @@ class RandomTwinklingFromColourAlgorithm:
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
         print("    New palette:", [c.hex for c in self.colours])
-        self.rt = RandomTwinkling(self.numberOfLeds, self.colours)
+        self.rt = Twinkle(self.numberOfLeds, self.colours)
 
         self._resetNewPaletteTime()
         self._resetNewColourTime()

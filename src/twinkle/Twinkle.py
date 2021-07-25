@@ -15,7 +15,7 @@ def allOff(colours: List[Color]) -> bool:
     return all(c == Color(None) for c in colours)
 
 
-class RandomTwinkling:
+class Twinkle:
     def __init__(self, numberOfBulbs: int, colours: List[Color]):
         bulbs: List[Bulb] = [TwinkleBulb() for _ in range(numberOfBulbs)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)

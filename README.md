@@ -54,7 +54,7 @@ Install dependencies manually then:
 
 See 
 
-### Random twinkling - various colour effects
+### Twinkle - various colour effects
 
 This is a traditional twinkling effect where bulbs fade in and out at random
 Can be combined with different algorithms for generating different colours/palettes - see `src/utils/randomColours.py` for examples
