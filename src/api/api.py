@@ -4,8 +4,8 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
+from patterns import Pattern, statesSerialised
 from states.modes import modeStatesSerialised
-from states.patterns import Pattern, statesSerialised
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
