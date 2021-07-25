@@ -3,9 +3,9 @@ from typing import List, Union
 
 from transitions import Machine, State
 
-from fireflies import runFlicker, runStaticGlow, runStaticGlowShorter  # noqa
-from flickering_fairylights import run as runFlickeringFairylights  # noqa
-from twinkle import (  # noqa
+from patterns.fireflies import runFlicker, runStaticGlow, runStaticGlowShorter  # noqa
+from patterns.flickering_fairylights import run as runFlickeringFairylights  # noqa
+from patterns.twinkle import (
     runColoursWheel,
     runColoursWheelFast,
     runCoolorPalettes,

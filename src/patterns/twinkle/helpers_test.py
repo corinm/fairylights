@@ -2,7 +2,7 @@ import collections
 import random
 import unittest
 
-import twinkle.helpers as helpers
+import patterns.twinkle.helpers as helpers
 
 
 class TestHelpersCreateShuffledList(unittest.TestCase):
