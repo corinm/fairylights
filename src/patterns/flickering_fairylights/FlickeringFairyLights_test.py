@@ -1,8 +1,8 @@
 import unittest
 
-import flickering_fairylights.constants as constants
-import flickering_fairylights.helpers as helpers
-from flickering_fairylights.FlickerBulb import BulbState
+import patterns.flickering_fairylights.constants as constants
+import patterns.flickering_fairylights.helpers as helpers
+from patterns.flickering_fairylights.FlickerBulb import BulbState
 
 
 class TestFlickeringFairyLight(unittest.TestCase):

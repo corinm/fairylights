@@ -1,6 +1,6 @@
 from typing import List
 
-import random_twinkling.helpers as helpers
+import patterns.twinkle.helpers as helpers
 
 from .Bulb import Bulb
 

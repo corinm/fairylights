@@ -3,7 +3,7 @@ from typing import Callable, Tuple
 
 from colour import Color
 
-from fireflies.FireflyColour import FireflyColour
+from patterns.fireflies.FireflyColour import FireflyColour
 from utils.colours import off
 
 
