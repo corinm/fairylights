@@ -8,7 +8,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
 
-TIME_BETWEEN_TWINKLES = 0.2
+TIME_BETWEEN_TWINKLES = 0.15
 
 
 def allOff(colours: List[Color]) -> bool:
