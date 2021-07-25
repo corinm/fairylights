@@ -6,47 +6,40 @@ from transitions import Machine, State
 from patterns import FairyLightPatterns, Pattern
 from utils.StoppableThread import StoppableThread
 
-modeStates: List[State] = [
+states: List[State] = [
     State(name="stopped"),
     State(name="cycle"),
     State(name="static"),
 ]
 
-modeStatesSerialised = [(i, modeStates[i].name) for i in range(len(modeStates))]
+statesSerialised = [(i, states[i].name) for i in range(len(states))]
 
 
 class FairyLightModes(Machine):
     def __init__(self, leds):
         print("Starting FairyLightModes...")
         self.leds = leds
-        self.machine = Machine(
-            self, states=modeStates, initial=modeStates[0], before_state_change=self.on_exit
-        )
+        self.machine = Machine(self, states, initial=states[0], before_state_change=self.on_exit)
+
         self.machine.add_transition("start", source="stopped", dest="cycle")
         self.machine.add_transition("toStatic", ["static", "cycle", "stopped"], dest="static")
         self.machine.add_transition("toCycle", source=["static", "cycle", "stopped"], dest="cycle")
         self.machine.add_transition("stop", source=["static", "cycle", "stopped"], dest="stopped")
+
         self.patterns = FairyLightPatterns(leds)
         self.thread: Union[StoppableThread, None] = None
         self.trigger("start")
 
     def _runCycle(self, shouldStop: Callable[[], bool]):
         self.patterns.next()
-
         t = time() + 15
+
         while not shouldStop():
             if time() > t:
                 t = time() + 15
                 self.patterns.next()
             else:
                 sleep(2)
-
-    def on_enter_cycle(self):
-        print("on_enter_cycle")
-        self.thread = StoppableThread(target=self._runCycle, args=())
-        self.thread.setDaemon(True)
-        self.thread.start()
-        print("cycle thread started")
 
     def on_exit(self, pattern=None):
         if self.thread is not None:
@@ -57,6 +50,13 @@ class FairyLightModes(Machine):
 
         self.patterns.stop()  # Blocks until complete
 
+    def on_enter_cycle(self):
+        print("on_enter_cycle")
+        self.thread = StoppableThread(target=self._runCycle, args=())
+        self.thread.setDaemon(True)
+        self.thread.start()
+        print("cycle thread started")
+
     def on_enter_static(self, pattern: Pattern):
         print("on_enter_static")
         self.patterns.toPattern(pattern)
@@ -65,6 +65,7 @@ class FairyLightModes(Machine):
         print("modes.on_enter_stopped")
         self.patterns.stop()
 
+    # Public methods for changing modes
     def cycle(self):
         self.trigger("toCycle")
 
@@ -72,5 +73,4 @@ class FairyLightModes(Machine):
         self.trigger("toStatic", pattern)
 
     def stop(self):
-        print("modes.stop")
         self.trigger("stop")

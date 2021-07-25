@@ -4,7 +4,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
-from modes import modeStatesSerialised
+from modes import statesSerialised as modeStatesSerialised
 from patterns import Pattern, statesSerialised
 
 app = Flask(__name__)
