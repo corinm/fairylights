@@ -3,9 +3,8 @@ from typing import Callable, List, Union
 
 from transitions import Machine, State
 
+from patterns import FairyLightPatterns, Pattern
 from utils.StoppableThread import StoppableThread
-
-from .patterns import FairyLightPatterns, Pattern
 
 modeStates: List[State] = [
     State(name="stopped"),
