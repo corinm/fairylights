@@ -2,7 +2,7 @@ from threading import Thread
 from typing import Callable, Union
 
 from leds.Leds import Leds
-from twinkle import Twinkle
+from patterns.twinkle import Twinkle
 from utils.colours import retroColours
 
 leds = Leds()

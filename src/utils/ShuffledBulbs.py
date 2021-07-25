@@ -1,6 +1,6 @@
 from typing import List
 
-import twinkle.helpers as helpers
+import patterns.twinkle.helpers as helpers
 
 from .Bulb import Bulb
 
