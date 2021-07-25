@@ -2,7 +2,7 @@ from threading import Thread
 from typing import Callable, Union
 
 from leds.Leds import Leds
-from random_twinkling import RandomTwinkling
+from twinkle import Twinkle
 from utils.colours import retroColours
 
 leds = Leds()
@@ -34,7 +34,7 @@ def onStop(leds: Leds):
     return stop
 
 
-rt = RandomTwinkling(
+t = Twinkle(
     50,
     [
         retroColours["pink"],
@@ -49,7 +49,7 @@ rt = RandomTwinkling(
 rp: Union[RunnablePattern, None] = None
 
 try:
-    rp = RunnablePattern(leds, rt, onStop(leds))
+    rp = RunnablePattern(leds, t, onStop(leds))
     print(">>> Main thread")
 
 finally:
