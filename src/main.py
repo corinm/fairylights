@@ -3,7 +3,7 @@ import sys
 
 from api.api import runApiServer
 from leds.Leds import Leds
-from states.modes import FairyLightModes
+from modes import FairyLightModes
 
 
 def sigterm_handler(_signo, _stack_frame):
