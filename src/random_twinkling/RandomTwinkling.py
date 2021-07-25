@@ -8,7 +8,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
 
-TIME_BETWEEN_TWINKLES = 0.15
+TIME_BETWEEN_TWINKLES = 0.08
 
 
 def allOff(colours: List[Color]) -> bool:
@@ -23,7 +23,7 @@ class RandomTwinkling:
         self.updateColours(colours)
         self._count = 0
         self._time = time()
-        self._timeToNextTwinkle = self._time + 0.2
+        self._timeToNextTwinkle = self._time + TIME_BETWEEN_TWINKLES
         self._stopping = False
         self._timeToNextStoppedCheck = None
 
