@@ -25,15 +25,6 @@ pink80s = Color(rgb=(57 / 255, 11 / 255, 77 / 255))
 off = Color(None)
 
 """
-   Fireflies
-   Original: rgb=(241 / 255, 250 / 255, 13 / 255)
-"""
-fireflies: Dict[str, Color] = {
-    "bright": Color(rgb=(96 / 255, 100 / 255, 5 / 255)),
-    "darker": Color(rgb=(38 / 255, 40 / 255, 2 / 255)),
-}
-
-"""
    Flickering fairy lights
 """
 # 72,39,1 -> 145,90,3 is quite nice

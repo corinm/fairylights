@@ -3,7 +3,7 @@ from typing import List, Union
 
 from transitions import Machine, State
 
-from patterns.fireflies import runFlicker, runStaticGlow, runStaticGlowShorter  # noqa
+from patterns.fireflies import runGlowConstant  # noqa
 from patterns.flickering_fairylights import run as runFlickeringFairylights  # noqa
 from patterns.twinkle import (
     runColoursWheel,
@@ -34,9 +34,7 @@ class Pattern(Enum):
     Twinkle_ColourWheel = 9
     Twinkle_ColourWheelFast = 10
     Twinkle_CoolorPalletes = 11
-    Fireflies_StaticGlowShorter = 12
-    Fireflies_StaticGlow = 13
-    Fireflies_StaticFlicker = 14
+    Fireflies_GlowConstant = 12
     Off = 99
 
 
@@ -69,9 +67,7 @@ states: List[StateWithRunMethod] = [
     StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
     StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
     StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
-    # StateWithRunMethod(Pattern.Fireflies_StaticGlowShorter, runStaticGlowShorter),
-    # StateWithRunMethod(Pattern.Fireflies_StaticGlow, runStaticGlow),
-    # StateWithRunMethod(Pattern.Fireflies_StaticFlicker, runFlicker),
+    StateWithRunMethod(Pattern.Fireflies_GlowConstant, runGlowConstant),
     # StateWithRunMethod(Pattern.Flickering, runFlickeringFairylights),
     StateWithRunMethod(Pattern.Off, runOff),
 ]
