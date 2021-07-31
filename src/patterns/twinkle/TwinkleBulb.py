@@ -5,18 +5,17 @@ from utils.colours import off
 
 from .helpers import calculateLuminance
 
-TIME_TO_PEAK = 0.8  # Seconds
-
 GAMMA_CORRECTION = 2.8
-MAX_LUMINANCE = 0.2
 
 
-def correctForGamma(luminance):
-    return pow(luminance / MAX_LUMINANCE, GAMMA_CORRECTION) * MAX_LUMINANCE
+def correctForGamma(luminance: float, maxLuminance: float) -> float:
+    return pow(luminance / maxLuminance, GAMMA_CORRECTION) * maxLuminance
 
 
 class TwinkleBulb(Bulb):
-    def __init__(self):
+    def __init__(self, timeToPeak: float, maxLuminance: float):
+        self._timeToPeak = timeToPeak
+        self._maxLuminance = maxLuminance
         self._time = 0
         self._isActive = False
         self._colour = off
@@ -34,11 +33,11 @@ class TwinkleBulb(Bulb):
 
         self._time += timeDelta
 
-        if self._time > TIME_TO_PEAK * 2:
+        if self._time > self._timeToPeak * 2:
             self._isActive = False
 
-        luminance = calculateLuminance(self._time, TIME_TO_PEAK, MAX_LUMINANCE)
-        corrected = correctForGamma(luminance)
+        luminance = calculateLuminance(self._time, self._timeToPeak, self._maxLuminance)
+        corrected = correctForGamma(luminance, self._maxLuminance)
         self._colour.set_luminance(corrected)
 
     def getColour(self):
