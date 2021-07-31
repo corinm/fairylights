@@ -5,7 +5,8 @@ from transitions import Machine, State
 
 from patterns.fireflies import runGlowConstant  # noqa
 from patterns.flickering_fairylights import run as runFlickeringFairylights  # noqa
-from patterns.twinkle import (
+from patterns.glitter import runGlitterWarm
+from patterns.twinkle import (  # noqa
     runColoursWheel,
     runColoursWheelFast,
     runCoolorPalettes,
@@ -35,6 +36,7 @@ class Pattern(Enum):
     Twinkle_ColourWheelFast = 10
     Twinkle_CoolorPalletes = 11
     Fireflies_GlowConstant = 12
+    Glitter_Warm = 13
     Off = 99
 
 
@@ -57,17 +59,18 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
-    StateWithRunMethod(Pattern.Twinkle_Retro, runTwinkleRetro),
-    StateWithRunMethod(Pattern.Twinkle_Random, runRandomColours),
-    StateWithRunMethod(Pattern.Twinkle_Analagous, runRandomAnalagousColours),
-    StateWithRunMethod(Pattern.Twinkle_AnalagousWeighted, runRandomAnalagousWeightedColours),
-    StateWithRunMethod(Pattern.Twinkle_Complementary, runRandomComplementary),
-    StateWithRunMethod(Pattern.Twinkle_SplitComplementary, runRandomSplitComplementary),
-    StateWithRunMethod(Pattern.Twinkle_137Degrees, runRandomColour137Degress),
-    StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
-    StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
-    StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
-    StateWithRunMethod(Pattern.Fireflies_GlowConstant, runGlowConstant),
+    # StateWithRunMethod(Pattern.Twinkle_Retro, runTwinkleRetro),
+    # StateWithRunMethod(Pattern.Twinkle_Random, runRandomColours),
+    # StateWithRunMethod(Pattern.Twinkle_Analagous, runRandomAnalagousColours),
+    # StateWithRunMethod(Pattern.Twinkle_AnalagousWeighted, runRandomAnalagousWeightedColours),
+    # StateWithRunMethod(Pattern.Twinkle_Complementary, runRandomComplementary),
+    # StateWithRunMethod(Pattern.Twinkle_SplitComplementary, runRandomSplitComplementary),
+    # StateWithRunMethod(Pattern.Twinkle_137Degrees, runRandomColour137Degress),
+    # StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
+    # StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
+    # StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
+    # StateWithRunMethod(Pattern.Fireflies_GlowConstant, runGlowConstant),
+    StateWithRunMethod(Pattern.Glitter_Warm, runGlitterWarm),
     # StateWithRunMethod(Pattern.Flickering, runFlickeringFairylights),
     StateWithRunMethod(Pattern.Off, runOff),
 ]

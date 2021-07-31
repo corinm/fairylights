@@ -8,22 +8,30 @@ from utils.ShuffledBulbs import ShuffledBulbs
 
 from .TwinkleBulb import TwinkleBulb
 
-TIME_BETWEEN_TWINKLES = 0.08
-
 
 def allOff(colours: List[Color]) -> bool:
     return all(c == Color(None) for c in colours)
 
 
 class Twinkle:
-    def __init__(self, numberOfBulbs: int, colours: List[Color]):
-        bulbs: List[Bulb] = [TwinkleBulb() for _ in range(numberOfBulbs)]
+    def __init__(
+        self,
+        numberOfBulbs: int,
+        colours: List[Color],
+        timeBetweenTwinkles=0.08,
+        timeToPeak=0.8,
+        maxLuminance=0.2,
+    ):
+        bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance) for _ in range(numberOfBulbs)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)
+
+        self._timeBetweenTwinkles = timeBetweenTwinkles
+
         self.currentColourIndex: int = 0
         self.updateColours(colours)
         self._count = 0
         self._time = time()
-        self._timeToNextTwinkle = self._time + TIME_BETWEEN_TWINKLES
+        self._timeToNextTwinkle = self._time + self._timeBetweenTwinkles
         self._stopping = False
         self._timeToNextStoppedCheck = None
 
@@ -33,7 +41,7 @@ class Twinkle:
 
         if not self._stopping and now > self._timeToNextTwinkle:
             self._nextTwinkle()
-            self._timeToNextTwinkle = now + TIME_BETWEEN_TWINKLES
+            self._timeToNextTwinkle = now + self._timeBetweenTwinkles
 
         self._count += 1
 
