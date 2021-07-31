@@ -1,4 +1,5 @@
 from random import random, randrange, shuffle
+from time import time
 from typing import List, Set
 
 from colour import Color
@@ -6,7 +7,6 @@ from colour import Color
 from utils.colours import off
 
 from .Firefly import Firefly
-from .patterns import staticGlow
 
 
 def shouldAdd() -> bool:
@@ -17,18 +17,24 @@ class FirefliesConstant:
     def __init__(self):
         self.fireflies: List[Firefly] = []
         self._stopping = False
+        self._time = 0
 
     def tick(self) -> List[Color]:
+        now = time()
+        timeDelta = self._getTimeDelta(now)
+
         if not self._stopping and shouldAdd():
             self._addMoreFireflies()
 
         colours = [off for i in range(50)]
 
         for firefly in self.fireflies:
-            colour = firefly.tick()
-            colours[firefly.position] = colour
+            firefly.incrementTimeDelta(timeDelta)
+            colour = firefly.getColour()
+            position = firefly.getPosition()
+            colours[position] = colour
 
-        self.fireflies = [f for f in self.fireflies if not f.isDone]
+        self.fireflies = [f for f in self.fireflies if not f.isDone()]
 
         if len(self.fireflies) == 0:
             self._stopping = False
@@ -36,18 +42,21 @@ class FirefliesConstant:
         return colours
 
     def _addMoreFireflies(self):
-        takenPositions: Set[int] = set([ff.position for ff in self.fireflies])
+        takenPositions: Set[int] = set([ff.getPosition() for ff in self.fireflies])
         emptyPositions: List[int] = list(filter(lambda x: x not in takenPositions, range(50)))
         shuffle(emptyPositions)
 
         numberOfNewFireflies = randrange(1, 5)
         for i in range(min(numberOfNewFireflies, len(emptyPositions))):
-            ticksActive = randrange(0, 5)
-            steps = randrange(20, 40)
-            self.fireflies.append(Firefly(emptyPositions[i], staticGlow, ticksActive, steps=steps))
+            self.fireflies.append(Firefly(emptyPositions[i]))
 
     def stop(self):
         self._stopping = True
 
     def isStopping(self) -> bool:
         return self._stopping
+
+    def _getTimeDelta(self, timeNow):
+        td = timeNow - self._time
+        self._time = timeNow
+        return td
