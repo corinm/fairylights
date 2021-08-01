@@ -23,7 +23,7 @@ class TwinkleFromColourAlgorithm:
         secondsBetweenPaletteChanges=30,
         secondsBetweenColourChanges=10,
         numberOfColours=2,
-        timeBetweenTwinkles=0.08,
+        **kwargs
     ):
         self.numberOfLeds: int = numberOfLeds
         self.colourGenerator: Callable[[int], Callable[[], Color]] = colourGenerator
@@ -36,7 +36,7 @@ class TwinkleFromColourAlgorithm:
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
         print("    New palette:", [c.hex for c in self.colours])
-        self.rt = Twinkle(self.numberOfLeds, self.colours, timeBetweenTwinkles=timeBetweenTwinkles)
+        self.rt = Twinkle(self.numberOfLeds, self.colours, **kwargs)
 
         self._resetNewPaletteTime()
         self._resetNewColourTime()
