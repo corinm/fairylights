@@ -2,8 +2,7 @@
 
 ## Quick start
 
-Install dependencies manually then:
-
+        sudo pip3 install -r requirements.txt
         sudo python3 src/main.py
 
 ## Setup
@@ -50,11 +49,9 @@ Install dependencies manually then:
         sudo systemctl start fairylights-page.service
         sudo systemctl stop fairylights-page.service
 
-## States
+## Patterns / colour schemes
 
-See 
-
-### Twinkle - various colour effects
+### Twinkle
 
 This is a traditional twinkling effect where bulbs fade in and out at random
 Can be combined with different algorithms for generating different colours/palettes - see `src/utils/randomColours.py` for examples
@@ -67,7 +64,7 @@ Features/todo:
 - Now supports updating the list of colours after instantiation, every certain number of seconds
 - Now supports regenerating the whole palette every certain number of seconds
 - Is stoppable and on stopping fades out naturally as each bulb iterates to its off state
-- **Could**: Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
+- Factor in "gamma" / weight changes in luminosity to change based on perceived brightness
 - **Could**: Combine gamma with bell curve to create nice fade in and out effect
 
 #### Retro fairy lights
@@ -96,10 +93,8 @@ Inspired by:
 Features:
 
 - Initial type - static glow
-- Implemented a static flickering one
-- Fireflies light up in waves
 - Fireflies are randomly assigned one of two shades of green
-- **Should** implement a moving glow one
+- **Could** implement a moving glow one
 
 
 ### Flickering fairy lights
@@ -109,11 +104,15 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 - Flickering pretty much there
 - Colours pretty much there
 - **Could**: Allow choice of colour
+- TODO: Fix to work with timeDeltas
+
+
+### Glitter
+
+Pleasing glitter effect. Effectively a speeded-up and more subtle version of twinkle
 
 
 ### Other ideas
 
-- Static version of retro colours
-- Pale twinkling stars / ice effect - much more subtle twinkle that existing kind
-- ^ Should have similar interface to twinkling so that it accepts same colour generator functions
+- Static unmoving patterns
 - Define states in an e.g. yaml file and load them dynamically - currently the states.py file is very boilerplatey
