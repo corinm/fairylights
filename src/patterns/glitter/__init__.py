@@ -13,9 +13,9 @@ def runGlitterWarm(leds: Leds, shouldStop: Callable[[], bool]):
     g = Twinkle(
         50,
         [pleasantWhite],
-        timeBetweenTwinkles=0.2,
+        timeBetweenTwinkles=0.05,
         timeToPeak=0.3,
-        maxLuminance=0.03,
+        maxLuminance=0.02,
     )
 
     while not shouldStop():
