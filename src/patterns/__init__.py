@@ -60,6 +60,7 @@ class StateWithRunMethod(State):
 
 
 states: List[StateWithRunMethod] = [
+    # Twinkle
     StateWithRunMethod(Pattern.Twinkle_Retro, runTwinkleRetro),
     StateWithRunMethod(Pattern.Twinkle_Random, runRandomColours),
     StateWithRunMethod(Pattern.Twinkle_Analagous, runRandomAnalagousColours),
@@ -70,9 +71,13 @@ states: List[StateWithRunMethod] = [
     StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
     StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
     StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
+    # Full twinkle
     StateWithRunMethod(Pattern.FullTwinkle_Retro, runFullTwinkleRetro),
+    # Fireflies
     StateWithRunMethod(Pattern.Fireflies_GlowConstant, runGlowConstant),
+    # Glitter
     StateWithRunMethod(Pattern.Glitter_Warm, runGlitterWarm),
+    # Off
     StateWithRunMethod(Pattern.Off, runOff),
 ]
 
