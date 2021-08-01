@@ -103,6 +103,9 @@ class StateOff(State):
         return self.name
 
 
+GLITTER_CONFIG = dict(timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02)
+
+
 states: List[Union[StateWithRunMethod, StateOff]] = [
     # Twinkle
     StateWithRunMethod(Pattern.Twinkle_Retro, Twinkle, dict(colours=retroColoursList)),
@@ -180,19 +183,17 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     StateWithRunMethod(
         Pattern.Glitter_Warm,
         Twinkle,
-        dict(colours=[pleasantWhite], timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02),
+        dict(colours=[pleasantWhite], **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_Retro,
         Twinkle,
-        dict(colours=retroColoursList, timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02),
+        dict(colours=retroColoursList, **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_Random,
         TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=trulyRandom, timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02
-        ),
+        dict(colourGenerator=trulyRandom, **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_Analagous,
@@ -202,43 +203,23 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             secondsBetweenPaletteChanges=0,
             secondsBetweenColourChanges=5,
             numberOfColours=3,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
+            **GLITTER_CONFIG
         ),
     ),
     StateWithRunMethod(
         Pattern.Glitter_AnalagousWeighted,
         TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=randomAnalogousWeighted,
-            numberOfColours=3,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
-        ),
+        dict(colourGenerator=randomAnalogousWeighted, numberOfColours=3, **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_Complementary,
         TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=randomComplementary,
-            numberOfColours=6,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
-        ),
+        dict(colourGenerator=randomComplementary, numberOfColours=6, **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_SplitComplementary,
         TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=randomSplitComplementary,
-            numberOfColours=5,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
-        ),
+        dict(colourGenerator=randomSplitComplementary, numberOfColours=5, **GLITTER_CONFIG),
     ),
     StateWithRunMethod(
         Pattern.Glitter_137Degrees,
@@ -247,9 +228,7 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             colourGenerator=randomColour137Degrees,
             secondsBetweenColourChanges=5,
             numberOfColours=6,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
+            **GLITTER_CONFIG
         ),
     ),
     StateWithRunMethod(
@@ -259,9 +238,7 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             colourGenerator=colourWheel,
             secondsBetweenPaletteChanges=0,
             secondsBetweenColourChanges=4,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
+            **GLITTER_CONFIG
         ),
     ),
     StateWithRunMethod(
@@ -271,20 +248,13 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             colourGenerator=colourWheel,
             secondsBetweenPaletteChanges=0,
             secondsBetweenColourChanges=1,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
+            **GLITTER_CONFIG
         ),
     ),
     StateWithRunMethod(
-        Pattern.Twinkle_CoolorPalletes,
+        Pattern.Glitter_CoolorPalletes,
         TwinkleFromPalettes,
-        dict(
-            palettes=coolors,
-            timeBetweenTwinkles=0.05,
-            timeToPeak=0.3,
-            maxLuminance=0.02,
-        ),
+        dict(palettes=coolors, **GLITTER_CONFIG),
     ),
     # Off
     StateOff(Pattern.Off),
