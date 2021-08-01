@@ -276,6 +276,16 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             maxLuminance=0.02,
         ),
     ),
+    StateWithRunMethod(
+        Pattern.Twinkle_CoolorPalletes,
+        TwinkleFromPalettes,
+        dict(
+            palettes=coolors,
+            timeBetweenTwinkles=0.05,
+            timeToPeak=0.3,
+            maxLuminance=0.02,
+        ),
+    ),
     # Off
     StateOff(Pattern.Off),
 ]
