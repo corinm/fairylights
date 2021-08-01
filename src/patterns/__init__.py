@@ -42,6 +42,7 @@ class Pattern(Enum):
     FullTwinkle_ColourWheelFast = 13
     Fireflies_GlowConstant = 14
     Glitter_Warm = 15
+    Glitter_Retro = 16
     Off = 99
 
 
@@ -171,6 +172,11 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
         Pattern.Glitter_Warm,
         Twinkle,
         dict(colours=[pleasantWhite], timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Retro,
+        Twinkle,
+        dict(colours=retroColoursList, timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02),
     ),
     # Off
     StateOff(Pattern.Off),
