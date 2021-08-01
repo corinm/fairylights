@@ -19,18 +19,15 @@ class TwinkleFromColourAlgorithm:
     def __init__(
         self,
         numberOfLeds: int,
-        randomColourAlgorithmGenerator: Callable[[int], Callable[[], Color]],
+        colourGenerator: Callable[[int], Callable[[], Color]],
         secondsBetweenPaletteChanges=30,
         secondsBetweenColourChanges=10,
         numberOfColours=2,
+        timeBetweenTwinkles=0.08,
     ):
         self.numberOfLeds: int = numberOfLeds
-        self.randomColourAlgorithmGenerator: Callable[
-            [int], Callable[[], Color]
-        ] = randomColourAlgorithmGenerator
-        self.randomColourAlgorithm: Callable[[], Color] = randomColourAlgorithmGenerator(
-            numberOfColours
-        )
+        self.colourGenerator: Callable[[int], Callable[[], Color]] = colourGenerator
+        self.randomColourAlgorithm: Callable[[], Color] = colourGenerator(numberOfColours)
         self.secondsBetweenPaletteChanges: int = secondsBetweenPaletteChanges
         self.secondsBetweenColourChanges: int = secondsBetweenColourChanges
         self.numberOfColours: int = numberOfColours
@@ -39,7 +36,7 @@ class TwinkleFromColourAlgorithm:
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
         print("    New palette:", [c.hex for c in self.colours])
-        self.rt = Twinkle(self.numberOfLeds, self.colours)
+        self.rt = Twinkle(self.numberOfLeds, self.colours, timeBetweenTwinkles=timeBetweenTwinkles)
 
         self._resetNewPaletteTime()
         self._resetNewColourTime()
@@ -54,7 +51,7 @@ class TwinkleFromColourAlgorithm:
         return self.rt.tick()
 
     def _newPalette(self):
-        self.randomColourAlgorithm = self.randomColourAlgorithmGenerator(self.numberOfColours)
+        self.randomColourAlgorithm = self.colourGenerator(self.numberOfColours)
         self.colours: List[Color] = [
             self.randomColourAlgorithm() for _ in range(self.numberOfColours)
         ]
