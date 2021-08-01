@@ -194,19 +194,19 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             colourGenerator=trulyRandom, timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02
         ),
     ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_Analagous,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(
-    #         colourGenerator=randomColourAnalogous,
-    #         secondsBetweenPaletteChanges=0,
-    #         secondsBetweenColourChanges=5,
-    #         numberOfColours=3,
-    #         timeBetweenTwinkles=0.05,
-    #         timeToPeak=0.3,
-    #         maxLuminance=0.02,
-    #     ),
-    # ),
+    StateWithRunMethod(
+        Pattern.Glitter_Analagous,
+        TwinkleFromColourAlgorithm,
+        dict(
+            colourGenerator=randomColourAnalogous,
+            secondsBetweenPaletteChanges=0,
+            secondsBetweenColourChanges=5,
+            numberOfColours=3,
+            timeBetweenTwinkles=0.05,
+            timeToPeak=0.3,
+            maxLuminance=0.02,
+        ),
+    ),
     # Off
     StateOff(Pattern.Off),
 ]
