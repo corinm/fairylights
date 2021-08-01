@@ -22,6 +22,7 @@ class TwinkleFromPalettes:
         numberOfLeds: int,
         palettes: List[List[Color]],
         secondsBetweenPaletteChanges=30,
+        **kwargs
     ):
         self.numberOfLeds: int = numberOfLeds
         self.palettes: List[List[Color]] = palettes
@@ -30,7 +31,7 @@ class TwinkleFromPalettes:
         newPaletteIndex = randrange(len(self.palettes))
         self.colours: List[Color] = self.palettes[newPaletteIndex]
         print("    New palette:", [c.hex for c in self.colours])
-        self.rt = Twinkle(self.numberOfLeds, self.colours)
+        self.rt = Twinkle(self.numberOfLeds, self.colours, **kwargs)
 
         self._resetNewPaletteTime()
 
