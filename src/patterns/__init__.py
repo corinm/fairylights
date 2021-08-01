@@ -4,6 +4,7 @@ from typing import List, Union
 from transitions import Machine, State
 
 from patterns.fireflies import runGlowConstant
+from patterns.full_twinkle import runFullTwinkleRetro
 from patterns.glitter import runGlitterWarm
 from patterns.twinkle import (
     runColoursWheel,
@@ -34,8 +35,9 @@ class Pattern(Enum):
     Twinkle_ColourWheel = 9
     Twinkle_ColourWheelFast = 10
     Twinkle_CoolorPalletes = 11
-    Fireflies_GlowConstant = 12
-    Glitter_Warm = 13
+    FullTwinkle_Retro = 12
+    Fireflies_GlowConstant = 13
+    Glitter_Warm = 14
     Off = 99
 
 
@@ -68,6 +70,7 @@ states: List[StateWithRunMethod] = [
     StateWithRunMethod(Pattern.Twinkle_ColourWheel, runColoursWheel),
     StateWithRunMethod(Pattern.Twinkle_ColourWheelFast, runColoursWheelFast),
     StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, runCoolorPalettes),
+    StateWithRunMethod(Pattern.FullTwinkle_Retro, runFullTwinkleRetro),
     StateWithRunMethod(Pattern.Fireflies_GlowConstant, runGlowConstant),
     StateWithRunMethod(Pattern.Glitter_Warm, runGlitterWarm),
     StateWithRunMethod(Pattern.Off, runOff),
