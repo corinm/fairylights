@@ -14,7 +14,8 @@ def shouldAdd() -> bool:
 
 
 class FirefliesConstant:
-    def __init__(self):
+    def __init__(self, numberOfBulbs: int, *args, **kwargs):
+        self._numberOfBulbs = numberOfBulbs
         self.fireflies: List[Firefly] = []
         self._stopping = False
         self._time = 0
@@ -26,7 +27,7 @@ class FirefliesConstant:
         if not self._stopping and shouldAdd():
             self._addMoreFireflies()
 
-        colours = [off for i in range(50)]
+        colours = [off for i in range(self._numberOfBulbs)]
 
         for firefly in self.fireflies:
             firefly.incrementTimeDelta(timeDelta)

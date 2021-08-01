@@ -13,6 +13,19 @@ retroColours: Dict[str, Color] = {
     "red": Color(rgb=(184 * 0.7 / 255, 44 * 0.4 / 255, 8 * 0.4 / 255)),
 }
 
+retroColoursList = [
+    retroColours["pink"],
+    retroColours["blue"],
+    retroColours["orange"],
+    retroColours["green"],
+    retroColours["red"],
+]
+
+"""
+    Whites
+"""
+pleasantWhite = Color(rgb=(90 / 255, 86 / 255, 9 / 255))
+
 """
    80s colours
 """
