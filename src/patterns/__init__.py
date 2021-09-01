@@ -77,7 +77,7 @@ class StateWithRunMethod(State):
         self._args = args
 
     def run(self, leds: Leds, shouldStop: Callable[[], bool]):
-        pattern = self._patternManager(50, **self._args)
+        pattern = self._patternManager(leds.getNumber(), **self._args)
 
         while not shouldStop():
             leds.setLeds(pattern.tick())
