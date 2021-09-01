@@ -67,8 +67,6 @@ def generateFullListOfColours(flickerBulbStates: List[BulbState]):
         on,
     ]
 
-    assert len(bulbs) == 50
-
     return bulbs
 
 
