@@ -35,14 +35,16 @@ class Patterns(Resource):
 
 
 class Lights(Resource):
-    def __init__(self, toCycle: Callable, toStatic: Callable, stop: Callable):
+    def __init__(self, toCycle: Callable, toStatic: Callable, stop: Callable, getCurrentLights: Callable):
         self.toCycle: Callable = toCycle
         self.toStatic: Callable[[Pattern], None] = toStatic
         self.stop: Callable = stop
+        self.getCurrentLights: Callable = getCurrentLights
 
     def get(self):
         # TODO: Get values from state machines
-        pass
+        (mode, pattern) = self.getCurrentLights()
+        return dict(mode=mode, pattern=pattern)
 
     def put(self):
         mode = request.args.get('mode')
@@ -62,7 +64,7 @@ class Lights(Resource):
             return None, 400
 
 
-def runApiServer(toCycle: Callable, toStatic: Callable, stop: Callable):
+def runApiServer(toCycle: Callable, toStatic: Callable, stop: Callable, getCurrentLights: Callable):
     """
     GET /modes
     GET /patterns
@@ -77,6 +79,7 @@ def runApiServer(toCycle: Callable, toStatic: Callable, stop: Callable):
             toCycle,
             toStatic,
             stop,
+            getCurrentLights,
         ),
     )
 
