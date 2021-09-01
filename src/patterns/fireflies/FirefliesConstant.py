@@ -44,7 +44,7 @@ class FirefliesConstant:
 
     def _addMoreFireflies(self):
         takenPositions: Set[int] = set([ff.getPosition() for ff in self.fireflies])
-        emptyPositions: List[int] = list(filter(lambda x: x not in takenPositions, range(50)))
+        emptyPositions: List[int] = list(filter(lambda x: x not in takenPositions, range(self._numberOfBulbs)))
         shuffle(emptyPositions)
 
         numberOfNewFireflies = randrange(1, 5)

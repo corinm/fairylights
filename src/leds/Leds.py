@@ -45,3 +45,6 @@ class Leds:
 
     def clear(self):
         self.setLeds([off])
+
+    def getNumber(self) -> int:
+        return LED_COUNT
