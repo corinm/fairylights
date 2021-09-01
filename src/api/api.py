@@ -46,7 +46,7 @@ class Lights(Resource):
 
     def put(self):
         mode = request.args.get('mode')
-        patternName = request.args.get('patternName')
+        patternName = request.args.get('pattern')
 
         if mode == "cycle":
             self.toCycle()
