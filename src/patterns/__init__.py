@@ -260,8 +260,6 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     StateOff(Pattern.Off),
 ]
 
-statesSerialised = [(i, states[i].serialise()) for i in range(len(states))]
-
 
 class FairyLightPatterns(Machine):
     def __init__(self, leds):
@@ -314,3 +312,6 @@ class FairyLightPatterns(Machine):
 
     def toPattern(self, stateName: Pattern):
         self._runState(stateName)
+
+    def getCurrentPattern(self):
+        return self.state.name
