@@ -72,3 +72,12 @@ class FairyLightModes(Machine):
 
     def stop(self):
         self.trigger("stop")
+
+    def getCurrentModeAndPattern(self):
+        mode = self.state
+        pattern = self.patterns.getCurrentPattern()
+
+        if mode == 'stopped':
+            pattern = None
+
+        return (mode, pattern)

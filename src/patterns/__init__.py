@@ -312,3 +312,6 @@ class FairyLightPatterns(Machine):
 
     def toPattern(self, stateName: Pattern):
         self._runState(stateName)
+
+    def getCurrentPattern(self):
+        return self.state.name
