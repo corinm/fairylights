@@ -13,11 +13,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
 
-@app.route("/")
-def index():
-    return "index"
-
-
 class Modes(Resource):
     def __init__(self):
         self.modes = [(i, modes[i].name) for i in range(len(modes))]
@@ -35,20 +30,21 @@ class Patterns(Resource):
 
 
 class Lights(Resource):
-    def __init__(self, toCycle: Callable, toStatic: Callable, stop: Callable, getCurrentLights: Callable):
+    def __init__(
+        self, toCycle: Callable, toStatic: Callable, stop: Callable, getCurrentLights: Callable
+    ):
         self.toCycle: Callable = toCycle
         self.toStatic: Callable[[Pattern], None] = toStatic
         self.stop: Callable = stop
         self.getCurrentLights: Callable = getCurrentLights
 
     def get(self):
-        # TODO: Get values from state machines
         (mode, pattern) = self.getCurrentLights()
         return dict(mode=mode, pattern=pattern)
 
     def put(self):
-        mode = request.args.get('mode')
-        patternName = request.args.get('pattern')
+        mode = request.args.get("mode")
+        patternName = request.args.get("pattern")
 
         if mode == "cycle":
             self.toCycle()
