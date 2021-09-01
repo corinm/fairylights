@@ -2,17 +2,24 @@
 
 ## Quick start
 
-        sudo pip3 install -r requirements.txt
-        sudo python3 src/main.py
+⚠️ Will only work on RaspberryPi
 
-## Setup
+    sudo pip3 install -r requirements.txt
+    sudo python3 src/main.py
+
+## Setup to run as services
 
 1. Set up a service for the lights and http api
 
+    1. Create service
+
+        ```
         sudo systemctl --force --full edit fairylights.service
+        ```
 
-2. Edit the configuration
+    2. Paste and save this config
 
+        ```
         [Unit]
         Description=Fairylights
         After=multi-user.target
@@ -22,18 +29,19 @@
 
         [Install]
         WantedBy=multi-user.target
+        ```
 
-3. Start the service
+2. Set up a service for the web page
 
-        sudo systemctl start fairylights.service
-        sudo systemctl stop fairylights.service
+    1. Create service
 
-4. Set up a service for the web page
-
+        ```
         sudo systemctl --force --full edit fairylights-page.service
+        ```
 
-2. Edit the configuration
+    2. Paste and save this config
 
+        ```
         [Unit]
         Description=Fairylights webpage
         After=multi-user.target
@@ -43,11 +51,13 @@
 
         [Install]
         WantedBy=multi-user.target
+        ```
 
-3. Start the service
+3. Start the services
 
-        sudo systemctl start fairylights-page.service
-        sudo systemctl stop fairylights-page.service
+    ```
+    sudo systemctl start fairylights.service fairylights-page.service
+    ```
 
 ## Patterns / colour schemes
 
