@@ -1,6 +1,6 @@
 from typing import Callable
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
@@ -41,9 +41,13 @@ class Lights(Resource):
         self.stop: Callable = stop
 
     def get(self):
+        # TODO: Get values from state machines
         pass
 
-    def put(self, mode: str, patternName: str):
+    def put(self):
+        mode = request.args.get('mode')
+        patternName = request.args.get('patternName')
+
         if mode == "cycle":
             self.toCycle()
             return None, 200
@@ -65,7 +69,7 @@ def runApiServer(toCycle: Callable, toStatic: Callable, stop: Callable):
     PUT /lights?mode=X&pattern=Y
     """
     api.add_resource(Modes, "/modes")
-    api.add_resource(Patterns, "/modes/static")
+    api.add_resource(Patterns, "/patterns")
     api.add_resource(
         Lights,
         "/lights",
