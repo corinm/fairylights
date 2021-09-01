@@ -12,8 +12,6 @@ states: List[State] = [
     State(name="static"),
 ]
 
-statesSerialised = [(i, states[i].name) for i in range(len(states))]
-
 
 class FairyLightModes(Machine):
     def __init__(self, leds):
