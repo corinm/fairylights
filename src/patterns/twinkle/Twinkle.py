@@ -27,11 +27,12 @@ class Twinkle:
 
         self._timeBetweenTwinkles = timeBetweenTwinkles
 
+        self._numberOfBulbs = numberOfBulbs
         self.currentColourIndex: int = 0
         self.updateColours(colours)
         self._count = 0
         self._time = time()
-        self._timeToNextTwinkle = self._time + self._timeBetweenTwinkles
+        self._timeToNextTwinkle = self._time + self._timeBetweenTwinkles / self._numberOfBulbs / 50
         self._stopping = False
         self._timeToNextStoppedCheck = None
 
@@ -41,7 +42,7 @@ class Twinkle:
 
         if not self._stopping and now > self._timeToNextTwinkle:
             self._nextTwinkle()
-            self._timeToNextTwinkle = now + self._timeBetweenTwinkles
+            self._timeToNextTwinkle = now + self._timeBetweenTwinkles / self._numberOfBulbs / 50
 
         self._count += 1
 
