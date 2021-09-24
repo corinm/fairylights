@@ -34,7 +34,7 @@ def createShuffledList(numberOfBulbs: int) -> List[int]:
     return shuffledBulbIndexes
 
 
-def calculateLuminance(timeNow, timeToPeak, maxLuminance):
+def calculateLuminance(timeNow: float, timeToPeak: float, maxLuminance: float):
     luminance = 0
 
     if timeNow < timeToPeak * 2:
@@ -46,3 +46,10 @@ def calculateLuminance(timeNow, timeToPeak, maxLuminance):
             )
 
     return luminance
+
+
+GAMMA_CORRECTION = 2.8
+
+
+def correctForGamma(luminance: float, maxLuminance: float) -> float:
+    return pow(luminance / maxLuminance, GAMMA_CORRECTION) * maxLuminance
