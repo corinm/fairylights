@@ -3,13 +3,7 @@ from colour import Color
 from utils.Bulb import Bulb
 from utils.colours import off
 
-from .helpers import calculateLuminance
-
-GAMMA_CORRECTION = 2.8
-
-
-def correctForGamma(luminance: float, maxLuminance: float) -> float:
-    return pow(luminance / maxLuminance, GAMMA_CORRECTION) * maxLuminance
+from .helpers import calculateLuminance, correctForGamma
 
 
 class TwinkleBulb(Bulb):
