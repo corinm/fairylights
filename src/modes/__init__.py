@@ -13,6 +13,9 @@ states: List[State] = [
 ]
 
 
+SECONDS_BETWEEN_CYCLES = 60 * 2
+
+
 class FairyLightModes(Machine):
     def __init__(self, leds):
         print("Starting FairyLightModes...")
@@ -30,11 +33,11 @@ class FairyLightModes(Machine):
 
     def _runCycle(self, shouldStop: Callable[[], bool]):
         self.patterns.next()
-        t = time() + 15
+        t = time() + SECONDS_BETWEEN_CYCLES
 
         while not shouldStop():
             if time() > t:
-                t = time() + 15
+                t = time() + SECONDS_BETWEEN_CYCLES
                 self.patterns.next()
             else:
                 sleep(2)
