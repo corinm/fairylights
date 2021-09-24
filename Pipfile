@@ -11,6 +11,7 @@ colour = "*"
 rpi-ws281x = "*"
 transitions = "*"
 flask-cors = "*"
+flask-restful = "*"
 
 [dev-packages]
 autopep8 = "*"
