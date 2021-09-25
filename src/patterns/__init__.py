@@ -103,8 +103,7 @@ class StateOff(State):
         return self.name
 
 
-GLITTER_CONFIG = dict(timeBetweenTwinkles=0.05, timeToPeak=0.3, maxLuminance=0.02)
-
+GLITTER_CONFIG = dict(timeBetweenTwinkles=0.03, timeToPeak=0.3, maxLuminance=0.02)
 
 states: List[Union[StateWithRunMethod, StateOff]] = [
     # Twinkle
