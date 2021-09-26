@@ -9,7 +9,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 from .TwinkleBulb import TwinkleBulb
 
 
-BULBS_IN_ONE_STRAND = 50
+UNIQUE_BULBS = 25
 
 
 def allOff(colours: List[Color]) -> bool:
@@ -25,7 +25,7 @@ class Twinkle:
         timeToPeak=0.8,
         maxLuminance=0.2,
     ):
-        bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance) for _ in range(BULBS_IN_ONE_STRAND)]
+        bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance) for _ in range(UNIQUE_BULBS)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)
 
         self._timeBetweenTwinkles = timeBetweenTwinkles
@@ -59,7 +59,7 @@ class Twinkle:
 
         self._time = time()
 
-        return colours * int(self._numberOfBulbs / BULBS_IN_ONE_STRAND)
+        return colours * int(self._numberOfBulbs / UNIQUE_BULBS)
 
     def _checkIfStopped(self, now: float, colours: List[Color]):
         if self._timeToNextStoppedCheck is not None and now >= self._timeToNextStoppedCheck:

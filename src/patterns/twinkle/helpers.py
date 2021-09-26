@@ -3,14 +3,18 @@ import random
 from typing import List
 
 
+# TODO: Remove this magic number
+NUMBER_OF_BULBS_IN_A_BUCKET = 5
+
+
 def createShuffledList(numberOfBulbs: int) -> List[int]:
-    numberOfBuckets: int = math.floor(numberOfBulbs / 10)
+    numberOfBuckets: int = math.floor(numberOfBulbs / NUMBER_OF_BULBS_IN_A_BUCKET)
     buckets: List[int] = [i for i in range(numberOfBuckets)]
     remainingIndexes: List[int] = [i for i in range(numberOfBulbs)]
     remainingIndexesByBucket: List[List[int]] = [[] for i in range(numberOfBuckets)]
 
     for n in remainingIndexes:
-        bucketIndex: int = math.floor(n / 10)
+        bucketIndex: int = math.floor(n / NUMBER_OF_BULBS_IN_A_BUCKET)
         remainingIndexesByBucket[bucketIndex].append(n)
 
     shuffledBulbIndexes: List[int] = []
