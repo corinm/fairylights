@@ -81,7 +81,7 @@ Lights are off
 
 This is another FSM where each state represents a specfic pattern. This is primarily a combination of an effect (twinkling, glittering etc.) and a colour scheme (retro colours, random complimentary colours etc.). This FSM is controlled by the outer Modes FSM.
 
-### Classes
+### Effects
 
 #### Twinkle
 
@@ -106,6 +106,8 @@ Inspired by this [Youtube video](https://www.youtube.com/watch?v=zeOw5MZWq24)
 Currently disabled. Needs some work / doesn't look great right now
 
 ### Colours
+
+These are either: lists of hard-coded colours, a list of palettes (a list of lists of colours) or an algorithm that generates colours on the fly
 
 #### Retro fairy lights
 
