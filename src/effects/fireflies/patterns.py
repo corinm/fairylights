@@ -2,7 +2,7 @@
 
 # from colour import Color
 
-# from patterns.fireflies.FireflyColour import FireflyColour
+# from effects.fireflies.FireflyColour import FireflyColour
 # from utils.colours import off
 # from utils.gradients import createGradientFromAndToBlack
 

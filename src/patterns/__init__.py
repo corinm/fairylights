@@ -4,10 +4,10 @@ from typing import Callable, List, Type, Union
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from patterns.fireflies.FirefliesConstant import FirefliesConstant
-from patterns.twinkle.Twinkle import Twinkle
-from patterns.twinkle.TwinkleFromColourAlgorithm import TwinkleFromColourAlgorithm
-from patterns.twinkle.TwinkleFromPalettes import TwinkleFromPalettes
+from effects.fireflies.FirefliesConstant import FirefliesConstant
+from effects.twinkle.Twinkle import Twinkle
+from effects.twinkle.TwinkleFromColourAlgorithm import TwinkleFromColourAlgorithm
+from effects.twinkle.TwinkleFromPalettes import TwinkleFromPalettes
 from utils.colours import coolors, pleasantWhite, retroColoursList
 from utils.randomColour import colourWheel, randomAnalogousWeighted
 from utils.randomColour import randomColour as trulyRandom
@@ -20,9 +20,9 @@ from utils.randomColour import (
 from utils.StoppableThread import StoppableThread
 
 # from colour import Color
-# from patterns.fireflies import runGlowConstant
-# from patterns.full_twinkle import runFullTwinkleRetro
-# from patterns.glitter import runGlitterWarm
+# from effects.fireflies import runGlowConstant
+# from effects.full_twinkle import runFullTwinkleRetro
+# from effects.glitter import runGlitterWarm
 # from random import randrange
 
 
@@ -53,11 +53,6 @@ class Pattern(Enum):
     Glitter_ColourWheelFast = 24
     Glitter_CoolorPalletes = 25
     Off = 99
-
-
-def runOff(leds, shouldStop):
-    print("runOff")
-    leds.clear()
 
 
 class StateWithRunMethod(State):
@@ -262,7 +257,7 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
 
 class FairyLightPatterns(Machine):
     def __init__(self, leds):
-        print("Starting FairyLightPatterns...")
+        print("Starting FairyLightpatterns...")
         self.leds = leds
         self.machine = Machine(
             self,

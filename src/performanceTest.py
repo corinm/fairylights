@@ -1,8 +1,8 @@
 from line_profiler import LineProfiler
 from colour import Color
 
-from patterns.twinkle.Twinkle import Twinkle
-from patterns.twinkle.TwinkleBulb import TwinkleBulb
+from effects.twinkle.Twinkle import Twinkle
+from effects.twinkle.TwinkleBulb import TwinkleBulb
 
 lp = LineProfiler()
 

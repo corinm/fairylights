@@ -1,7 +1,7 @@
 import unittest
 
-import patterns.flickering_fairylights.helpers as helpers
-from patterns.flickering_fairylights.FlickerBulb import BulbState
+import effects.flickering_fairylights.helpers as helpers
+from effects.flickering_fairylights.FlickerBulb import BulbState
 from utils.colours import _flicker2_4V, _flicker3V, flickerColours, off
 
 

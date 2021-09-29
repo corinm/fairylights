@@ -2,8 +2,8 @@ from typing import List
 
 from colour import Color
 
-import patterns.flickering_fairylights.helpers as helpers
-from patterns.flickering_fairylights.FlickerBulb import BulbState, FlickerBulb
+import effects.flickering_fairylights.helpers as helpers
+from effects.flickering_fairylights.FlickerBulb import BulbState, FlickerBulb
 
 """
 This module simulates a set of flickering fairy lights described here: https://youtu.be/zeOw5MZWq24?t=268

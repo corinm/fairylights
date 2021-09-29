@@ -1,7 +1,7 @@
 import random
 from enum import Enum
 
-from patterns.flickering_fairylights.constants import (
+from effects.flickering_fairylights.constants import (
     MAX_TEMP_DECREMENT,
     MAX_TEMP_INCREMENT,
     MIN_TEMP_DECREMENT,

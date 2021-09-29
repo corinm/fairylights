@@ -3,7 +3,7 @@ from typing import List
 
 from colour import Color
 
-from patterns.flickering_fairylights.FlickerBulb import BulbState
+from effects.flickering_fairylights.FlickerBulb import BulbState
 from utils.colours import flickerColours, flickerMid, off
 
 
