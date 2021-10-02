@@ -1,12 +1,6 @@
-from typing import Dict, List
+from typing import List
 
 from colour import Color
-
-
-"""
-    Whites
-"""
-pleasantWhite = Color(rgb=(90 / 255, 86 / 255, 9 / 255))
 
 """
    80s colours

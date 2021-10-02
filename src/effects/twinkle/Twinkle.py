@@ -51,7 +51,6 @@ class Twinkle(Effect):
 
         if self._readyForNewColour():
             self.currentColours = self.colours.getColours()
-            print(self.currentColours)
             self._resetNewColourTime()
 
         self._count += 1

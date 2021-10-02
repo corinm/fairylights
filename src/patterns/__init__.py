@@ -1,15 +1,13 @@
 from enum import Enum, auto
 from typing import Callable, List, Type, Union
-import colours
 
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow
+from colours import retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow, warmWhite, iceWhite
 from effects.fireflies.FirefliesConstant import FirefliesConstant
 from effects.twinkle.Twinkle import Twinkle
 from effects.cycle import Cycle
-from utils.colours import coolors, pleasantWhite
 from utils.StoppableThread import StoppableThread
 
 # from colour import Color
@@ -39,6 +37,7 @@ class Pattern(Enum):
     Fireflies_GlowConstant = auto()
 
     Glitter_Warm = auto()
+    Glitter_Ice = auto()
     Glitter_Retro = auto()
     Glitter_Random = auto()
     Glitter_Analagous = auto()
@@ -172,81 +171,81 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     StateWithRunMethod(
         Pattern.Glitter_Warm,
         Twinkle,
-        dict(colours=[pleasantWhite], **GLITTER_CONFIG),
+        dict(colours=warmWhite, **GLITTER_CONFIG),
     ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_Retro,
-    #     Twinkle,
-    #     dict(colours=retroColoursList, **GLITTER_CONFIG),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_Random,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(colourGenerator=trulyRandom, **GLITTER_CONFIG),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_Analagous,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(
-    #         colourGenerator=randomColourAnalogous,
-    #         secondsBetweenPaletteChanges=0,
-    #         secondsBetweenColourChanges=5,
-    #         numberOfColours=3,
-    #         **GLITTER_CONFIG
-    #     ),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_AnalagousWeighted,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(colourGenerator=randomAnalogousWeighted, numberOfColours=3, **GLITTER_CONFIG),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_Complementary,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(colourGenerator=randomComplementary, numberOfColours=6, **GLITTER_CONFIG),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_SplitComplementary,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(colourGenerator=randomSplitComplementary, numberOfColours=5, **GLITTER_CONFIG),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_137Degrees,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(
-    #         colourGenerator=randomColour137Degrees,
-    #         secondsBetweenColourChanges=5,
-    #         numberOfColours=6,
-    #         **GLITTER_CONFIG
-    #     ),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_ColourWheel,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(
-    #         colourGenerator=colourWheel,
-    #         secondsBetweenPaletteChanges=0,
-    #         secondsBetweenColourChanges=4,
-    #         **GLITTER_CONFIG
-    #     ),
-    # ),
-    # StateWithRunMethod(
-    #     Pattern.Glitter_ColourWheelFast,
-    #     TwinkleFromColourAlgorithm,
-    #     dict(
-    #         colourGenerator=colourWheel,
-    #         secondsBetweenPaletteChanges=0,
-    #         secondsBetweenColourChanges=1,
-    #         **GLITTER_CONFIG
-    #     ),
-    # ),
+    StateWithRunMethod(
+        Pattern.Glitter_Ice,
+        Twinkle,
+        dict(colours=iceWhite, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Retro,
+        Twinkle,
+        dict(colours=retro, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Random,
+        Twinkle,
+        dict(colours=trulyRandom, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Analagous,
+        Twinkle,
+        dict(
+            colours=analogousRandom,
+            secondsBetweenColourChanges=5,
+            **GLITTER_CONFIG
+        ),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_AnalagousWeighted,
+        Twinkle,
+        dict(colours=analogousWeightedRandom, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Complementary,
+        Twinkle,
+        dict(colours=complementaryRandom, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_SplitComplementary,
+        Twinkle,
+        dict(colours=splitComplementaryRandom, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_137Degrees,
+        Twinkle,
+        dict(
+            colours=every137Degrees,
+            secondsBetweenColourChanges=5,
+            **GLITTER_CONFIG
+        ),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_ColourWheel,
+        Twinkle,
+        dict(
+            colours=colourWheel,
+            secondsBetweenColourChanges=4,
+            **GLITTER_CONFIG
+        ),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_ColourWheelFast,
+        Twinkle,
+        dict(
+            colours=colourWheel,
+            secondsBetweenColourChanges=1,
+            **GLITTER_CONFIG
+        ),
+    ),
     StateWithRunMethod(
         Pattern.Glitter_CoolorPalletes,
         Twinkle,
         dict(colours=coolorPalettes, **GLITTER_CONFIG),
     ),
     # Cycle
-    # StateWithRunMethod(Pattern.Cycle_Retro, Cycle, dict(colours=retroColoursList)),
+    StateWithRunMethod(Pattern.Cycle_Retro, Cycle, dict(colours=retro)),
     StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
     # Off
     StateOff(Pattern.Off),
@@ -262,7 +261,7 @@ class FairyLightPatterns(Machine):
             states=states,
             # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[8],
+            initial=states[25],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
