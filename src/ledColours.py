@@ -1,9 +1,7 @@
 import math
 
 from colour import Color
-
-from rainbow import generateColourWheel
-
+from .utils.rainbow import wheel
 
 def printColour(colour: Color):
     print(
@@ -11,9 +9,6 @@ def printColour(colour: Color):
         math.floor(colour.green * 255),
         math.floor(colour.blue * 255),
     )
-
-
-wheel = generateColourWheel()
 
 off = Color(rgb=(0, 0, 0))
 

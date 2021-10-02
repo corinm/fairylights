@@ -2,24 +2,6 @@ from typing import Dict, List
 
 from colour import Color
 
-"""
-   Retro colours e.g. Noma Pickwick fairy lights
-"""
-retroColours: Dict[str, Color] = {
-    "pink": Color(rgb=(93 / 255, 19 / 255, 56 / 255)),
-    "blue": Color(rgb=(11 / 255, 77 / 255, 57 / 255)),
-    "orange": Color(rgb=(199 * 0.8 / 255, 90 * 0.8 / 255, 0 * 0.8 / 255)),
-    "green": Color(rgb=(54 * 0.4 / 255, 139 / 255, 27 * 0.4 / 255)),
-    "red": Color(rgb=(184 * 0.7 / 255, 44 * 0.4 / 255, 8 * 0.4 / 255)),
-}
-
-retroColoursList = [
-    retroColours["pink"],
-    retroColours["blue"],
-    retroColours["orange"],
-    retroColours["green"],
-    retroColours["red"],
-]
 
 """
     Whites
@@ -174,3 +156,6 @@ coolors = [
     coolor10,
     coolor11,
 ]
+
+
+neon = process(['609103','1d8a03','028225','027b5a','015d73','01256b','0d0164','36015c','540051', '4d0026', '450002'])
