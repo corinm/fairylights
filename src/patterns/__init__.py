@@ -4,7 +4,7 @@ from typing import Callable, List, Type, Union
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import Retro, TrulyRandom, AnalogousRandom, AnalogousWeightedRandom
+from colours import Retro, TrulyRandom, AnalogousRandom, AnalogousWeightedRandom, ComplementaryRandom
 from colours.Rainbow import Rainbow
 from effects.fireflies.FirefliesConstant import FirefliesConstant
 from effects.twinkle.Twinkle import Twinkle
@@ -15,7 +15,6 @@ from utils.colours import coolors, pleasantWhite, neon
 from utils.randomColour import colourWheel
 from utils.randomColour import (
     randomColour137Degrees,
-    randomComplementary,
     randomSplitComplementary,
 )
 from  utils.rainbow import rainbow
@@ -131,8 +130,8 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     ),
     StateWithRunMethod(
         Pattern.Twinkle_Complementary,
-        TwinkleFromColourAlgorithm,
-        dict(colourGenerator=randomComplementary, numberOfColours=6),
+        Twinkle,
+        dict(colours=ComplementaryRandom),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_SplitComplementary,
@@ -214,11 +213,11 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     #     TwinkleFromColourAlgorithm,
     #     dict(colourGenerator=randomAnalogousWeighted, numberOfColours=3, **GLITTER_CONFIG),
     # ),
-    StateWithRunMethod(
-        Pattern.Glitter_Complementary,
-        TwinkleFromColourAlgorithm,
-        dict(colourGenerator=randomComplementary, numberOfColours=6, **GLITTER_CONFIG),
-    ),
+    # StateWithRunMethod(
+    #     Pattern.Glitter_Complementary,
+    #     TwinkleFromColourAlgorithm,
+    #     dict(colourGenerator=randomComplementary, numberOfColours=6, **GLITTER_CONFIG),
+    # ),
     StateWithRunMethod(
         Pattern.Glitter_SplitComplementary,
         TwinkleFromColourAlgorithm,
@@ -276,7 +275,7 @@ class FairyLightPatterns(Machine):
             states=states,
             # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[2],
+            initial=states[3],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
