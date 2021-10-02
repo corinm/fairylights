@@ -1,9 +1,6 @@
-from typing import List
 from random import randrange
 
-from colour import Color
-
-from .Colours import Colours
+from .Colours import ColoursFromAlgorithm
 from utils.randomColour import angleToColour
 
 
@@ -32,19 +29,5 @@ def randomColourAnalogous():
 
     return nextColour
 
-nextColour = randomColourAnalogous()
 
-
-class AnalogousRandom(Colours):
-    def __init__(self):
-        self._firstCall = True
-        self._colours: List[Color] = [nextColour(), nextColour(), nextColour()]
-
-    def getColours(self) -> List[Color]:
-        if self._firstCall:
-            self._firstCall = False
-            return self._colours
-
-        self._colours = [self._colours[1], self._colours[2], nextColour()]
-
-        return self._colours
+analogousRandom = ColoursFromAlgorithm(randomColourAnalogous(), 3)

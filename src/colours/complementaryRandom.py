@@ -1,10 +1,6 @@
-from typing import List
 from random import randrange
 
-from colour import Color
-from colours.AnalogousRandom import randomColourAnalogous
-
-from .Colours import Colours
+from .Colours import ColoursFromAlgorithm
 from utils.randomColour import angleToColour
 
 
@@ -56,19 +52,4 @@ def randomComplementary(numberOfColours=6, angleAtStart=None):
     return nextColour
 
 
-nextColour = randomComplementary()
-
-
-class ComplementaryRandom(Colours):
-    def __init__(self):
-        self._firstCall = True
-        self._colours: List[Color] = [nextColour(), nextColour(), nextColour(), nextColour(), nextColour(), nextColour()]
-
-    def getColours(self) -> List[Color]:
-        if self._firstCall:
-            self._firstCall = False
-            return self._colours
-
-        self._colours = [self._colours[1], self._colours[2], self._colours[3], self._colours[4], self._colours[5], nextColour()]
-
-        return self._colours
+complementaryRandom = ColoursFromAlgorithm(randomComplementary(), 6)

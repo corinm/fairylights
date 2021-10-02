@@ -26,7 +26,7 @@ class Twinkle(Effect):
     ):
         Effect.__init__(self)
         
-        self.colours: Colours = colours()
+        self.colours: Colours = colours
         self.updateColours()
 
         bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance) for _ in range(UNIQUE_BULBS)]

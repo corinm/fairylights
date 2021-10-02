@@ -1,23 +1,15 @@
 from enum import Enum, auto
 from typing import Callable, List, Type, Union
+import colours
 
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import Retro, TrulyRandom, AnalogousRandom, AnalogousWeightedRandom, ComplementaryRandom
-from colours.Rainbow import Rainbow
+from colours import retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow
 from effects.fireflies.FirefliesConstant import FirefliesConstant
 from effects.twinkle.Twinkle import Twinkle
-from effects.twinkle.TwinkleFromColourAlgorithm import TwinkleFromColourAlgorithm
-from effects.twinkle.TwinkleFromPalettes import TwinkleFromPalettes
 from effects.cycle import Cycle
-from utils.colours import coolors, pleasantWhite, neon
-from utils.randomColour import colourWheel
-from utils.randomColour import (
-    randomColour137Degrees,
-    randomSplitComplementary,
-)
-from  utils.rainbow import rainbow
+from utils.colours import coolors, pleasantWhite
 from utils.StoppableThread import StoppableThread
 
 # from colour import Color
@@ -70,8 +62,6 @@ class StateWithRunMethod(State):
         name: Pattern,
         patternManager: Union[
             Type[Twinkle],
-            Type[TwinkleFromColourAlgorithm],
-            Type[TwinkleFromPalettes],
             Type[FirefliesConstant],
         ],
         args={},
@@ -111,70 +101,67 @@ GLITTER_CONFIG = dict(timeBetweenTwinkles=0.03, timeToPeak=0.3, maxLuminance=0.0
 
 states: List[Union[StateWithRunMethod, StateOff]] = [
     # Twinkle
-    StateWithRunMethod(Pattern.Twinkle_Retro, Twinkle, dict(colours=Retro)),
+    StateWithRunMethod(Pattern.Twinkle_Retro, Twinkle, dict(colours=retro)),
     StateWithRunMethod(
-        Pattern.Twinkle_Random, Twinkle, dict(colours=TrulyRandom)
+        Pattern.Twinkle_Random, Twinkle, dict(colours=trulyRandom)
     ),
     StateWithRunMethod(
         Pattern.Twinkle_Analagous,
         Twinkle,
         dict(
-            colours=AnalogousRandom,
+            colours=analogousRandom,
             secondsBetweenColourChanges=5,
         ),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_AnalagousWeighted,
         Twinkle,
-        dict(colours=AnalogousWeightedRandom),
+        dict(colours=analogousWeightedRandom),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_Complementary,
         Twinkle,
-        dict(colours=ComplementaryRandom),
+        dict(colours=complementaryRandom),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_SplitComplementary,
-        TwinkleFromColourAlgorithm,
-        dict(colourGenerator=randomSplitComplementary, numberOfColours=5),
+        Twinkle,
+        dict(colours=splitComplementaryRandom),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_137Degrees,
-        TwinkleFromColourAlgorithm,
+        Twinkle,
         dict(
-            colourGenerator=randomColour137Degrees, secondsBetweenColourChanges=5, numberOfColours=6
+            colours=every137Degrees, secondsBetweenColourChanges=5
         ),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_ColourWheel,
-        TwinkleFromColourAlgorithm,
+        Twinkle,
         dict(
-            colourGenerator=colourWheel,
-            secondsBetweenPaletteChanges=0,
+            colours=colourWheel,
             secondsBetweenColourChanges=4,
         ),
     ),
     StateWithRunMethod(
         Pattern.Twinkle_ColourWheelFast,
-        TwinkleFromColourAlgorithm,
+        Twinkle,
         dict(
-            colourGenerator=colourWheel,
-            secondsBetweenPaletteChanges=0,
+            colours=colourWheel,
             secondsBetweenColourChanges=1,
         ),
     ),
-    StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, TwinkleFromPalettes, dict(palettes=coolors)),
+    StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, Twinkle, dict(colours=coolorPalettes)),
     StateWithRunMethod(Pattern.Twinkle_Neon, Twinkle, dict(colours=neon)),
     # Full twinkle
-    # StateWithRunMethod(
-    #     Pattern.FullTwinkle_Retro, Twinkle, dict(colours=retroColoursList, timeBetweenTwinkles=0.01)
-    # ),
+    StateWithRunMethod(
+        Pattern.FullTwinkle_Retro, Twinkle, dict(colours=retro, timeBetweenTwinkles=0.01)
+    ),
     StateWithRunMethod(
         Pattern.FullTwinkle_ColourWheelFast,
-        TwinkleFromColourAlgorithm,
+        Twinkle,
         dict(
-            colourGenerator=colourWheel,
-            secondsBetweenPaletteChanges=0,
+            colours=colourWheel,
             secondsBetweenColourChanges=1,
             timeBetweenTwinkles=0.01,
         ),
@@ -218,49 +205,49 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     #     TwinkleFromColourAlgorithm,
     #     dict(colourGenerator=randomComplementary, numberOfColours=6, **GLITTER_CONFIG),
     # ),
-    StateWithRunMethod(
-        Pattern.Glitter_SplitComplementary,
-        TwinkleFromColourAlgorithm,
-        dict(colourGenerator=randomSplitComplementary, numberOfColours=5, **GLITTER_CONFIG),
-    ),
-    StateWithRunMethod(
-        Pattern.Glitter_137Degrees,
-        TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=randomColour137Degrees,
-            secondsBetweenColourChanges=5,
-            numberOfColours=6,
-            **GLITTER_CONFIG
-        ),
-    ),
-    StateWithRunMethod(
-        Pattern.Glitter_ColourWheel,
-        TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=colourWheel,
-            secondsBetweenPaletteChanges=0,
-            secondsBetweenColourChanges=4,
-            **GLITTER_CONFIG
-        ),
-    ),
-    StateWithRunMethod(
-        Pattern.Glitter_ColourWheelFast,
-        TwinkleFromColourAlgorithm,
-        dict(
-            colourGenerator=colourWheel,
-            secondsBetweenPaletteChanges=0,
-            secondsBetweenColourChanges=1,
-            **GLITTER_CONFIG
-        ),
-    ),
+    # StateWithRunMethod(
+    #     Pattern.Glitter_SplitComplementary,
+    #     TwinkleFromColourAlgorithm,
+    #     dict(colourGenerator=randomSplitComplementary, numberOfColours=5, **GLITTER_CONFIG),
+    # ),
+    # StateWithRunMethod(
+    #     Pattern.Glitter_137Degrees,
+    #     TwinkleFromColourAlgorithm,
+    #     dict(
+    #         colourGenerator=randomColour137Degrees,
+    #         secondsBetweenColourChanges=5,
+    #         numberOfColours=6,
+    #         **GLITTER_CONFIG
+    #     ),
+    # ),
+    # StateWithRunMethod(
+    #     Pattern.Glitter_ColourWheel,
+    #     TwinkleFromColourAlgorithm,
+    #     dict(
+    #         colourGenerator=colourWheel,
+    #         secondsBetweenPaletteChanges=0,
+    #         secondsBetweenColourChanges=4,
+    #         **GLITTER_CONFIG
+    #     ),
+    # ),
+    # StateWithRunMethod(
+    #     Pattern.Glitter_ColourWheelFast,
+    #     TwinkleFromColourAlgorithm,
+    #     dict(
+    #         colourGenerator=colourWheel,
+    #         secondsBetweenPaletteChanges=0,
+    #         secondsBetweenColourChanges=1,
+    #         **GLITTER_CONFIG
+    #     ),
+    # ),
     StateWithRunMethod(
         Pattern.Glitter_CoolorPalletes,
-        TwinkleFromPalettes,
-        dict(palettes=coolors, **GLITTER_CONFIG),
+        Twinkle,
+        dict(colours=coolorPalettes, **GLITTER_CONFIG),
     ),
     # Cycle
     # StateWithRunMethod(Pattern.Cycle_Retro, Cycle, dict(colours=retroColoursList)),
-    StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=Rainbow)),
+    StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
     # Off
     StateOff(Pattern.Off),
 ]
@@ -275,7 +262,7 @@ class FairyLightPatterns(Machine):
             states=states,
             # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[3],
+            initial=states[8],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
