@@ -246,7 +246,7 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     ),
     # Cycle
     StateWithRunMethod(Pattern.Cycle_Retro, Cycle, dict(colours=retro)),
-    StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
+    # StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
     # Off
     StateOff(Pattern.Off),
 ]
