@@ -38,12 +38,20 @@ def createShuffledList(numberOfBulbs: int) -> List[int]:
     return shuffledBulbIndexes
 
 
-def calculateLuminance(timeNow: float, timeToPeak: float, maxLuminance: float):
+def calculateLuminance(timeNow: float, timeToPeak: float, maxLuminance: float, minLuminance: float = 0):
     luminance = 0
 
     if timeNow < timeToPeak * 2:
         if timeNow <= timeToPeak:
-            luminance = (timeNow * 100 / timeToPeak) * maxLuminance / 100
+            startTime = 0
+            oldRange = timeToPeak - 0
+            newRange = (maxLuminance * 100 - minLuminance * 100) / 100
+            luminance = (((timeNow - startTime) * newRange) / oldRange) + minLuminance
+            print(minLuminance, maxLuminance)
+            print(timeNow, startTime, newRange, oldRange)
+            print((((timeNow * 100 - startTime * 100) * newRange) / oldRange / 100))
+            # luminance = (timeNow / timeToPeak) * maxLuminance + minLuminance
+            # luminance = (timeNow * 100 / timeToPeak) * maxLuminance / 100
         else:
             luminance = (
                 ((timeToPeak - (timeNow - timeToPeak)) * 100 / timeToPeak) * maxLuminance / 100

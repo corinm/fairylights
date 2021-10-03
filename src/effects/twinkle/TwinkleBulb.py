@@ -7,9 +7,10 @@ from .helpers import calculateLuminance, correctForGamma
 
 
 class TwinkleBulb(Bulb):
-    def __init__(self, timeToPeak: float, maxLuminance: float):
+    def __init__(self, timeToPeak: float, maxLuminance: float, minLuminance: float):
         self._timeToPeak = timeToPeak
         self._maxLuminance = maxLuminance
+        self._minLuminance = minLuminance
         self._time = 0
         self._isActive = False
         self._colour = off
@@ -30,7 +31,7 @@ class TwinkleBulb(Bulb):
         if self._time > self._timeToPeak * 2:
             self._isActive = False
 
-        luminance = calculateLuminance(self._time, self._timeToPeak, self._maxLuminance)
+        luminance = calculateLuminance(self._time, self._timeToPeak, self._maxLuminance, self._minLuminance)
         corrected = correctForGamma(luminance, self._maxLuminance)
         self._colour.set_luminance(corrected)
 

@@ -22,6 +22,7 @@ class Twinkle(Effect):
         timeBetweenTwinkles=0.08,
         timeToPeak=0.8,
         maxLuminance=0.2,
+        minLuminance=0,
         secondsBetweenColourChanges=10,
     ):
         Effect.__init__(self)
@@ -29,7 +30,7 @@ class Twinkle(Effect):
         self.colours: Colours = colours
         self.updateColours()
 
-        bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance) for _ in range(UNIQUE_BULBS)]
+        bulbs: List[Bulb] = [TwinkleBulb(timeToPeak, maxLuminance, minLuminance) for _ in range(UNIQUE_BULBS)]
         self.shuffledBulbs = ShuffledBulbs(bulbs)
 
         self._timeBetweenTwinkles = timeBetweenTwinkles
