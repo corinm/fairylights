@@ -33,9 +33,11 @@ class Pattern(Enum):
     Twinkle_ColourWheelFast = auto()
     Twinkle_CoolorPalletes = auto()
     Twinkle_Neon = auto()
+    Twinkle_80s = auto()
 
     FullTwinkle_Retro = auto()
     FullTwinkle_ColourWheelFast = auto()
+    FullTwinkle_80s = auto()
 
     Fireflies_GlowConstant = auto()
 
@@ -51,6 +53,8 @@ class Pattern(Enum):
     Glitter_ColourWheel = auto()
     Glitter_ColourWheelFast = auto()
     Glitter_CoolorPalletes = auto()
+    Glitter_Neon = auto()
+    Glitter_80s = auto()
 
     Cycle_Rainbow = auto()
 
@@ -156,6 +160,7 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     ),
     StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, Twinkle, dict(colours=coolorPalettes)),
     StateWithRunMethod(Pattern.Twinkle_Neon, Twinkle, dict(colours=neon)),
+    StateWithRunMethod(Pattern.Twinkle_80s, Twinkle, dict(colours=eighties)),
     # Full twinkle
     StateWithRunMethod(
         Pattern.FullTwinkle_Retro, Twinkle, dict(colours=retro, timeBetweenTwinkles=0.01)
@@ -165,6 +170,15 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
         Twinkle,
         dict(
             colours=colourWheel,
+            secondsBetweenColourChanges=1,
+            timeBetweenTwinkles=0.01,
+        ),
+    ),
+    StateWithRunMethod(
+        Pattern.FullTwinkle_80s,
+        Twinkle,
+        dict(
+            colours=eighties,
             secondsBetweenColourChanges=1,
             timeBetweenTwinkles=0.01,
         ),
@@ -247,6 +261,16 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
         Pattern.Glitter_CoolorPalletes,
         Twinkle,
         dict(colours=coolorPalettes, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_Neon,
+        Twinkle,
+        dict(colours=neon, **GLITTER_CONFIG),
+    ),
+    StateWithRunMethod(
+        Pattern.Glitter_80s,
+        Twinkle,
+        dict(colours=eighties, **GLITTER_CONFIG),
     ),
     # Cycle
     StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
