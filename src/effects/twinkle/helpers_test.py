@@ -168,6 +168,68 @@ class TestHelpersCalculateLuminance(unittest.TestCase):
         maxLuminance = 0.15
         self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance), 0)
 
+    def test_minLum_1(self):
+        time = 0
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1)
+
+    def test_minLum_2(self):
+        time = 0.25
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1125)
+
+    def test_minLum_3(self):
+        time = 0.5
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.125)
+
+    def test_minLum_4(self):
+        time = 0.75
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1375)
+
+    def test_minLum_5(self):
+        time = 1
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.15)
+
+    def test_minLum_6(self):
+        time = 1.25
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1375)
+
+    def test_minLum_7(self):
+        time = 1.5
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.125)
+
+    def test_minLum_8(self):
+        time = 1.75
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1125)
+
+    def test_minLum_9(self):
+        time = 2
+        timeToPeak = 1
+        maxLuminance = 0.15
+        minLuminance = 0.1
+        self.assertEqual(helpers.calculateLuminance(time, timeToPeak, maxLuminance, minLuminance), 0.1)
 
 if __name__ == "__main__":
     unittest.main()
