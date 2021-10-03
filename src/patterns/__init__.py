@@ -4,16 +4,10 @@ from typing import Callable, List, Type, Union
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow, warmWhite, iceWhite
-from effects.fireflies.FirefliesConstant import FirefliesConstant
-from effects.twinkle.Twinkle import Twinkle
-from effects.cycle import Cycle
+from colours import warmWhite, iceWhite, retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow,  eighties
+from effects import Twinkle, FirefliesConstant, Cycle
 from utils.StoppableThread import StoppableThread
 
-# from colour import Color
-# from effects.fireflies import runGlowConstant
-# from effects.full_twinkle import runFullTwinkleRetro
-# from effects.glitter import runGlitterWarm
 # from random import randrange
 
 
@@ -286,9 +280,9 @@ class FairyLightPatterns(Machine):
         self.machine = Machine(
             self,
             states=states,
-            initial=states[len(states) - 1],
+            # initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            # initial=states[3],
+            initial=states[16],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)

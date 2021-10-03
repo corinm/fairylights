@@ -3,7 +3,7 @@ from time import time
 
 from colour import Color
 
-from .. import Effect
+from ..Effect import Effect
 from colours.Colours import Colours
 
 

@@ -8,7 +8,7 @@ from utils.ShuffledBulbs import ShuffledBulbs
 from colours.Colours import Colours
 
 from .TwinkleBulb import TwinkleBulb
-from .. import Effect
+from ..Effect import Effect
 
 
 UNIQUE_BULBS = 25
