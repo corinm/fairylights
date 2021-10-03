@@ -24,6 +24,11 @@ class Cycle(Effect):
 
         # TODO: Make independent of tick rate
 
+        if self.isStopping():
+            for c in self._currentColours:
+                l = c.luminance - 0.01
+                c.set_luminance(l if l > 0 else 0)
+
         self._currentColours = self._currentColours[1:] + self._currentColours[0:1]
 
         super().tick(now, self._currentColours)
