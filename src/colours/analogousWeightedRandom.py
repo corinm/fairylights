@@ -53,4 +53,4 @@ def randomAnalogousWeighted():
     return nextColour
 
 
-analogousWeightedRandom = ColoursFromAlgorithm(randomAnalogousWeighted(), 3)
+analogousWeightedRandom = ColoursFromAlgorithm(randomAnalogousWeighted(), 5)
