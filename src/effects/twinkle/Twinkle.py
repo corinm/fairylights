@@ -50,7 +50,7 @@ class Twinkle(Effect):
             self._timeToNextTwinkle = now + self._timeBetweenTwinkles
 
         if self._readyForNewColour():
-            self.currentColours = self.colours.getColours()
+            self.updateColours()
             self._resetNewColourTime()
 
         self._count += 1
