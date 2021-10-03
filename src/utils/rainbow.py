@@ -16,25 +16,3 @@ def generateColourWheel():
 
 
 wheel = generateColourWheel()
-
-
-def angleToColour(angle: int):
-    # angle = 0-360
-    assert angle >= 0
-    assert angle <= 360
-
-    r = wheel[(angle + 120) % 360]
-    g = wheel[angle]
-    b = wheel[(angle + 240) % 360]
-
-    return Color(rgb=(r / 255, g / 255, b / 255))
-
-
-def rainbow(numberOfLights: int) -> List[Color]:
-    bulbs = []
-
-    for i in range(numberOfLights):
-        angle = int((i / numberOfLights) * 360)
-        bulbs.append(angleToColour(angle))
-
-    return bulbs

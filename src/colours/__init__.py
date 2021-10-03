@@ -9,3 +9,4 @@ from .colourWheel import colourWheel
 from .coolorPalettes import coolorPalettes
 from .neon import neon
 from .whites import warmWhite, iceWhite
+from .rainbow import rainbow
