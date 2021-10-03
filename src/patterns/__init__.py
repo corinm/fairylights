@@ -19,6 +19,9 @@ from utils.StoppableThread import StoppableThread
 
 class Pattern(Enum):
     Flickering = auto()
+
+    Twinkle_Warm = auto()
+    Twinkle_Ice = auto()
     Twinkle_Retro = auto()
     Twinkle_Random = auto()
     Twinkle_Analagous = auto()
@@ -49,7 +52,6 @@ class Pattern(Enum):
     Glitter_ColourWheelFast = auto()
     Glitter_CoolorPalletes = auto()
 
-    Cycle_Retro = auto()
     Cycle_Rainbow = auto()
 
     Off = auto()
@@ -100,6 +102,8 @@ GLITTER_CONFIG = dict(timeBetweenTwinkles=0.03, timeToPeak=0.3, maxLuminance=0.0
 
 states: List[Union[StateWithRunMethod, StateOff]] = [
     # Twinkle
+    StateWithRunMethod(Pattern.Twinkle_Warm, Twinkle, dict(colours=warmWhite)),
+    StateWithRunMethod(Pattern.Twinkle_Ice, Twinkle, dict(colours=iceWhite)),
     StateWithRunMethod(Pattern.Twinkle_Retro, Twinkle, dict(colours=retro)),
     StateWithRunMethod(
         Pattern.Twinkle_Random, Twinkle, dict(colours=trulyRandom)
@@ -258,9 +262,9 @@ class FairyLightPatterns(Machine):
         self.machine = Machine(
             self,
             states=states,
-            # initial=states[len(states) - 1],
+            initial=states[len(states) - 1],
             # initial=states[randrange(0, len(states))],
-            initial=states[25],
+            # initial=states[3],
         )
         self.machine.add_transition(trigger="stop", source=[s.name for s in states], dest="Off")
         self.machine.add_ordered_transitions(before=self.on_exit, after=self.on_enter)
