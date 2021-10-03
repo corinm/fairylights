@@ -129,11 +129,15 @@ These are either: lists of hard-coded colours, a list of palettes (a list of lis
 
 Inspired by vintage fairy lights e.g. [Noma Pickwick](https://www.youtube.com/watch?v=2HGbVXWyC3M&t=508s). Made up of hand-picked colours: Pink, red, orange, green, blue
 
+![Noma Pickwick vintage lights](https://i.pinimg.com/originals/56%2F8a%2F9c%2F568a9c84ee486b4341ad2a6889984f40.jpg)
+
+> Source: Pinterest
+
 #### Analagous colours
 
 Creates a palette made up of 3 colours that are next to each other on the colour wheel.
 
-![Colour wheel](https://decoart.com/blog/uploads/Color-Theory-Graphics-WHEEL34.jpg)
+![Analogous colours](https://user-images.githubusercontent.com/13546503/135750632-421bf7b6-8b53-4a01-9e52-95c7daeffcc6.png)
 
 > Source: https://decoart.com/blog/article/318/color_theory_basics_the_color_wheel
 
@@ -145,17 +149,25 @@ As above, but colours are chosen such that 5 colours are selected from 3x 1/12 a
 
 Iterates through pairs of colours that are opposite each other on the colour wheel (e.g. green and red or violet and yellow).
 
+![Complementary colours](https://decoart.com/blog/uploads/Color-Theory-Graphics-COMP.jpg)
+
+> Source: https://decoart.com/blog/article/318/color_theory_basics_the_color_wheel
+
 #### Split complementary
 
 Rather than choosing colours opposite on the colour wheel it chooses one colour, then two colours either side of the colour opposite on the wheel (e.g. blue-violet and shades and multiple tints of yellow and orange).
 
-![Split complementary diagram](https://miro.medium.com/max/700/1*4UyxScR0JVPeG_4qaAf5kQ.jpeg)
+![Split complementary](https://decoart.com/blog/uploads/split-complementary-colors.jpg)
 
 > Source: https://uxplanet.org/how-to-use-a-split-complementary-color-scheme-in-design-a6c3f1e22644
 
-#### Every 137 Degrees
+#### Golden angle / every 137 Degrees
 
-This algorithm selects colours by starting at 0° on the colour wheel and adding 137° each time. This creates an effect where colours don't repeat very often.
+This algorithm uses an approximation of the golden angle (137.5°) to select colours that don't repeat very often.
+
+![Golden angle](https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Goldener_Schnitt_Blattstand.png/220px-Goldener_Schnitt_Blattstand.png)
+
+> Source: https://simple.wikipedia.org/wiki/Golden_ratio
 
 #### Colour wheel
 
