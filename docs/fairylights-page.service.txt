@@ -1,0 +1,10 @@
+[Unit]
+Description=Fairylights webpage
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi/fairylights
+ExecStart=pipenv run python /home/pi/fairylights/src/main-page.py
+
+[Install]
+WantedBy=multi-user.target

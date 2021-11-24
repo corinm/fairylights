@@ -28,19 +28,7 @@ Tired of off-the-shelf red, green, blue, yellow Christmas lights, I designed thi
         sudo systemctl --force --full edit fairylights.service
         ```
 
-    2. Paste and save this config
-
-        ```
-        [Unit]
-        Description=Fairylights api
-        After=multi-user.target
-
-        [Service]
-        ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main.py
-
-        [Install]
-        WantedBy=multi-user.target
-        ```
+    2. Paste and save the config from [here](docs/fairylights.service.txt)
 
 2. Set up a service for the web page
 
@@ -50,19 +38,7 @@ Tired of off-the-shelf red, green, blue, yellow Christmas lights, I designed thi
         sudo systemctl --force --full edit fairylights-page.service
         ```
 
-    2. Paste and save this config
-
-        ```
-        [Unit]
-        Description=Fairylights webpage
-        After=multi-user.target
-
-        [Service]
-        ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main2.py
-
-        [Install]
-        WantedBy=multi-user.target
-        ```
+    2. Paste and save the config from [here](docs/fairylights-page.service.txt)
 
 3. Start the services
 
