@@ -3,7 +3,8 @@ Description=Fairylights api
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/python /home/pi/fairylights/src/main.py
+WorkingDirectory=/home/pi/fairylights
+ExecStart=pipenv run python /home/pi/fairylights/src/main.py
 
 [Install]
 WantedBy=multi-user.target
