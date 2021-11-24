@@ -6,4 +6,14 @@
     "python.linting.flake8Path": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/flake8",
     "python.pythonPath": "/home/corin/.local/share/virtualenvs/fairylights-qPEG2A7c/bin/python",
     "python.linting.mypyEnabled": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/__pycache__": true
+    }
 }
