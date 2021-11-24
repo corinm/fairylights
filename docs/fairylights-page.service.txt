@@ -3,7 +3,7 @@ Description=Fairylights webpage
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main2.py
+ExecStart=/usr/bin/python /home/pi/fairylights/src/main-page.py
 
 [Install]
 WantedBy=multi-user.target
