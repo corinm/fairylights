@@ -1,0 +1,9 @@
+[Unit]
+Description=Fairylights webpage
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/fairylights/src/main2.py
+
+[Install]
+WantedBy=multi-user.target
