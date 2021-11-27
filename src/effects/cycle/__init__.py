@@ -23,13 +23,13 @@ class Cycle(Effect):
     def tick(self) -> List[Color]:
         now = time()
 
-        if now < self._timeOfNextUpdate:
-            return self._currentColours
-
         if self.isStopping():
             for c in self._currentColours:
                 l = c.luminance - 0.01
                 c.set_luminance(l if l > 0 else 0)
+
+        if now < self._timeOfNextUpdate:
+            return self._currentColours
 
         self._currentColours = self._currentColours[1:] + self._currentColours[0:1]
 
