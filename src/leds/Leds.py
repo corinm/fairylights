@@ -15,6 +15,7 @@ LED_BRIGHTNESS = 255  # Set to 0 for darkest and 255 for brightest
 LED_INVERT = False
 LED_CHANNEL = 0  # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
+BROKEN_BULB_INDEX = 149 # This bulb has a broken red LED
 
 class Leds:
     def __init__(self):
@@ -34,6 +35,10 @@ class Leds:
 
             try:
                 colour = colours[i]
+                
+                if i == BROKEN_BULB_INDEX:
+                    colour = Color(None)
+
             except IndexError:
                 colour = Color(None)
 
