@@ -11,7 +11,10 @@ class Cycle(Effect):
     def __init__(self, numberOfBulbs: int, colours: Colours):
         Effect.__init__(self)
 
+        self._maxLuminance = 0.1
         self._colours = colours.getColours(numberOfBulbs)
+        for c in self._colours:
+            c.set_luminance(self._maxLuminance)
         self._numberOfBulbs = numberOfBulbs
         self._currentColours = self._colours
         self._timeBetweenUpdates = 0.001
