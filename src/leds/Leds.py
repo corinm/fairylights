@@ -17,6 +17,10 @@ LED_CHANNEL = 0  # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 BROKEN_BULB_INDEX = 149 # This bulb has a broken red LED
 
+def shouldSkip(index) -> bool:
+    return index == BROKEN_BULB_INDEX or index == 0 or index == 1
+
+
 class Leds:
     def __init__(self):
         self.strip = ws.Adafruit_NeoPixel(
@@ -36,7 +40,7 @@ class Leds:
             try:
                 colour = colours[i]
                 
-                if i == BROKEN_BULB_INDEX:
+                if shouldSkip(i):
                     colour = Color(None)
 
             except IndexError:
