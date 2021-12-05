@@ -11,3 +11,4 @@ from .neon import neon
 from .whites import warmWhite, yellow, iceWhite
 from .rainbow import rainbow
 from .eighties import eighties
+from .northernLights import northernLights
