@@ -4,7 +4,7 @@ from typing import Callable, List, Type, Union
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import warmWhite, iceWhite, retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow,  eighties
+from colours import warmWhite, yellow, iceWhite, retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow,  eighties
 from effects import Twinkle, FirefliesConstant, Cycle
 from utils.StoppableThread import StoppableThread
 
@@ -15,6 +15,7 @@ class Pattern(Enum):
     Flickering = auto()
 
     Twinkle_Warm = auto()
+    Twinkle_Yellow = auto()
     Twinkle_Ice = auto()
     Twinkle_Retro = auto()
     Twinkle_Random = auto()
@@ -101,6 +102,7 @@ GLITTER_CONFIG = dict(timeBetweenTwinkles=0.03, timeToPeak=0.3, maxLuminance=0.0
 states: List[Union[StateWithRunMethod, StateOff]] = [
     # Twinkle
     StateWithRunMethod(Pattern.Twinkle_Warm, Twinkle, dict(colours=warmWhite)),
+    StateWithRunMethod(Pattern.Twinkle_Yellow, Twinkle, dict(colours=yellow)),
     StateWithRunMethod(Pattern.Twinkle_Ice, Twinkle, dict(colours=iceWhite)),
     StateWithRunMethod(Pattern.Twinkle_Retro, Twinkle, dict(colours=retro)),
     StateWithRunMethod(
