@@ -32,7 +32,7 @@
       const select = document.getElementById('select')
       const pattern = select.value
 
-      await fetch(`{{apiUrl}}/lights?mode=cycle&pattern=${pattern}`, { method: 'PUT' })
+      await fetch(`{{apiUrl}}/lights?mode=static&pattern=${pattern}`, { method: 'PUT' })
     }
 
     const cycle = async () => fetch(`{{apiUrl}}/lights?mode=cycle`, { method: 'PUT' })
