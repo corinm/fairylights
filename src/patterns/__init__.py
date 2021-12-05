@@ -4,7 +4,7 @@ from typing import Callable, List, Type, Union
 from transitions import Machine, State
 
 from leds.Leds import Leds
-from colours import warmWhite, yellow, iceWhite, retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow,  eighties
+from colours import warmWhite, yellow, iceWhite, retro, trulyRandom, analogousRandom, analogousWeightedRandom, complementaryRandom, splitComplementaryRandom, every137Degrees, colourWheel, coolorPalettes, neon, rainbow, eighties, northernLights
 from effects import Twinkle, FirefliesConstant, Cycle
 from utils.StoppableThread import StoppableThread
 
@@ -13,6 +13,7 @@ from utils.StoppableThread import StoppableThread
 
 class Pattern(Enum):
     Flickering = auto()
+
 
     Twinkle_Warm = auto()
     Twinkle_Yellow = auto()
@@ -29,10 +30,12 @@ class Pattern(Enum):
     Twinkle_CoolorPalletes = auto()
     Twinkle_Neon = auto()
     Twinkle_80s = auto()
+    Twinkle_NorthernLights = auto()
 
     FullTwinkle_Retro = auto()
     FullTwinkle_ColourWheelFast = auto()
     FullTwinkle_80s = auto()
+    FullTwinkle_NorthernLights = auto()
 
     Fireflies_GlowConstant = auto()
 
@@ -50,6 +53,7 @@ class Pattern(Enum):
     Glitter_CoolorPalletes = auto()
     Glitter_Neon = auto()
     Glitter_80s = auto()
+    Glitter_NorthernLights = auto()
 
     Cycle_Rainbow = auto()
 
@@ -100,6 +104,7 @@ class StateOff(State):
 GLITTER_CONFIG = dict(timeBetweenTwinkles=0.03, timeToPeak=0.3, maxLuminance=0.02)
 
 states: List[Union[StateWithRunMethod, StateOff]] = [
+
     # Twinkle
     StateWithRunMethod(Pattern.Twinkle_Warm, Twinkle, dict(colours=warmWhite)),
     StateWithRunMethod(Pattern.Twinkle_Yellow, Twinkle, dict(colours=yellow)),
@@ -157,6 +162,8 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
     StateWithRunMethod(Pattern.Twinkle_CoolorPalletes, Twinkle, dict(colours=coolorPalettes)),
     StateWithRunMethod(Pattern.Twinkle_Neon, Twinkle, dict(colours=neon)),
     StateWithRunMethod(Pattern.Twinkle_80s, Twinkle, dict(colours=eighties)),
+    StateWithRunMethod(Pattern.Twinkle_NorthernLights, Twinkle, dict(colours=northernLights, secondsBetweenColourChanges=2)),
+
     # Full twinkle
     StateWithRunMethod(
         Pattern.FullTwinkle_Retro, Twinkle, dict(colours=retro, timeBetweenTwinkles=0.01)
@@ -179,8 +186,11 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
             timeBetweenTwinkles=0.01,
         ),
     ),
+    StateWithRunMethod(Pattern.FullTwinkle_NorthernLights, Twinkle, dict(colours=northernLights, secondsBetweenColourChanges=2)),
+    
     # Fireflies
     StateWithRunMethod(Pattern.Fireflies_GlowConstant, FirefliesConstant, dict()),
+
     # Glitter
     StateWithRunMethod(
         Pattern.Glitter_Warm,
@@ -268,8 +278,11 @@ states: List[Union[StateWithRunMethod, StateOff]] = [
         Twinkle,
         dict(colours=eighties, **GLITTER_CONFIG),
     ),
+    StateWithRunMethod(Pattern.Glitter_NorthernLights, Twinkle, dict(colours=northernLights, secondsBetweenColourChanges=2, **GLITTER_CONFIG)),
+
     # Cycle
     StateWithRunMethod(Pattern.Cycle_Rainbow, Cycle, dict(colours=rainbow)),
+    
     # Off
     StateOff(Pattern.Off),
 ]
